@@ -1,13 +1,14 @@
 package com.locadoralocal.LocadoraLocal;
 
 import java.util.Scanner;
+import com.locadoralocal.LocadoraLocal.domain.locacao.DALLocadora;
 
 public class LocadoraLocalApplication {
 
-	private static Scanner teclado = new Scanner(System.in).useDelimiter("\n");
+	private static Scanner teclado = new Scanner(System.in);
 
 	public static void main(String[] args) {
-
+		
 		var opcao = exibirMenu();
 		while (opcao != 3) {
 			try {
@@ -39,20 +40,22 @@ public class LocadoraLocalApplication {
 		System.out.println("====== 1- Menu de Clientes ==================");
 		System.out.println("====== 2- Menu de Funcionários ==============");
 		System.out.println("=============================================");
-		return teclado.nextInt();
+		int opcao = teclado.nextInt();
+		teclado.nextLine();
+		return opcao;
 	}
 
 	// criar um metodo para validar o acesso do cliente
 
 	private static void validarCliente(){
+		DALLocadora banco = new DALLocadora();
 		System.out.println("=============================================");
 		System.out.println("======= Insira seu numero de Cliente: =======");
 		System.out.println("=============================================");
 		var numCliente = teclado.nextInt();
-		int codCliente = 1;
 
-		if (numCliente == codCliente){
-			menuCliente();
+		if (banco.verificarCliente(numCliente)){
+			menuCliente(numCliente);
 		}else {
 			System.out.println("=============================================");
 			System.out.println("======== Número de Cliente invalido =========");
@@ -63,30 +66,39 @@ public class LocadoraLocalApplication {
 
 	// Criar um método para listar as funções para clientes
 
-	private static void menuCliente(){
-		System.out.println("=============================================");
-		System.out.println("============== Área do Cliente ==============");
-		System.out.println("=============================================");
-		System.out.println("============ Opções Disponiveis: ============");
-		System.out.println("=============================================");
-		System.out.println("========== 1- Alugar um Filme ===============");
-		System.out.println("========== 2- Alugar um Jogo ================");
-		System.out.println("========== 3- Listar todos os Filmes ========");
-		System.out.println("========== 4- Listar todos os Jogos =========");
-		System.out.println("========== 5- Listar locação ================");
-		System.out.println("========== 6- Concluir locação ==============");
-		System.out.println("========== 7- Sair ==========================");
-		System.out.println("=============================================");
-		int opcaoCliente = teclado.nextInt();
+	private static void menuCliente(int idCliente){
+		
+		DALLocadora banco = new DALLocadora();
+		
+		int pkLocacao = banco.criarLocacao(idCliente);
+		
+		int opcaoCliente = -1;
+
 
 		while (opcaoCliente != 7){
 			try{
+				
+				System.out.println("=============================================");
+				System.out.println("============== Área do Cliente ==============");
+				System.out.println("=============================================");
+				System.out.println("============ Opções Disponiveis: ============");
+				System.out.println("=============================================");
+				System.out.println("========== 1- Alugar um Filme ===============");
+				System.out.println("========== 2- Alugar um Jogo ================");
+				System.out.println("========== 3- Listar todos os Filmes ========");
+				System.out.println("========== 4- Listar todos os Jogos =========");
+				System.out.println("========== 5- Listar locação ================");
+				System.out.println("========== 6- Concluir locação ==============");
+				System.out.println("========== 7- Sair ==========================");
+				System.out.println("=============================================");
+				opcaoCliente = teclado.nextInt();
+				
 				switch (opcaoCliente){
 					case 1:
-						alugarFilme();
+						alugarFilme(pkLocacao);
 						break;
 					case 2:
-						alugarJogo();
+						alugarJogo(pkLocacao);
 						break;
 					case 3:
 						listarFilmes();
@@ -107,32 +119,83 @@ public class LocadoraLocalApplication {
 				teclado.next();
 			}
 		}
+		if(opcaoCliente == 7) {
+			banco.cancelarLocacao(pkLocacao);
+		}
 	}
 
 	// criar um metodo para cada função do cliente
 
-	private static void alugarFilme() {
-		System.out.println("=============================================");
-		System.out.println("========= Qual filme deseja alugar? =========");
-		System.out.println("=============================================");
-		String nomeFilme = teclado.nextLine();
-		teclado.nextLine();
-		System.out.println("=============================================");
-		System.out.println("======== Por quantos dias quer alugar? ======");
-		System.out.println("=============================================");
-		int diasLocacao = teclado.nextInt();
+	private static void alugarFilme(int pk_locacao) {
+		DALLocadora banco = new DALLocadora();
+		int idFilme = 0;
+		
+		do {
+			System.out.println("=============================================");
+			System.out.println("========= Qual filme deseja alugar? =========");
+			System.out.println("=============================================");
+			
+			System.out.println("=============================================");
+			System.out.println("========= Digite um Id de filem ou ==========");
+			System.out.println("============== 0- Para sair =================");
+			System.out.println("=============================================");
+			
+			banco.mostrarFilmes();
+			idFilme = teclado.nextInt();
+			teclado.nextLine();
+			
+			if (idFilme == 0){
+				System.out.println("Saindo...");
+				break;
+			}
+			
+			if(banco.SelecionarFilme(idFilme)){
+				System.out.println("Filme selecionado");
+				banco.adicionarFilme(pk_locacao, idFilme);
+				
+			}else {
+				System.out.println("Seleção invalida Filme inativo ou locado");
+			}
+			
+		} while(true);
+
 	}
 
-	private static void alugarJogo() {
-		System.out.println("=============================================");
-		System.out.println("======== Qual jogo deseja alugar? ===========");
-		System.out.println("=============================================");
-		String nomeJogo = teclado.nextLine();
-		teclado.nextLine();
-		System.out.println("=============================================");
-		System.out.println("======== Por quantos dias quer alugar? ======");
-		System.out.println("=============================================");
-		int diasLocacao = teclado.nextInt();
+	private static void alugarJogo(int pkLocacao) {
+		
+		DALLocadora banco = new DALLocadora();
+		int idJogo = -1;
+		
+		do {
+			System.out.println("=============================================");
+			System.out.println("======== Qual jogo deseja alugar? ===========");
+			System.out.println("=============================================");
+		
+			System.out.println("=============================================");
+			System.out.println("========= Digite um Id de jogo ou ==========");
+			System.out.println("============== 0- Para sair =================");
+			System.out.println("=============================================");
+		
+			banco.mostrarJogo();
+		
+			idJogo = teclado.nextInt();
+			teclado.nextLine();
+		
+			if(idJogo == 0) {
+				System.out.println("Saindo...");
+				break;
+			}
+			
+			if(banco.selecionarJogo(idJogo)) {
+				System.out.println("Jogo Selecionado");
+				banco.adicionarJogo(pkLocacao, idJogo);
+			}else {
+				System.out.println("Seleção invalida Jogo inativado ou locado");
+			}
+		
+		}while(true);
+
+		
 	}
 
 	private static void listarFilmes() {
