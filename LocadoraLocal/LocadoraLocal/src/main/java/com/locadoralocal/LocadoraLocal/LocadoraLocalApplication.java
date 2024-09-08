@@ -2,6 +2,7 @@ package com.locadoralocal.LocadoraLocal;
 
 import java.util.Scanner;
 import com.locadoralocal.LocadoraLocal.domain.locacao.DALLocadora;
+import com.locadoralocal.LocadoraLocal.domain.pessoas.Funcionarios;
 
 public class LocadoraLocalApplication {
 
@@ -9,7 +10,7 @@ public class LocadoraLocalApplication {
 
 	public static void main(String[] args) {
 
-		//teste
+		Funcionarios funcionarios = new Funcionarios();
 
 		var opcao = exibirMenu();
 		while (opcao != 3) {
@@ -201,13 +202,17 @@ public class LocadoraLocalApplication {
 	}
 
 	private static void listarFilmes() {
+		int opcaoCliente;
+
+		do{
 		System.out.println("=============================================");
 		System.out.println("=== Deseja listar todos ou apenas ativos? ===");
 		System.out.println("=============================================");
 		System.out.println("======== 1- Todos ======== 2- Ativos ========");
+		System.out.println("============== 0- Para sair =================");
 		System.out.println("=============================================");
-		int opcaoCliente = teclado.nextInt();
-		while (opcaoCliente !=3){
+		opcaoCliente = teclado.nextInt();
+
 			try{
 				switch (opcaoCliente){
 					case 1:
@@ -222,7 +227,7 @@ public class LocadoraLocalApplication {
 				System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu");
 				teclado.next();
 			}
-		}
+		}while(opcaoCliente == 0);
 
 	}
 
