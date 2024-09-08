@@ -10,7 +10,7 @@ public class LocadoraLocalApplication {
 	public static void main(String[] args) {
 
 		//teste
-		
+
 		var opcao = exibirMenu();
 		while (opcao != 3) {
 			try {

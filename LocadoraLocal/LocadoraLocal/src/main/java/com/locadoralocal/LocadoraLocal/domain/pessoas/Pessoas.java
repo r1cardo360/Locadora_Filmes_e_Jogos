@@ -12,6 +12,14 @@ public class Pessoas {
 
 	private boolean ativo;
 
+	public Pessoas(String nome, String cpf, int anoNascimento, char sexo, boolean ativo){
+		this.nome = nome;
+		this.cpf = cpf;
+		this.anoNascimento = anoNascimento;
+		this.sexo = sexo;
+		this.ativo = ativo;
+	}
+
 	public void Cadastrar() {
 
 	}
