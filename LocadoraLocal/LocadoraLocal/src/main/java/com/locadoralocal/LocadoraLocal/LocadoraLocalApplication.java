@@ -8,6 +8,8 @@ public class LocadoraLocalApplication {
 	private static Scanner teclado = new Scanner(System.in);
 
 	public static void main(String[] args) {
+
+		//teste
 		
 		var opcao = exibirMenu();
 		while (opcao != 3) {
