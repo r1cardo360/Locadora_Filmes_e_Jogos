@@ -49,23 +49,6 @@ public class Funcionarios extends Pessoas {
 		} while (opcao == 0);
 	}
 
-	private void apagarPessoa() {
-		int opcao;
-		do{
-			System.out.println("=============================================");
-			System.out.println("========== Insira o id da Pessoa: ===========");
-			System.out.println("============== 0- Para sair =================");
-			System.out.println("=============================================");
-			opcao = teclado.nextInt();
-			System.out.println("=============================================");
-			System.out.println("===== Essa ação pode causar alguns erros ====");
-			System.out.println("==== no banco de dados, deseja continuar? ===");
-			System.out.println("========== S- Sim ========= N- Não ========== ");
-			System.out.println("=============================================");
-
-		}while(opcao == 0);
-	}
-
 	@Override
 	public void adicionar() {
 		super.adicionar();
@@ -95,32 +78,153 @@ public class Funcionarios extends Pessoas {
 		} while (opcao == 0);
 	}
 
+	@Override
+	public void ativar() {
+		super.ativar();
+		int opcao;
+
+		do {
+			System.out.println("=============================================");
+			System.out.println("========= Ativar Pessoa ou Produto? =========");
+			System.out.println("======== 1- Produto ====== 2- Pessoa ========");
+			System.out.println("============== 0- Para sair =================");
+			System.out.println("=============================================");
+
+			opcao = teclado.nextInt();
+			try {
+				switch (opcao) {
+					case 1:
+						ativarProduto();
+						break;
+					case 2:
+						ativarPessoa();
+						break;
+				}
+			} catch (RegraDeNegocioException e) {
+				System.out.println("Erro: " + e.getMessage());
+				System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu");
+				teclado.next();
+			}
+		} while (opcao == 0);
+	}
+
+	@Override
+	public void inativar() {
+		super.inativar();
+		int opcao;
+
+		do {
+			System.out.println("=============================================");
+			System.out.println("======== Inativar Pessoa ou Produto? ========");
+			System.out.println("======== 1- Produto ====== 2- Pessoa ========");
+			System.out.println("============== 0- Para sair =================");
+			System.out.println("=============================================");
+
+			opcao = teclado.nextInt();
+
+			try {
+				switch (opcao) {
+					case 1:
+						inativarProduto();
+						break;
+					case 2:
+						inativarPessoa();
+						break;
+				}
+			} catch (RegraDeNegocioException e) {
+				System.out.println("Erro: " + e.getMessage());
+				System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu");
+				teclado.next();
+			}
+		}while (opcao == 0);
+	}
+
+	@Override
+	public void listar() {
+		super.listar();
+		int opcao;
+
+		do{
+		System.out.println("=============================================");
+		System.out.println("========= Listar Pessoa ou Produto? =========");
+		System.out.println("======== 1- Produto ====== 2- Pessoa ========");
+		System.out.println("============== 0- Para sair =================");
+		System.out.println("=============================================");
+
+		opcao = teclado.nextInt();
+			try{
+				switch (opcao){
+					case 1:
+						listarProduto();
+						break;
+					case 2:
+						listarPessoa();
+						break;
+				}
+			}catch (RegraDeNegocioException e){
+				System.out.println("Erro: " +e.getMessage());
+				System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu");
+				teclado.next();
+			}
+		}while (opcao == 0);
+	}
+
+	public void devolucao(){
+
+		int opcao;
+		do{
+			System.out.println("=============================================");
+			System.out.println("======== Insira o numero da locação: ========");
+			System.out.println("============== 0- Para sair =================");
+			System.out.println("=============================================");
+			opcao = teclado.nextInt();
+
+		}while(opcao == 0);
+	}
+
+	private void apagarPessoa() {
+		int opcao;
+		do{
+			System.out.println("=============================================");
+			System.out.println("========== Insira o id da Pessoa: ===========");
+			System.out.println("============== 0- Para sair =================");
+			System.out.println("=============================================");
+			opcao = teclado.nextInt();
+			System.out.println("=============================================");
+			System.out.println("===== Essa ação pode causar alguns erros ====");
+			System.out.println("==== no banco de dados, deseja continuar? ===");
+			System.out.println("========== S- Sim ========= N- Não ========== ");
+			System.out.println("=============================================");
+
+		}while(opcao == 0);
+	}
+
 	private void addPessoa() {
-        System.out.println("=============================================");
-        System.out.println("========= Insira o Nome da Pessoa: ==========");
-        System.out.println("=============================================");
-        String nome = teclado.nextLine();
-        pessoas.setNome(nome);
+		System.out.println("=============================================");
+		System.out.println("========= Insira o Nome da Pessoa: ==========");
+		System.out.println("=============================================");
+		String nome = teclado.nextLine();
+		pessoas.setNome(nome);
 
-        System.out.println("=============================================");
-        System.out.println("========= Insira o CPF da Pessoa: ===========");
-        System.out.println("=============================================");
-        String cpf = teclado.nextLine();
-        pessoas.setCpf(cpf);
+		System.out.println("=============================================");
+		System.out.println("========= Insira o CPF da Pessoa: ===========");
+		System.out.println("=============================================");
+		String cpf = teclado.nextLine();
+		pessoas.setCpf(cpf);
 
-        System.out.println("=============================================");
-        System.out.println("====== Insira o Nascimento da Pessoa: =======");
-        System.out.println("=============================================");
-        int anoNascimento = teclado.nextInt();
-        pessoas.setAnoNascimento(anoNascimento);
+		System.out.println("=============================================");
+		System.out.println("====== Insira o Nascimento da Pessoa: =======");
+		System.out.println("=============================================");
+		int anoNascimento = teclado.nextInt();
+		pessoas.setAnoNascimento(anoNascimento);
 
-        String sexo;
-        do {
-            System.out.println("=============================================");
-            System.out.println("========= Insira o Sexo da Pessoa: ==========");
-            System.out.println("====== M- Masculino ====== F- Feminino ======");
-            System.out.println("=============================================");
-            sexo = teclado.nextLine().toLowerCase();
+		String sexo;
+		do {
+			System.out.println("=============================================");
+			System.out.println("========= Insira o Sexo da Pessoa: ==========");
+			System.out.println("====== M- Masculino ====== F- Feminino ======");
+			System.out.println("=============================================");
+			sexo = teclado.nextLine().toLowerCase();
 			if (sexo.equals("m") || sexo.equals("f")) {
 				pessoas.setSexo(sexo);
 				break;
@@ -162,36 +266,6 @@ public class Funcionarios extends Pessoas {
 
 
 		}while (true);
-    }
-
-	@Override
-	public void ativar() {
-		super.ativar();
-		int opcao;
-
-		do {
-			System.out.println("=============================================");
-			System.out.println("========= Ativar Pessoa ou Produto? =========");
-			System.out.println("======== 1- Produto ====== 2- Pessoa ========");
-			System.out.println("============== 0- Para sair =================");
-			System.out.println("=============================================");
-
-			opcao = teclado.nextInt();
-			try {
-				switch (opcao) {
-					case 1:
-						ativarProduto();
-						break;
-					case 2:
-						ativarPessoa();
-						break;
-				}
-			} catch (RegraDeNegocioException e) {
-				System.out.println("Erro: " + e.getMessage());
-				System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu");
-				teclado.next();
-			}
-		} while (opcao == 0);
 	}
 
 	private void ativarPessoa() {
@@ -209,37 +283,6 @@ public class Funcionarios extends Pessoas {
 		}while(opcao == 0);
 	}
 
-	@Override
-	public void inativar() {
-		super.inativar();
-		int opcao;
-
-		do {
-			System.out.println("=============================================");
-			System.out.println("======== Inativar Pessoa ou Produto? ========");
-			System.out.println("======== 1- Produto ====== 2- Pessoa ========");
-			System.out.println("============== 0- Para sair =================");
-			System.out.println("=============================================");
-
-			opcao = teclado.nextInt();
-
-			try {
-				switch (opcao) {
-					case 1:
-						inativarProduto();
-						break;
-					case 2:
-						inativarPessoa();
-						break;
-				}
-			} catch (RegraDeNegocioException e) {
-				System.out.println("Erro: " + e.getMessage());
-				System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu");
-				teclado.next();
-			}
-		}while (opcao == 0);
-	}
-
 	private void inativarPessoa() {
 		int opcao;
 		do{
@@ -253,36 +296,6 @@ public class Funcionarios extends Pessoas {
 			System.out.println("=============================================");
 
 		}while(opcao == 0);
-	}
-
-	@Override
-	public void listar() {
-		super.listar();
-		int opcao;
-
-		do{
-		System.out.println("=============================================");
-		System.out.println("========= Listar Pessoa ou Produto? =========");
-		System.out.println("======== 1- Produto ====== 2- Pessoa ========");
-		System.out.println("============== 0- Para sair =================");
-		System.out.println("=============================================");
-
-		opcao = teclado.nextInt();
-			try{
-				switch (opcao){
-					case 1:
-						listarProduto();
-						break;
-					case 2:
-						listarPessoa();
-						break;
-				}
-			}catch (RegraDeNegocioException e){
-				System.out.println("Erro: " +e.getMessage());
-				System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu");
-				teclado.next();
-			}
-		}while (opcao == 0);
 	}
 
 	private void listarPessoa() {
@@ -310,21 +323,9 @@ public class Funcionarios extends Pessoas {
 				teclado.next();
 			}
 		}while (opcao == 0);
-		}
-
-	public void devolucao(){
-
-		int opcao;
-		do{
-			System.out.println("=============================================");
-			System.out.println("======== Insira o numero da locação: ========");
-			System.out.println("============== 0- Para sair =================");
-			System.out.println("=============================================");
-			opcao = teclado.nextInt();
-
-		}while(opcao == 0);
 	}
 
+	//Métodos incompletos
 	private void apagarProduto() {
 		int opcao;
 		do{
