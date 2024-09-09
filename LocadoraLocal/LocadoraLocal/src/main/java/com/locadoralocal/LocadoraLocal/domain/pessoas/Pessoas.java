@@ -5,7 +5,7 @@ public class Pessoas {
 	private String nome;
 	private String cpf;
 	private int anoNascimento;
-	private char sexo;
+	private String sexo;
 	private boolean ativo;
 
     public String getNome() {
@@ -32,11 +32,11 @@ public class Pessoas {
         this.anoNascimento = anoNascimento;
     }
 
-    public char getSexo() {
+    public String getSexo() {
         return sexo;
     }
 
-    public void setSexo(char sexo) {
+    public void setSexo(String sexo) {
         this.sexo = sexo;
     }
 
@@ -52,7 +52,7 @@ public class Pessoas {
 
     }
 
-    public Pessoas(String nome, String cpf, int anoNascimento, char sexo, boolean ativo){
+    public Pessoas(String nome, String cpf, int anoNascimento, String sexo, boolean ativo){
 		this.nome = nome;
 		this.cpf = cpf;
 		this.anoNascimento = anoNascimento;
@@ -60,7 +60,7 @@ public class Pessoas {
 		this.ativo = ativo;
 	}
 
-	public void adicionarProdutoPessoa() {
+	public void adicionar() {
 
 	}
 
