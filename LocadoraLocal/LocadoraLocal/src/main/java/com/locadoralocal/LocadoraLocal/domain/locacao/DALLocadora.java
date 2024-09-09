@@ -54,14 +54,19 @@ public class DALLocadora {
 		
 	}
 
-	public static void mostrarFilmes() {
+	public static void mostrarFilmes(int opcao) {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
+		String sql;
 		
 		try {
 			connection = DriverManager.getConnection(stringConnect);
-			String sql = "SELECT pk_filmes, nome_filme, classificacao_filme, ano_lancamento_filmes, nota_filme FROM filmes WHERE ativo_filmes = 'S'";
+			if (opcao == 1) {
+				sql = "SELECT pk_filmes, nome_filme, classificacao_filme, ano_lancamento_filmes, nota_filme FROM filmes WHERE ativo_filmes = 'S'";
+			}else {
+				sql = "SELECT pk_filmes, nome_filme, classificacao_filme, ano_lancamento_filmes, nota_filme FROM filmes";
+			}
 			preparedStatement = connection.prepareStatement(sql);
 			
 			resultSet = preparedStatement.executeQuery();

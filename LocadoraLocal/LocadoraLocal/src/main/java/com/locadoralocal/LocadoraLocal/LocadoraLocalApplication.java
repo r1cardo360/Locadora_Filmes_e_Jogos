@@ -77,7 +77,6 @@ public class LocadoraLocalApplication {
 		
 		int opcaoCliente = -1;
 
-
 		while (opcaoCliente != 7){
 			try{
 				
@@ -143,7 +142,7 @@ public class LocadoraLocalApplication {
 			System.out.println("============== 0- Para sair =================");
 			System.out.println("=============================================");
 			
-			banco.mostrarFilmes();
+			banco.mostrarFilmes(1);
 			idFilme = teclado.nextInt();
 			teclado.nextLine();
 			
