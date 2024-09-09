@@ -35,6 +35,9 @@ public class LocadoraLocalApplication {
 	}
 
 	private static int exibirMenu(){
+		
+		DALLocadora banco = new DALLocadora();
+		
 		System.out.println("=============================================");
 		System.out.println("====== Seja Bem-vindo a LocadoraLocal =======");
 		System.out.println("=============================================");
@@ -45,6 +48,9 @@ public class LocadoraLocalApplication {
 		System.out.println("=============================================");
 		int opcao = teclado.nextInt();
 		teclado.nextLine();
+		
+		banco.clearConsole();
+		
 		return opcao;
 	}
 

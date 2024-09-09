@@ -11,6 +11,26 @@ import java.time.format.DateTimeFormatter;
 public class DALLocadora {
 	
 	private static final String stringConnect = "jdbc:sqlite:/C:\\Users\\Suporte\\Desktop\\Backup\\HS\\Nova pasta\\Locadora_Filmes_e_Jogos\\Locadora\\Locadora.db";
+
+    public static void clearConsole() {
+        // Tenta executar comandos específicos para sistemas operacionais diferentes
+        try {
+            String os = System.getProperty("os.name").toLowerCase();
+            if (os.contains("win")) {
+                // Comando para Windows
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else if (os.contains("nix") || os.contains("nux") || os.contains("mac")) {
+                // Comando para Unix/Linux/Mac
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+            } else {
+                // Caso não seja um sistema operacional suportado
+                System.out.println("Sistema operacional não suportado para limpar o console.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 	
 	public static boolean verificarCliente(long id) {
 		Connection connection = null;
