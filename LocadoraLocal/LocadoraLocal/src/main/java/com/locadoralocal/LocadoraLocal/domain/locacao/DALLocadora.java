@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 
 public class DALLocadora {
 	
-	private static final String stringConnect = "jdbc:sqlite:/C:\\Users\\Suporte\\Desktop\\Backup\\HS\\Nova pasta\\Locadora_Filmes_e_Jogos\\Locadora\\Locadora.db";
+	private static final String stringConnect = "jdbc:sqlite:/C:\\Users\\pc\\Desktop\\Projeto_Locadora\\Locadora_Filmes_e_Jogos\\Locadora\\Locadora.db";
 	
 	public static boolean verificarCliente(long id) {
 		Connection connection = null;
@@ -303,6 +303,9 @@ public class DALLocadora {
 				System.out.printf("| %-5d | %-50s | %-15d | %-15d |\n", id, nome, classificacao, anoLancamento);
 				
 			}
+			
+			System.out.println("+-------+----------------------------------------------------+-----------------+-----------------+");
+			
 		}catch(SQLException e) {
 			System.out.println("Erro ao conectarse ao banco de dados: " + e.getMessage());
 		}finally {
@@ -392,6 +395,57 @@ public class DALLocadora {
 				System.out.println("Não conseguir fechar a conexão com o banco de dados");
 			}
 		}
+	}
+	
+public static void mostrarLocacao(int pkLocacao) {
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		String sql;
+		
+		try {
+		
+			connection = DriverManager.getConnection(stringConnect);
+			sql = "SELECT pk_cliente, nome_cliente FROM cliente WHERE pk_cliente = (SELECT fk_cliente FROM locacao WHERE pk_locacao = ?)";
+			preparedStatement = connection.prepareStatement(sql);
+			
+			preparedStatement.setInt(1, pkLocacao);
+			
+			resultSet = preparedStatement.executeQuery();
+		
+			System.out.println("+-------+----------------------------------------------------+-----------------+-----------------+");
+			System.out.printf("| %-5s | %-50s |\n", "ID", "Nome");
+			System.out.println("+-------+----------------------------------------------------+-----------------+-----------------+");
+			
+			while(resultSet.next()) {
+				int id = resultSet.getInt("pk_cliente");
+				String nome = resultSet.getString("nome_cliente");
+				
+				System.out.printf("| %-5d | %-50s |\n", id, nome);
+				
+			}
+			
+			System.out.println("+-------+----------------------------------------------------+-----------------+-----------------+");
+			
+		}catch(SQLException e) {
+			System.out.println("Erro ao conectarse ao banco de dados: " + e.getMessage());
+		}finally {
+			try {
+				if(preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if(resultSet != null) {
+					resultSet.close();
+				}
+				if(connection != null) {
+					connection.close();
+				}
+			}catch(SQLException ex) {
+				System.out.println("Erro ao fechar a conexão com o banco de dados");
+			}
+		}
+		
 	}
 	
 }

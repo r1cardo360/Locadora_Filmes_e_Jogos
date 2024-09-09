@@ -109,7 +109,7 @@ public class LocadoraLocalApplication {
 						listarJogos();
 						break;
 					case 5:
-						listarLocacao();
+						listarLocacao(pkLocacao);
 						break;
 					case 6:
 						concluirLocacao();
@@ -261,11 +261,16 @@ public class LocadoraLocalApplication {
 
 	}
 
-	private static void listarLocacao() {
+	private static void listarLocacao(int pkLocacao) {
+		DALLocadora banco = new DALLocadora();
+		
 		System.out.println("=============================================");
 		System.out.println("=========== Itens da sua locação: ===========");
 		System.out.println("=============================================");
 		System.out.println("Query para listar os itens presentes na locação atual");
+		
+		banco.mostrarLocacao(pkLocacao);
+		
 	}
 
 	private static void concluirLocacao() {
