@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 
 public class DALLocadora {
 	
-	private static final String stringConnect = "jdbc:sqlite:/C:\\Users\\pc\\Desktop\\Projeto_Locadora\\Locadora_Filmes_e_Jogos\\Locadora\\Locadora.db";
+	private static final String stringConnect = "jdbc:sqlite:/C:\\Users\\Suporte\\Desktop\\Backup\\HS\\Nova pasta\\Locadora_Filmes_e_Jogos\\Locadora\\Locadora.db";
 	
 	public static boolean verificarCliente(long id) {
 		Connection connection = null;
@@ -397,7 +397,7 @@ public class DALLocadora {
 		}
 	}
 	
-public static void mostrarLocacao(int pkLocacao) {
+    public static void mostrarLocacao(int pkLocacao) {
 		
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -413,20 +413,57 @@ public static void mostrarLocacao(int pkLocacao) {
 			preparedStatement.setInt(1, pkLocacao);
 			
 			resultSet = preparedStatement.executeQuery();
+			
+			int idCliente = resultSet.getInt("pk_cliente");
+			String nomeCliente = resultSet.getString("nome_cliente");
 		
+			System.out.println("+-------+----------------------------------------------------+-----------------+-----------------+");
+			System.out.printf("| %-5d | %-50s |\n", idCliente, nomeCliente);
+			System.out.println("+-------+----------------------------------------------------+-----------------+-----------------+");
+			System.out.println("==================================== FILMES ======================================================");
+			
+			sql = "SELECT fk_filme, nome_filme FROM item_filme_locacao \r\n"
+					+ "INNER JOIN filmes ON item_filme_locacao.fk_filme = filmes.pk_filmes\r\n"
+					+ "WHERE fk_locacao = ?";
+			preparedStatement = connection.prepareStatement(sql);
+			
+			preparedStatement.setInt(1, pkLocacao);
+			resultSet = preparedStatement.executeQuery();
+			
 			System.out.println("+-------+----------------------------------------------------+-----------------+-----------------+");
 			System.out.printf("| %-5s | %-50s |\n", "ID", "Nome");
 			System.out.println("+-------+----------------------------------------------------+-----------------+-----------------+");
 			
 			while(resultSet.next()) {
-				int id = resultSet.getInt("pk_cliente");
-				String nome = resultSet.getString("nome_cliente");
+				int idFilme = resultSet.getInt("fk_filme");
+				String nomeFilme = resultSet.getString("nome_filme");
 				
-				System.out.printf("| %-5d | %-50s |\n", id, nome);
+				System.out.printf("| %-5d | %-50s |\n", idFilme, nomeFilme);
 				
 			}
+			System.out.println("+-------+----------------------------------------------------+-----------------+-----------------+");
+			System.out.println("==================================== JOGOS =======================================================");
+			
+			sql = "SELECT fk_jogo, nome_jogo FROM item_jogo_locacao \r\n"
+					+ "INNER JOIN jogos ON item_jogo_locacao.fk_jogo = jogos.pk_jogo\r\n"
+					+ "WHERE fk_locacao = ?";
+			
+			preparedStatement = connection.prepareStatement(sql);
+			
+			preparedStatement.setInt(1, pkLocacao);
+			resultSet = preparedStatement.executeQuery();
 			
 			System.out.println("+-------+----------------------------------------------------+-----------------+-----------------+");
+			System.out.printf("| %-5s | %-50s |\n", "ID", "Nome");
+			System.out.println("+-------+----------------------------------------------------+-----------------+-----------------+");
+			
+			while(resultSet.next()) {
+				int idJogo = resultSet.getInt("fk_jogo");
+				String nomeJogo = resultSet.getString("nome_jogo");
+				
+				System.out.printf("| %-5d | %-50s |\n", idJogo, nomeJogo);
+				
+			}
 			
 		}catch(SQLException e) {
 			System.out.println("Erro ao conectarse ao banco de dados: " + e.getMessage());

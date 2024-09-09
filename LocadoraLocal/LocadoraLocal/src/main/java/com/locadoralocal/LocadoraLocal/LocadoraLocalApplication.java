@@ -174,7 +174,7 @@ public class LocadoraLocalApplication {
 			System.out.println("=============================================");
 		
 			System.out.println("=============================================");
-			System.out.println("========= Digite um Id de jogo ou ==========");
+			System.out.println("========== Digite um Id de jogo ou ==========");
 			System.out.println("============== 0- Para sair =================");
 			System.out.println("=============================================");
 		
