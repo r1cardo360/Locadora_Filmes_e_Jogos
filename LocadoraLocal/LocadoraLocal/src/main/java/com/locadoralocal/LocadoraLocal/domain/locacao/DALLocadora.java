@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 
 public class DALLocadora {
 	
-	private static final String stringConnect = "jdbc:sqlite:/C:\\Users\\pc\\Desktop\\Projeto_Locadora\\Locadora_Filmes_e_Jogos\\Locadora\\Locadora.db";
+	private static final String stringConnect = "jdbc:sqlite:/C:\\Users\\Suporte\\Desktop\\Backup\\HS\\Nova pasta\\Locadora_Filmes_e_Jogos\\Locadora\\Locadora.db";
 	
 	public static boolean verificarCliente(long id) {
 		Connection connection = null;
@@ -271,16 +271,21 @@ public class DALLocadora {
 		
 	}
 
-	public static void mostrarJogo() {
+	public static void mostrarJogo(int opcao) {
 		
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
+		String sql;
 		
 		try {
 		
 			connection = DriverManager.getConnection(stringConnect);
-			String sql = "SELECT pk_jogo, nome_jogo, classificacao_jogo, ano_lancamento_jogo FROM jogos WHERE ativo_jogos = 'S'";
+			if(opcao == 1) {
+				sql = "SELECT pk_jogo, nome_jogo, classificacao_jogo, ano_lancamento_jogo FROM jogos WHERE ativo_jogos = 'S'";
+			}else {
+				sql = "SELECT pk_jogo, nome_jogo, classificacao_jogo, ano_lancamento_jogo FROM jogos";
+			}
 			preparedStatement = connection.prepareStatement(sql);
 			
 			resultSet = preparedStatement.executeQuery();

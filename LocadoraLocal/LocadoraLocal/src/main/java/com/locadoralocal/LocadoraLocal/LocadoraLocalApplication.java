@@ -178,7 +178,7 @@ public class LocadoraLocalApplication {
 			System.out.println("============== 0- Para sair =================");
 			System.out.println("=============================================");
 		
-			banco.mostrarJogo();
+			banco.mostrarJogo(1);
 		
 			idJogo = teclado.nextInt();
 			teclado.nextLine();
@@ -201,6 +201,7 @@ public class LocadoraLocalApplication {
 	}
 
 	private static void listarFilmes() {
+		DALLocadora banco = new DALLocadora();
 		int opcaoCliente;
 
 		do{
@@ -215,10 +216,10 @@ public class LocadoraLocalApplication {
 			try{
 				switch (opcaoCliente){
 					case 1:
-						System.out.println("Query para listar todos da tabela Filmes");
+						banco.mostrarFilmes(opcaoCliente);
 						break;
 					case 2:
-						System.out.println("Query para listar apenas ativo = true da tabela Filmes");
+						banco.mostrarFilmes(opcaoCliente);
 						break;
 				}
 			}catch (RegraDeNegocioException e){
@@ -231,28 +232,32 @@ public class LocadoraLocalApplication {
 	}
 
 	private static void listarJogos() {
-		System.out.println("=============================================");
-		System.out.println("=== Deseja listar todos ou apenas ativos? ===");
-		System.out.println("=============================================");
-		System.out.println("======== 1- Todos ======== 2- Ativos ========");
-		System.out.println("=============================================");
-		int opcaoCliente = teclado.nextInt();
-		while (opcaoCliente !=3){
-			try{
-				switch (opcaoCliente){
-					case 1:
-						System.out.println("Query para listar todos da tabela Jogos");
-						break;
-					case 2:
-						System.out.println("Query para listar apenas ativo = true da tabela Jogos");
-						break;
+		DALLocadora banco = new DALLocadora();
+		int opcaoCliente;
+		
+		do {
+			System.out.println("=============================================");
+			System.out.println("=== Deseja listar todos ou apenas ativos? ===");
+			System.out.println("=============================================");
+			System.out.println("======== 1- Todos ======== 2- Ativos ========");
+			System.out.println("=============================================");
+			opcaoCliente = teclado.nextInt();
+			
+				try{
+					switch (opcaoCliente){
+						case 1:
+							banco.mostrarJogo(opcaoCliente);
+							break;
+						case 2:
+							banco.mostrarJogo(opcaoCliente);
+							break;
+					}
+				}catch (RegraDeNegocioException e){
+					System.out.println("Erro: " +e.getMessage());
+					System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu");
+					teclado.next();
 				}
-			}catch (RegraDeNegocioException e){
-				System.out.println("Erro: " +e.getMessage());
-				System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu");
-				teclado.next();
-			}
-		}
+		}while(opcaoCliente == 0);
 
 	}
 
