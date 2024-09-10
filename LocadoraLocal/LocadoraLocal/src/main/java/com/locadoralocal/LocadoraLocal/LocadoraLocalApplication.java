@@ -38,6 +38,7 @@ public class LocadoraLocalApplication {
 		
 		DALLocadora banco = new DALLocadora();
 		
+		banco.clearConsole();
 		System.out.println("=============================================");
 		System.out.println("====== Seja Bem-vindo a LocadoraLocal =======");
 		System.out.println("=============================================");
@@ -49,8 +50,6 @@ public class LocadoraLocalApplication {
 		int opcao = teclado.nextInt();
 		teclado.nextLine();
 		
-		banco.clearConsole();
-		
 		return opcao;
 	}
 
@@ -58,6 +57,7 @@ public class LocadoraLocalApplication {
 
 	private static void validarCliente(){
 		DALLocadora banco = new DALLocadora();
+		banco.clearConsole();
 		System.out.println("=============================================");
 		System.out.println("======= Insira seu numero de Cliente: =======");
 		System.out.println("=============================================");
@@ -66,6 +66,7 @@ public class LocadoraLocalApplication {
 		if (banco.verificarCliente(numCliente)){
 			menuCliente(numCliente);
 		}else {
+			banco.clearConsole();
 			System.out.println("=============================================");
 			System.out.println("======== Número de Cliente invalido =========");
 			System.out.println("=============================================");
@@ -85,7 +86,7 @@ public class LocadoraLocalApplication {
 
 		while (opcaoCliente != 7){
 			try{
-				
+				banco.clearConsole();
 				System.out.println("=============================================");
 				System.out.println("============== Área do Cliente ==============");
 				System.out.println("=============================================");

@@ -21,7 +21,7 @@ public class Clientes extends Pessoas {
 		DALLocadora banco = new DALLocadora();
 		int idFilme;
 
-		do {
+			banco.clearConsole();
 			System.out.println("=============================================");
 			System.out.println("========= Qual filme deseja alugar? =========");
 			System.out.println("=============================================");
@@ -30,8 +30,10 @@ public class Clientes extends Pessoas {
 			System.out.println("========= Digite um Id de filme ou ==========");
 			System.out.println("============== 0- Para sair =================");
 			System.out.println("=============================================");
-
 			banco.mostrarFilmes(1);
+			
+		do {
+			
 			idFilme = teclado.nextInt();
 			teclado.nextLine();
 
@@ -42,10 +44,12 @@ public class Clientes extends Pessoas {
 
 			if(banco.SelecionarFilme(idFilme)){
 				System.out.println("Filme selecionado");
+				System.out.println("Selecione mais Filmes ou zero para Sair");
 				banco.adicionarFilme(pk_locacao, idFilme);
 
 			}else {
 				System.out.println("Seleção invalida Filme inativo ou locado");
+				System.out.println("Selecione mais Filmes ou zero para Sair");
 			}
 
 		} while(true);
@@ -57,7 +61,7 @@ public class Clientes extends Pessoas {
 		DALLocadora banco = new DALLocadora();
 		int idJogo = -1;
 
-		do {
+			banco.clearConsole();
 			System.out.println("=============================================");
 			System.out.println("======== Qual jogo deseja alugar? ===========");
 			System.out.println("=============================================");
@@ -69,6 +73,8 @@ public class Clientes extends Pessoas {
 
 			banco.mostrarJogo(1);
 
+		do {
+			
 			idJogo = teclado.nextInt();
 			teclado.nextLine();
 
@@ -94,6 +100,7 @@ public class Clientes extends Pessoas {
 		int opcaoCliente;
 
 		do{
+			banco.clearConsole();
 			System.out.println("=============================================");
 			System.out.println("=== Deseja listar todos ou apenas ativos? ===");
 			System.out.println("=============================================");
@@ -105,10 +112,14 @@ public class Clientes extends Pessoas {
 			try{
 				switch (opcaoCliente){
 					case 1:
+						banco.clearConsole();
 						banco.mostrarFilmes(opcaoCliente);
+						banco.pausarConsole();
 						break;
 					case 2:
+						banco.clearConsole();
 						banco.mostrarFilmes(opcaoCliente);
+						banco.pausarConsole();
 						break;
 				}
 			}catch (RegraDeNegocioException e){
@@ -135,10 +146,14 @@ public class Clientes extends Pessoas {
 			try{
 				switch (opcaoCliente){
 					case 1:
+						banco.clearConsole();
 						banco.mostrarJogo(opcaoCliente);
+						banco.pausarConsole();
 						break;
 					case 2:
+						banco.clearConsole();
 						banco.mostrarJogo(opcaoCliente);
+						banco.pausarConsole();
 						break;
 				}
 			}catch (RegraDeNegocioException e){
@@ -154,15 +169,20 @@ public class Clientes extends Pessoas {
 		DALLocadora banco = new DALLocadora();
 
 		System.out.println("=============================================");
-		System.out.println("=========== Itens da sua locação: ===========");
+		System.out.println("================= Locação: ==================");
 		System.out.println("=============================================");
-		System.out.println("Query para listar os itens presentes na locação atual");
 
 		banco.mostrarLocacao(pkLocacao);
+		banco.pausarConsole();
 
 	}
 
 	public void concluirLocacao() {
+		
+		DALLocadora banco = new DALLocadora();
+		
+		banco.clearConsole();
+		
 		System.out.println("=============================================");
 		System.out.println("======= Deseja concluir sua locação? ========");
 		System.out.println("=============================================");

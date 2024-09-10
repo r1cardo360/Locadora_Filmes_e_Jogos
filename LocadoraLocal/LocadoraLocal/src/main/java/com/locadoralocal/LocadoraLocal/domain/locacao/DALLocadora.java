@@ -7,11 +7,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
 
 public class DALLocadora {
 	
+	private static Scanner teclado = new Scanner(System.in);
+	
 	private static final String stringConnect = "jdbc:sqlite:/C:\\Users\\Suporte\\Desktop\\Backup\\HS\\Nova pasta\\Locadora_Filmes_e_Jogos\\Locadora\\Locadora.db";
 
+	public static void pausarConsole() {
+		System.out.println("Pressione Enter para Continuar...");
+		teclado.nextLine();
+	}
+	
     public static void clearConsole() {
         // Tenta executar comandos específicos para sistemas operacionais diferentes
         try {
