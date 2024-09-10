@@ -2,16 +2,16 @@ package com.locadoralocal.LocadoraLocal;
 
 import java.util.Scanner;
 import com.locadoralocal.LocadoraLocal.domain.locacao.DALLocadora;
+import com.locadoralocal.LocadoraLocal.domain.pessoas.Clientes;
 import com.locadoralocal.LocadoraLocal.domain.pessoas.Funcionarios;
 
 public class LocadoraLocalApplication {
 
 	private static Scanner teclado = new Scanner(System.in);
+	static Funcionarios funcionarios = new Funcionarios();
+	static Clientes clientes = new Clientes();
 
 	public static void main(String[] args) {
-
-		Funcionarios funcionarios = new Funcionarios();
-
 		var opcao = exibirMenu();
 		while (opcao != 3) {
 			try {
@@ -103,22 +103,22 @@ public class LocadoraLocalApplication {
 				
 				switch (opcaoCliente){
 					case 1:
-						alugarFilme(pkLocacao);
+						clientes.alugarFilme(pkLocacao);
 						break;
 					case 2:
-						alugarJogo(pkLocacao);
+						clientes.alugarJogo(pkLocacao);
 						break;
 					case 3:
-						listarFilmes();
+						clientes.listarFilmes();
 						break;
 					case 4:
-						listarJogos();
+						clientes.listarJogos();
 						break;
 					case 5:
-						listarLocacao(pkLocacao);
+						clientes.listarLocacao(pkLocacao);
 						break;
 					case 6:
-						concluirLocacao();
+						clientes.concluirLocacao();
 						break;
 				}
 			}catch (RegraDeNegocioException e){
@@ -131,172 +131,6 @@ public class LocadoraLocalApplication {
 			banco.cancelarLocacao(pkLocacao);
 		}
 	}
-
-	// criar um metodo para cada função do cliente
-
-	private static void alugarFilme(int pk_locacao) {
-		DALLocadora banco = new DALLocadora();
-		int idFilme = 0;
-		
-		do {
-			System.out.println("=============================================");
-			System.out.println("========= Qual filme deseja alugar? =========");
-			System.out.println("=============================================");
-			
-			System.out.println("=============================================");
-			System.out.println("========= Digite um Id de filem ou ==========");
-			System.out.println("============== 0- Para sair =================");
-			System.out.println("=============================================");
-			
-			banco.mostrarFilmes(1);
-			idFilme = teclado.nextInt();
-			teclado.nextLine();
-			
-			if (idFilme == 0){
-				System.out.println("Saindo...");
-				break;
-			}
-			
-			if(banco.SelecionarFilme(idFilme)){
-				System.out.println("Filme selecionado");
-				banco.adicionarFilme(pk_locacao, idFilme);
-				
-			}else {
-				System.out.println("Seleção invalida Filme inativo ou locado");
-			}
-			
-		} while(true);
-
-	}
-
-	private static void alugarJogo(int pkLocacao) {
-		
-		DALLocadora banco = new DALLocadora();
-		int idJogo = -1;
-		
-		do {
-			System.out.println("=============================================");
-			System.out.println("======== Qual jogo deseja alugar? ===========");
-			System.out.println("=============================================");
-		
-			System.out.println("=============================================");
-			System.out.println("========== Digite um Id de jogo ou ==========");
-			System.out.println("============== 0- Para sair =================");
-			System.out.println("=============================================");
-		
-			banco.mostrarJogo(1);
-		
-			idJogo = teclado.nextInt();
-			teclado.nextLine();
-		
-			if(idJogo == 0) {
-				System.out.println("Saindo...");
-				break;
-			}
-			
-			if(banco.selecionarJogo(idJogo)) {
-				System.out.println("Jogo Selecionado");
-				banco.adicionarJogo(pkLocacao, idJogo);
-			}else {
-				System.out.println("Seleção invalida Jogo inativado ou locado");
-			}
-		
-		}while(true);
-
-		
-	}
-
-	private static void listarFilmes() {
-		DALLocadora banco = new DALLocadora();
-		int opcaoCliente;
-
-		do{
-		System.out.println("=============================================");
-		System.out.println("=== Deseja listar todos ou apenas ativos? ===");
-		System.out.println("=============================================");
-		System.out.println("======== 1- Todos ======== 2- Ativos ========");
-		System.out.println("============== 0- Para sair =================");
-		System.out.println("=============================================");
-		opcaoCliente = teclado.nextInt();
-
-			try{
-				switch (opcaoCliente){
-					case 1:
-						banco.mostrarFilmes(opcaoCliente);
-						break;
-					case 2:
-						banco.mostrarFilmes(opcaoCliente);
-						break;
-				}
-			}catch (RegraDeNegocioException e){
-				System.out.println("Erro: " +e.getMessage());
-				System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu");
-				teclado.next();
-			}
-		}while(opcaoCliente == 0);
-
-	}
-
-	private static void listarJogos() {
-		DALLocadora banco = new DALLocadora();
-		int opcaoCliente;
-		
-		do {
-			System.out.println("=============================================");
-			System.out.println("=== Deseja listar todos ou apenas ativos? ===");
-			System.out.println("=============================================");
-			System.out.println("======== 1- Todos ======== 2- Ativos ========");
-			System.out.println("=============================================");
-			opcaoCliente = teclado.nextInt();
-			
-				try{
-					switch (opcaoCliente){
-						case 1:
-							banco.mostrarJogo(opcaoCliente);
-							break;
-						case 2:
-							banco.mostrarJogo(opcaoCliente);
-							break;
-					}
-				}catch (RegraDeNegocioException e){
-					System.out.println("Erro: " +e.getMessage());
-					System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu");
-					teclado.next();
-				}
-		}while(opcaoCliente == 0);
-
-	}
-
-	private static void listarLocacao(int pkLocacao) {
-		DALLocadora banco = new DALLocadora();
-		
-		System.out.println("=============================================");
-		System.out.println("=========== Itens da sua locação: ===========");
-		System.out.println("=============================================");
-		System.out.println("Query para listar os itens presentes na locação atual");
-		
-		banco.mostrarLocacao(pkLocacao);
-		
-	}
-
-	private static void concluirLocacao() {
-		System.out.println("=============================================");
-		System.out.println("======= Deseja concluir sua locação? ========");
-		System.out.println("=============================================");
-		System.out.println("========= S- Sim ========== N- Não== ========");
-		System.out.println("=============================================");
-		String opcaoCliente = teclado.nextLine();
-		if (opcaoCliente == "S"){
-			System.out.println("Concluir a locação e marcar os produtos escolhidos como inativos");
-		}if (opcaoCliente == "N"){
-			System.out.println("Fechar a aplicação ou voltar para o menu do cliente");
-		}else {
-			System.out.println("=============================================");
-			System.out.println("============ Operação inválida ==============");
-			System.out.println("=============================================");
-		}
-	}
-
 
 	// Criar um método para validar o acesso do funcionario
 
@@ -317,144 +151,44 @@ public class LocadoraLocalApplication {
 
 	// criar um metodo para listar as funções do funcionario
 
-	private static void menuFuncionario(){
+	private static void menuFuncionario() {
 		System.out.println("=============================================");
 		System.out.println("============ Área do Funcionário ============");
 		System.out.println("=============================================");
 		System.out.println("============ Opções Disponiveis: ============");
 		System.out.println("=============================================");
-		System.out.println("========== 1- Listar todos os Produtos ======");
+		System.out.println("========== 1- Listar =========================");
 		System.out.println("========== 2- Ativar/Inativar um Produto ====");
-		System.out.println("========== 3- Listar todas as Pessoas =======");
-		System.out.println("========== 4- Ativa/Inativar uma Pessoa =====");
-		System.out.println("========== 5- Adicionar Pessoa/Produto ======");
-		System.out.println("========== 6- Apagar Pessoa/Produto =========");
+		System.out.println("========== 3- Ativa/Inativar uma Pessoa =====");
+		System.out.println("========== 4- Adicionar Pessoa/Produto ======");
+		System.out.println("========== 5- Apagar Pessoa/Produto =========");
 		System.out.println("=============================================");
 		int opcaoFuncionario = teclado.nextInt();
 
-		while (opcaoFuncionario != 7){
+		while (opcaoFuncionario != 7) {
 			try {
-				switch (opcaoFuncionario){
+				switch (opcaoFuncionario) {
 					case 1:
-						listarProdutos();
+						funcionarios.listar();
 						break;
 					case 2:
-						ativarInativarProduto();
+						funcionarios.ativarInativarProduto();
 						break;
 					case 3:
-						listarPessoas();
+						funcionarios.ativarInativarPessoa();
 						break;
 					case 4:
-						ativarInativarPessoa();
+						funcionarios.adicionar();
 						break;
 					case 5:
-						adicionarPessoaProduto();
-						break;
-					case 6:
-						apagarPessoaProduto();
+						funcionarios.apagarPessoaProduto();
 						break;
 				}
-			}catch (RegraDeNegocioException e){
-				System.out.println("Erro: " +e.getMessage());
+			} catch (RegraDeNegocioException e) {
+				System.out.println("Erro: " + e.getMessage());
 				System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu");
 				teclado.next();
 			}
 		}
 	}
-
-	// criar um metodo para cada função do funcionario
-
-	private static void listarProdutos() {
-		System.out.println("=============================================");
-		System.out.println("=== Deseja listar todos ou apenas ativos? ===");
-		System.out.println("=============================================");
-		System.out.println("======== 1- Todos ======== 2- Ativos ========");
-		System.out.println("=============================================");
-		int opcaoCliente = teclado.nextInt();
-		while (opcaoCliente !=3){
-			try{
-				switch (opcaoCliente){
-					case 1:
-						System.out.println("Query para listar todos os produtos");
-						break;
-					case 2:
-						System.out.println("Query para listar apenas ativo = true");
-						break;
-				}
-			}catch (RegraDeNegocioException e){
-				System.out.println("Erro: " +e.getMessage());
-				System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu");
-				teclado.next();
-			}
-		}
-	}
-
-	private static void ativarInativarProduto() {
-		System.out.println("=============================================");
-		System.out.println("=== Qual produto deseja Ativar/Inativar? ====");
-		System.out.println("=============================================");
-		String nomeProduto = teclado.nextLine();
-		System.out.println("=============================================");
-		System.out.println("============== Selecione a opção ============");
-		System.out.println("======= 1- Ativar ======= 2- Inativar =======");
-		System.out.println("=============================================");
-		int opcao = teclado.nextInt();
-
-		if (opcao == 1){
-			System.out.println("Query para colocar o produto ativo = true");
-		}if (opcao == 2){
-			System.out.println("Query para colocar o produto atiov = false");
-		}else {
-			System.out.println("=============================================");
-			System.out.println("============ Operação inválida ==============");
-			System.out.println("=============================================");
-		}
-	}
-
-	private static void listarPessoas() {
-		System.out.println("=============================================");
-		System.out.println("======== Lista de Pessoas cadastradas =======");
-		System.out.println("=============================================");
-		System.out.println("Query para listar a tabela Pessoas");
-	}
-
-	private static void ativarInativarPessoa() {
-		System.out.println("=============================================");
-		System.out.println("=== Qual Pessoa deseja Ativar/Inativar? =====");
-		System.out.println("=============================================");
-		String nomePessoa = teclado.nextLine();
-		System.out.println("=============================================");
-		System.out.println("============== Selecione a opção ============");
-		System.out.println("======= 1- Ativar ======= 2- Inativar =======");
-		System.out.println("=============================================");
-		int opcao = teclado.nextInt();
-
-		if (opcao == 1){
-			System.out.println("Query para colocar a Pessoa ativo = true");
-		}if (opcao == 2){
-			System.out.println("Query para colocar a Pessoa ativo = false");
-		}else {
-			System.out.println("=============================================");
-			System.out.println("============ Operação inválida ==============");
-			System.out.println("=============================================");
-		}
-	}
-
-	private static void adicionarPessoaProduto() {
-		System.out.println("=============================================");
-		System.out.println("== Selecione o tipo da pessoa para Adicionar=");
-		System.out.println("====== 1- Cliente ===== 2- Funcionário ======");
-		System.out.println("=============================================");
-		System.out.println("Querys para adicionar pessoas");
-	}
-
-	private static void apagarPessoaProduto() {
-		System.out.println("=============================================");
-		System.out.println("== Selecione o tipo da pessoa para Apagar ===");
-		System.out.println("====== 1- Cliente ===== 2- Funcionário ======");
-		System.out.println("=============================================");
-		System.out.println("Querys para apagar pessoas");
-	}
-
-
 }
