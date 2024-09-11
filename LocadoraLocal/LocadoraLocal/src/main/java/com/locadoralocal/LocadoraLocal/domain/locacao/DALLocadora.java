@@ -5,15 +5,22 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.StringJoiner;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class DALLocadora {
 	
 	private static Scanner teclado = new Scanner(System.in);
 	
-	private static final String stringConnect = "jdbc:sqlite:/C:\\Users\\Suporte\\Desktop\\Backup\\HS\\Nova pasta\\Locadora_Filmes_e_Jogos\\Locadora\\Locadora.db";
+	private static final String stringConnect = "jdbc:sqlite:/C:\\Users\\pc\\Desktop\\Projeto_Locadora\\Locadora_Filmes_e_Jogos\\Locadora\\Locadora.db";
 
 	public static void pausarConsole() {
 		System.out.println("Pressione Enter para Continuar...");
@@ -425,7 +432,7 @@ public class DALLocadora {
 		}
 	}
 	
-    public static void mostrarLocacao(int pkLocacao) {
+    public static void mostrarLocacao(int pkLocacao, ArrayList<Integer> listaFilmes, ArrayList<Integer> listaJogos) {
 		
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -450,35 +457,45 @@ public class DALLocadora {
 			System.out.println("+-------+----------------------------------------------------+-----------------+-----------------+");
 			System.out.println("==================================== FILMES ======================================================");
 			
-			sql = "SELECT fk_filme, nome_filme FROM item_filme_locacao \r\n"
-					+ "INNER JOIN filmes ON item_filme_locacao.fk_filme = filmes.pk_filmes\r\n"
-					+ "WHERE fk_locacao = ?";
-			preparedStatement = connection.prepareStatement(sql);
-			
-			preparedStatement.setInt(1, pkLocacao);
-			resultSet = preparedStatement.executeQuery();
-			
-			System.out.println("+-------+----------------------------------------------------+-----------------+-----------------+");
-			System.out.printf("| %-5s | %-50s |\n", "ID", "Nome");
-			System.out.println("+-------+----------------------------------------------------+-----------------+-----------------+");
-			
-			while(resultSet.next()) {
-				int idFilme = resultSet.getInt("fk_filme");
-				String nomeFilme = resultSet.getString("nome_filme");
+			if(listaFilmes.isEmpty()) {
+				System.out.println("Nenhum Filme na lista");
+			}else {
+				String placeholder = listaFilmes.stream().map(id -> "?").collect(Collectors.joining(","));
+				sql = String.format("SELECT pk_filmes, nome_filme FROM filmes WHERE pk_filmes in (%s)", placeholder);
+				preparedStatement = connection.prepareStatement(sql);
 				
-				System.out.printf("| %-5d | %-50s |\n", idFilme, nomeFilme);
+				for(int i = 0; i < listaFilmes.size(); i++) {
+					preparedStatement.setInt(i + 1, listaFilmes.get(i));
+				}
 				
+				resultSet = preparedStatement.executeQuery();
+				
+				System.out.println("+-------+----------------------------------------------------+-----------------+-----------------+");
+				System.out.printf("| %-5s | %-50s |\n", "ID", "Nome");
+				System.out.println("+-------+----------------------------------------------------+-----------------+-----------------+");
+				
+				while(resultSet.next()) {
+					int idFilme = resultSet.getInt("pk_filmes");
+					String nomeFilme = resultSet.getString("nome_filme");
+					
+					System.out.printf("| %-5d | %-50s |\n", idFilme, nomeFilme);
+				}	
 			}
+			
 			System.out.println("+-------+----------------------------------------------------+-----------------+-----------------+");
 			System.out.println("==================================== JOGOS =======================================================");
 			
-			sql = "SELECT fk_jogo, nome_jogo FROM item_jogo_locacao \r\n"
-					+ "INNER JOIN jogos ON item_jogo_locacao.fk_jogo = jogos.pk_jogo\r\n"
-					+ "WHERE fk_locacao = ?";
-			
-			preparedStatement = connection.prepareStatement(sql);
-			
-			preparedStatement.setInt(1, pkLocacao);
+			if(listaJogos.isEmpty()) {
+				System.out.println("Nenhum Jogo na lista");
+			}else {
+				String placeholder = listaJogos.stream().map(id -> "?").collect(Collectors.joining(","));
+				sql = String.format("SELECT pk_jogo, nome_jogo FROM jogos WHERE pk_jogo in (%s)", placeholder);
+				preparedStatement = connection.prepareStatement(sql);
+				
+				for(int i = 0; i < listaJogos.size(); i++) {
+					preparedStatement.setInt(i + 1, listaJogos.get(i));
+				}
+	
 			resultSet = preparedStatement.executeQuery();
 			
 			System.out.println("+-------+----------------------------------------------------+-----------------+-----------------+");
@@ -486,12 +503,14 @@ public class DALLocadora {
 			System.out.println("+-------+----------------------------------------------------+-----------------+-----------------+");
 			
 			while(resultSet.next()) {
-				int idJogo = resultSet.getInt("fk_jogo");
+				int idJogo = resultSet.getInt("pk_jogo");
 				String nomeJogo = resultSet.getString("nome_jogo");
 				
 				System.out.printf("| %-5d | %-50s |\n", idJogo, nomeJogo);
 				
+				}
 			}
+			System.out.println("+-------+----------------------------------------------------+-----------------+-----------------+");
 			
 		}catch(SQLException e) {
 			System.out.println("Erro ao conectarse ao banco de dados: " + e.getMessage());
@@ -512,5 +531,76 @@ public class DALLocadora {
 		}
 		
 	}
-	
+
+    public static void filmeInativo(int idFilme) {
+    	
+    	Connection connection = null;
+    	PreparedStatement preparedstatement = null;
+    	
+    	try {
+    		
+    		connection = DriverManager.getConnection(stringConnect);
+    		
+    		String sql = "UPDATE filmes SET ativo_filmes = 'N' WHERE pk_filmes = ?";
+    		
+    		preparedstatement = connection.prepareStatement(sql);
+    		
+    		preparedstatement.setInt(1, idFilme);
+    		
+    		preparedstatement.executeUpdate();
+    		
+    		
+    	}catch(SQLException e) {
+    		System.out.println("Erro ao conectar-se ao banco de dados: " + e.getMessage());
+    	}finally {
+    		try {
+    			if(connection != null) {
+    				connection.close();
+    			}
+    			if(preparedstatement != null) {
+    				preparedstatement.close();
+    			}
+    		}catch(SQLException ex) {
+    			System.out.println("Erro ao Fechar a conexão com o banco de dados");
+    		}
+    	}
+    	
+    }
+    
+    public static void JogoInativo(int idJogo) {
+    	
+    	Connection connection = null;
+    	PreparedStatement preparedstatement = null;
+    	
+    	try {
+    		
+    		connection = DriverManager.getConnection(stringConnect);
+    		
+    		String sql = "UPDATE jogos SET ativo_jogos = 'N' WHERE pk_jogo = ?";
+    		
+    		preparedstatement = connection.prepareStatement(sql);
+    		
+    		preparedstatement.setInt(1, idJogo);
+    		
+    		preparedstatement.executeUpdate();
+    		
+    		
+    	}catch(SQLException e) {
+    		System.out.println("Erro ao conectar-se ao banco de dados: " + e.getMessage());
+    	}finally {
+    		try {
+    			if(connection != null) {
+    				connection.close();
+    			}
+    			if(preparedstatement != null) {
+    				preparedstatement.close();
+    			}
+    		}catch(SQLException ex) {
+    			System.out.println("Erro ao Fechar a conexão com o banco de dados");
+    		}
+    	}
+    	
+    }
+    
+    
 }

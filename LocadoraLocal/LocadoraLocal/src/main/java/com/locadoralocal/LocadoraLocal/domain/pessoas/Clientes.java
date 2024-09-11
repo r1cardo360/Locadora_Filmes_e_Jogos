@@ -3,6 +3,7 @@ package com.locadoralocal.LocadoraLocal.domain.pessoas;
 import com.locadoralocal.LocadoraLocal.RegraDeNegocioException;
 import com.locadoralocal.LocadoraLocal.domain.locacao.DALLocadora;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Clientes extends Pessoas {
@@ -17,8 +18,9 @@ public class Clientes extends Pessoas {
 
 	}
 
-	public void alugarFilme(int pk_locacao) {
+	public ArrayList<Integer> alugarFilme(int pk_locacao) {
 		DALLocadora banco = new DALLocadora();
+		ArrayList<Integer> listaFilmes = new ArrayList<>();
 		int idFilme;
 
 			banco.clearConsole();
@@ -30,9 +32,10 @@ public class Clientes extends Pessoas {
 			System.out.println("========= Digite um Id de filme ou ==========");
 			System.out.println("============== 0- Para sair =================");
 			System.out.println("=============================================");
-			banco.mostrarFilmes(1);
+			
 			
 		do {
+			banco.mostrarFilmes(1);
 			
 			idFilme = teclado.nextInt();
 			teclado.nextLine();
@@ -43,23 +46,24 @@ public class Clientes extends Pessoas {
 			}
 
 			if(banco.SelecionarFilme(idFilme)){
-				System.out.println("Filme selecionado");
-				System.out.println("Selecione mais Filmes ou zero para Sair");
-				banco.adicionarFilme(pk_locacao, idFilme);
-
+				listaFilmes.add(idFilme);
+				banco.filmeInativo(idFilme);
 			}else {
 				System.out.println("Seleção invalida Filme inativo ou locado");
-				System.out.println("Selecione mais Filmes ou zero para Sair");
+				System.out.println("Selecione mais Filmes ou digite zero para Sair");
 			}
 
 		} while(true);
 
+		return listaFilmes;
+		
 	}
 
-	public void alugarJogo(int pkLocacao) {
+	public ArrayList<Integer> alugarJogo(int pkLocacao) {
 
 		DALLocadora banco = new DALLocadora();
-		int idJogo = -1;
+		ArrayList<Integer> listaJogos = new ArrayList<>();
+		int idJogo;
 
 			banco.clearConsole();
 			System.out.println("=============================================");
@@ -71,10 +75,10 @@ public class Clientes extends Pessoas {
 			System.out.println("============== 0- Para sair =================");
 			System.out.println("=============================================");
 
-			banco.mostrarJogo(1);
+			
 
 		do {
-			
+			banco.mostrarJogo(1);
 			idJogo = teclado.nextInt();
 			teclado.nextLine();
 
@@ -84,14 +88,16 @@ public class Clientes extends Pessoas {
 			}
 
 			if(banco.selecionarJogo(idJogo)) {
-				System.out.println("Jogo Selecionado");
-				banco.adicionarJogo(pkLocacao, idJogo);
+				listaJogos.add(idJogo);
+				banco.JogoInativo(idJogo);
 			}else {
 				System.out.println("Seleção invalida Jogo inativado ou locado");
+				System.out.println("Selecione mais filmes ou digite zero para sair");
 			}
 
 		}while(true);
 
+		return listaJogos;
 
 	}
 
@@ -165,14 +171,14 @@ public class Clientes extends Pessoas {
 
 	}
 
-	public void listarLocacao(int pkLocacao) {
+	public void listarLocacao(int pkLocacao, ArrayList<Integer> listaFilmes, ArrayList<Integer> listaJogos) {
 		DALLocadora banco = new DALLocadora();
 
 		System.out.println("=============================================");
 		System.out.println("================= Locação: ==================");
 		System.out.println("=============================================");
 
-		banco.mostrarLocacao(pkLocacao);
+		banco.mostrarLocacao(pkLocacao, listaFilmes, listaJogos);
 		banco.pausarConsole();
 
 	}

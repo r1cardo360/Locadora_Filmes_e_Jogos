@@ -1,5 +1,6 @@
 package com.locadoralocal.LocadoraLocal;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import com.locadoralocal.LocadoraLocal.domain.locacao.DALLocadora;
 import com.locadoralocal.LocadoraLocal.domain.pessoas.Clientes;
@@ -83,6 +84,8 @@ public class LocadoraLocalApplication {
 		int pkLocacao = banco.criarLocacao(idCliente);
 		
 		int opcaoCliente = -1;
+		ArrayList<Integer> listaFilmes = new ArrayList<>();
+		ArrayList<Integer> listaJogos = new ArrayList<>();
 
 		while (opcaoCliente != 7){
 			try{
@@ -104,10 +107,10 @@ public class LocadoraLocalApplication {
 				
 				switch (opcaoCliente){
 					case 1:
-						clientes.alugarFilme(pkLocacao);
+						listaFilmes.addAll(clientes.alugarFilme(pkLocacao));
 						break;
 					case 2:
-						clientes.alugarJogo(pkLocacao);
+						listaJogos.addAll(clientes.alugarJogo(pkLocacao));
 						break;
 					case 3:
 						clientes.listarFilmes();
@@ -116,7 +119,7 @@ public class LocadoraLocalApplication {
 						clientes.listarJogos();
 						break;
 					case 5:
-						clientes.listarLocacao(pkLocacao);
+						clientes.listarLocacao(pkLocacao, listaFilmes, listaJogos);
 						break;
 					case 6:
 						clientes.concluirLocacao();
