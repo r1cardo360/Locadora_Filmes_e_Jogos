@@ -155,6 +155,7 @@ public class Funcionarios extends Pessoas {
 		System.out.println("=============================================");
 
 		opcao = teclado.nextInt();
+		
 		teclado.nextLine();
 			try{
 				switch (opcao){
@@ -467,28 +468,31 @@ public class Funcionarios extends Pessoas {
 			opcao = teclado.nextInt();
 			teclado.nextLine();
 			
-			System.out.println("=============================================");
-			System.out.println("=== Deseja listar todos ou apenas ativos? ===");
-			System.out.println("=============================================");
-			System.out.println("======== 1- Todos ======== 2- Ativos ========");
-			System.out.println("============== 0- Para sair =================");
-			System.out.println("=============================================");
-			
 			if(opcao != 0) {
+				
+				System.out.println("=============================================");
+				System.out.println("=== Deseja listar todos ou apenas ativos? ===");
+				System.out.println("=============================================");
+				System.out.println("======== 1- Todos ======== 2- Ativos ========");
+				System.out.println("============== 0- Para sair =================");
+				System.out.println("=============================================");
+				
 				listar = teclado.nextInt();
 				teclado.nextLine();
-			}
 			
-			if (opcao == 1){
-				DALLocadora.clearConsole();
-				DALLocadora.mostrarFilmes(opcao);
-				DALLocadora.pausarConsole();
-			} else if (opcao == 2) {
-				DALLocadora.clearConsole();
-				DALLocadora.mostrarJogo(opcao);
-				DALLocadora.pausarConsole();
+				switch (opcao) {
+					case 1:
+						DALLocadora.clearConsole();
+						DALLocadora.mostrarFilmes(listar);
+						DALLocadora.pausarConsole();
+						break;
+					case 2:
+						DALLocadora.clearConsole();
+						DALLocadora.mostrarJogo(listar);
+						DALLocadora.pausarConsole();
+					}
 			}
-		}while (opcao == 0);
+		}while (opcao != 0);
 	}
 
 	public void ativarInativarProduto() {
