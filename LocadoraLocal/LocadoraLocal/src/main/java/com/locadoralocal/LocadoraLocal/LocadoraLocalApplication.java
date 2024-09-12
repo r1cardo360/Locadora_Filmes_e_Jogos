@@ -55,17 +55,16 @@ public class LocadoraLocalApplication {
 	// criar um metodo para validar o acesso do cliente
 
 	private static void validarCliente(){
-		DALLocadora banco = new DALLocadora();
-		banco.clearConsole();
+		DALLocadora.clearConsole();
 		System.out.println("=============================================");
 		System.out.println("======= Insira seu numero de Cliente: =======");
 		System.out.println("=============================================");
 		var numCliente = teclado.nextInt();
 
-		if (banco.verificarCliente(numCliente)){
+		if (DALLocadora.verificarCliente(numCliente)){
 			menuCliente(numCliente);
 		}else {
-			banco.clearConsole();
+			DALLocadora.clearConsole();
 			System.out.println("=============================================");
 			System.out.println("======== Número de Cliente invalido =========");
 			System.out.println("=============================================");
@@ -77,15 +76,13 @@ public class LocadoraLocalApplication {
 
 	private static void menuCliente(int idCliente){
 		
-		DALLocadora banco = new DALLocadora();
-		
 		int opcaoCliente = -1;
 		ArrayList<Integer> listaFilmes = new ArrayList<>();
 		ArrayList<Integer> listaJogos = new ArrayList<>();
 
 		while (opcaoCliente != 7 && opcaoCliente != 6){
 			try{
-				banco.clearConsole();
+				DALLocadora.clearConsole();
 				System.out.println("=============================================");
 				System.out.println("============== Área do Cliente ==============");
 				System.out.println("=============================================");
@@ -130,7 +127,7 @@ public class LocadoraLocalApplication {
 		}
 		
 		if(opcaoCliente == 7) {
-			banco.ativarFilmesEJogos(listaFilmes, listaJogos);
+			DALLocadora.ativarFilmesEJogos(listaFilmes, listaJogos);
 			
 			System.out.println("==============================================");
 			System.out.println("========= Locação não foi concluida ==========");
@@ -140,7 +137,7 @@ public class LocadoraLocalApplication {
 			
 			listaFilmes.clear();
 			listaJogos.clear();
-			banco.pausarConsole();
+			DALLocadora.pausarConsole();
 			
 		}
 		

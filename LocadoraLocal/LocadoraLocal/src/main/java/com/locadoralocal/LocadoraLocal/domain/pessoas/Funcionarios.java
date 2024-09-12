@@ -1,6 +1,7 @@
 package com.locadoralocal.LocadoraLocal.domain.pessoas;
 
 import com.locadoralocal.LocadoraLocal.RegraDeNegocioException;
+import com.locadoralocal.LocadoraLocal.domain.locacao.DALLocadora;
 import com.locadoralocal.LocadoraLocal.domain.produtos.Produto;
 
 import java.util.Scanner;
@@ -320,13 +321,46 @@ public class Funcionarios extends Pessoas {
 	}
 
 	private void apagarProduto() {
-		int opcao;
+		int opcao, idProduto;
 		do{
+			DALLocadora.clearConsole();
 			System.out.println("=============================================");
-			System.out.println("========== Insira o id do Produto: ==========");
-			System.out.println("============== 0- Para sair =================");
+			System.out.println("======== Qual produto deseja deletar ========");
+			System.out.println("========== 0-Sair 1- Filme 2-Jogo ===========");
 			System.out.println("=============================================");
+			
 			opcao = teclado.nextInt();
+			teclado.nextLine();
+			
+			switch(opcao) {
+			case 1:
+				
+				DALLocadora.clearConsole();
+				System.out.println("=============================================");
+				System.out.println("============== Deletar Filmes ===============");
+				System.out.println("=============================================");
+				System.out.println("====== *Selecione o Id para Deletar* ========");
+				System.out.println("=============================================");
+				DALLocadora.mostrarFilmes(2);
+				idProduto = teclado.nextInt();
+				teclado.nextLine();
+				
+				break;
+			case 2:
+				
+				DALLocadora.clearConsole();
+				System.out.println("=============================================");
+				System.out.println("============== Deletar Jogos ===============");
+				System.out.println("=============================================");
+				System.out.println("====== *Selecione o Id para Deletar* ========");
+				System.out.println("=============================================");
+				DALLocadora.mostrarJogo(2);
+				idProduto = teclado.nextInt();
+				teclado.nextLine();
+				
+				break;
+			}
+	
 			System.out.println("=============================================");
 			System.out.println("===== Essa ação pode causar alguns erros ====");
 			System.out.println("==== no banco de dados, deseja continuar? ===");

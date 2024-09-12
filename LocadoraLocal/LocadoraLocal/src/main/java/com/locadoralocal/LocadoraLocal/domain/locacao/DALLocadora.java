@@ -15,7 +15,7 @@ public class DALLocadora {
 	
 	private static Scanner teclado = new Scanner(System.in);
 	
-	private static final String stringConnect = "jdbc:sqlite:/C:\\Users\\pc\\Desktop\\Projeto_Locadora\\Locadora_Filmes_e_Jogos\\Locadora\\Locadora.db";
+	private static final String stringConnect = "jdbc:sqlite:/C:\\Users\\Suporte\\Desktop\\Backup\\HS\\Nova pasta\\Locadora_Filmes_e_Jogos\\Locadora\\Locadora.db";
 
 	public static void pausarConsole() {
 		System.out.println("Pressione Enter para Continuar...");
