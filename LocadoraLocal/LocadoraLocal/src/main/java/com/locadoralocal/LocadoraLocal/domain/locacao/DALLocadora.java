@@ -654,9 +654,59 @@ public class DALLocadora {
     			}
     		}
     	}catch(SQLException e) {
-    		
+    		System.out.println("Não foi possivel se conectar ao banco de dados: " + e.getMessage());
+    	}finally {
+    		try {
+    			if(preparedStatement != null) {
+    				preparedStatement.close();
+    			}
+    			if(connection != null) {
+    				connection.close();
+    			}
+    		}catch(SQLException ex) {
+    			System.out.println("Não foi possivel fechar a conexão com o banco de dados");
+    		}
     	}
     	
+    }
+  
+    public static void deletarProduto(int idProduto, String tipoDelecao) {
+    	Connection connection = null;
+    	PreparedStatement preparedStatement = null;
+    	String opcao;
+    	
+		System.out.println("=============================================");
+		System.out.println("===== Essa ação pode causar alguns erros ====");
+		System.out.println("==== no banco de dados, deseja continuar? ===");
+		System.out.println("========== S- Sim ========= N- Não ==========");
+		System.out.println("=============================================");
+		opcao = teclado.nextLine();
+		
+		if(opcao.equalsIgnoreCase("S")) {
+	    	try {
+	    		
+	    		connection = DriverManager.getConnection(stringConnect);
+	    		
+	    		
+	    	}catch(SQLException e) {
+	    		System.out.println("Não foi possivel conectar-se ao banco de dados: " + e.getMessage());
+	    	}finally {
+	    		try {
+	    			if(preparedStatement != null) {
+	    				preparedStatement.close();
+	    			}
+	    			if(connection != null) {
+	    				connection.close();
+	    			}
+	    		}catch(SQLException ex) {
+	    			System.out.println("Não foi possivel fechar o banco de dados: " + ex.getMessage());
+	    		}
+	    	}
+		}else{
+			System.out.println("=============================================");
+			System.out.println("========== A opração foi cancelada ==========");
+			System.out.println("=============================================");
+	    	}
     }
     
 }

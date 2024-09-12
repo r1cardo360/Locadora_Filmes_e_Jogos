@@ -322,6 +322,7 @@ public class Funcionarios extends Pessoas {
 
 	private void apagarProduto() {
 		int opcao, idProduto;
+		String tipoDelecao;
 		do{
 			DALLocadora.clearConsole();
 			System.out.println("=============================================");
@@ -344,6 +345,9 @@ public class Funcionarios extends Pessoas {
 				DALLocadora.mostrarFilmes(2);
 				idProduto = teclado.nextInt();
 				teclado.nextLine();
+				tipoDelecao = "filme";
+				
+				DALLocadora.deletarProduto(idProduto, tipoDelecao);
 				
 				break;
 			case 2:
@@ -357,16 +361,15 @@ public class Funcionarios extends Pessoas {
 				DALLocadora.mostrarJogo(2);
 				idProduto = teclado.nextInt();
 				teclado.nextLine();
+				tipoDelecao = "jogo";
+				
+				DALLocadora.deletarProduto(idProduto, tipoDelecao);
 				
 				break;
+			default:
+				System.out.println("");
 			}
-	
-			System.out.println("=============================================");
-			System.out.println("===== Essa ação pode causar alguns erros ====");
-			System.out.println("==== no banco de dados, deseja continuar? ===");
-			System.out.println("========== S- Sim ========= N- Não ========== ");
-			System.out.println("=============================================");
-
+				
 		}while(opcao == 0);
 	}
 
