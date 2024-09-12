@@ -84,6 +84,47 @@ public class DALLocadora {
 		
 	}
 
+	public static boolean verificarFuncionario(long id) {
+		Connection connection = null;
+		PreparedStatement preparedStatment = null;
+		ResultSet resultSet = null;
+		
+		try {
+			connection = DriverManager.getConnection(stringConnect);
+			String sql = "SELECT * FROM funcionario WHERE pk_funcionario = ?";
+			
+			preparedStatment = connection.prepareStatement(sql);
+			preparedStatment.setLong(1, id);
+			
+			resultSet = preparedStatment.executeQuery();
+			
+			if(resultSet.next()) {
+				return true;
+			}else {
+				return false;
+			}
+			
+		}catch(SQLException e) {
+			System.out.println("Não foi possivel se conectar ao banco de dados: " + e.getMessage());
+			return false;
+		}finally{
+			try {
+				if(preparedStatment != null) {
+					preparedStatment.close();
+				}
+				if(resultSet != null) {
+					resultSet.close();
+				}
+				if(connection != null) {
+					connection.close();
+				}
+			}catch(SQLException ex){
+				System.out.println("Algo deu errado ao fechar a conexão com o banco de dados");
+			}
+		}
+		
+	}
+	
 	public static void mostrarFilmes(int opcao) {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;

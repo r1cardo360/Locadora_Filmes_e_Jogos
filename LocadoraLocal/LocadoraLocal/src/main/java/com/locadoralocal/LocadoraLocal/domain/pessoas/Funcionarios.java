@@ -155,6 +155,7 @@ public class Funcionarios extends Pessoas {
 		System.out.println("=============================================");
 
 		opcao = teclado.nextInt();
+		teclado.nextLine();
 			try{
 				switch (opcao){
 					case 1:
@@ -169,7 +170,7 @@ public class Funcionarios extends Pessoas {
 				System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu");
 				teclado.next();
 			}
-		}while (opcao == 0);
+		}while (opcao != 0);
 	}
 
 	public void devolucao(){
@@ -454,20 +455,38 @@ public class Funcionarios extends Pessoas {
 	}
 
 	private void listarProduto() {
-		int opcao;
+		int opcao, listar;
 		do {
+			DALLocadora.clearConsole();
 			System.out.println("=============================================");
 			System.out.println("====== Deseja listar Filmes ou Jogos? =======");
 			System.out.println("======== 1- Filmes ======== 2- Jogos ========");
 			System.out.println("================== 0- Sair ==================");
 			System.out.println("=============================================");
+			
 			opcao = teclado.nextInt();
+			teclado.nextLine();
+			
+			System.out.println("=============================================");
+			System.out.println("=== Deseja listar todos ou apenas ativos? ===");
+			System.out.println("=============================================");
+			System.out.println("======== 1- Todos ======== 2- Ativos ========");
+			System.out.println("============== 0- Para sair =================");
+			System.out.println("=============================================");
+			
+			if(opcao != 0) {
+				listar = teclado.nextInt();
+				teclado.nextLine();
+			}
+			
 			if (opcao == 1){
-				System.out.println("Query para listar os Filmes");
+				DALLocadora.clearConsole();
+				DALLocadora.mostrarFilmes(opcao);
+				DALLocadora.pausarConsole();
 			} else if (opcao == 2) {
-				System.out.println("Query para listar Jogos");
-			}else {
-				System.out.println("ERRO");
+				DALLocadora.clearConsole();
+				DALLocadora.mostrarJogo(opcao);
+				DALLocadora.pausarConsole();
 			}
 		}while (opcao == 0);
 	}

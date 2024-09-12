@@ -150,10 +150,11 @@ public class LocadoraLocalApplication {
 		System.out.println("===== Insira seu número de Funcionário: =====");
 		System.out.println("=============================================");
 		var numFuncionario = teclado.nextInt();
-		int codFuncionario = 1;
-		if (numFuncionario == codFuncionario){
+		teclado.nextLine();
+		if (DALLocadora.verificarFuncionario(numFuncionario)){
 			menuFuncionario();
 		}else {
+			DALLocadora.clearConsole();
 			System.out.println("=============================================");
 			System.out.println("====== Número de Funcionário inválido! ======");
 			System.out.println("=============================================");
@@ -163,20 +164,24 @@ public class LocadoraLocalApplication {
 	// criar um metodo para listar as funções do funcionario
 
 	private static void menuFuncionario() {
-		System.out.println("=============================================");
-		System.out.println("============ Área do Funcionário ============");
-		System.out.println("=============================================");
-		System.out.println("============ Opções Disponiveis: ============");
-		System.out.println("=============================================");
-		System.out.println("========== 1- Listar =========================");
-		System.out.println("========== 2- Ativar/Inativar um Produto ====");
-		System.out.println("========== 3- Ativa/Inativar uma Pessoa =====");
-		System.out.println("========== 4- Adicionar Pessoa/Produto ======");
-		System.out.println("========== 5- Apagar Pessoa/Produto =========");
-		System.out.println("=============================================");
-		int opcaoFuncionario = teclado.nextInt();
 
-		while (opcaoFuncionario != 7) {
+		int opcaoFuncionario;
+		
+		do{
+			
+			System.out.println("=============================================");
+			System.out.println("============ Área do Funcionário ============");
+			System.out.println("=============================================");
+			System.out.println("============ Opções Disponiveis: ============");
+			System.out.println("=============================================");
+			System.out.println("========== 1- Listar =========================");
+			System.out.println("========== 2- Ativar/Inativar um Produto ====");
+			System.out.println("========== 3- Ativa/Inativar uma Pessoa =====");
+			System.out.println("========== 4- Adicionar Pessoa/Produto ======");
+			System.out.println("========== 5- Apagar Pessoa/Produto =========");
+			System.out.println("=============================================");
+			opcaoFuncionario = teclado.nextInt();
+			
 			try {
 				switch (opcaoFuncionario) {
 					case 1:
@@ -200,6 +205,6 @@ public class LocadoraLocalApplication {
 				System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu");
 				teclado.next();
 			}
-		}
+		}while(opcaoFuncionario != 7);
 	}
 }
