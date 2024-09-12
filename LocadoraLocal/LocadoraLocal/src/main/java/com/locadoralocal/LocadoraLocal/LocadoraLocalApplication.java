@@ -37,9 +37,7 @@ public class LocadoraLocalApplication {
 
 	private static int exibirMenu(){
 		
-		DALLocadora banco = new DALLocadora();
-		
-		banco.clearConsole();
+		DALLocadora.clearConsole();
 		System.out.println("=============================================");
 		System.out.println("====== Seja Bem-vindo a LocadoraLocal =======");
 		System.out.println("=============================================");
@@ -81,13 +79,11 @@ public class LocadoraLocalApplication {
 		
 		DALLocadora banco = new DALLocadora();
 		
-		int pkLocacao = banco.criarLocacao(idCliente);
-		
 		int opcaoCliente = -1;
 		ArrayList<Integer> listaFilmes = new ArrayList<>();
 		ArrayList<Integer> listaJogos = new ArrayList<>();
 
-		while (opcaoCliente != 7){
+		while (opcaoCliente != 7 && opcaoCliente != 6){
 			try{
 				banco.clearConsole();
 				System.out.println("=============================================");
@@ -104,13 +100,14 @@ public class LocadoraLocalApplication {
 				System.out.println("========== 7- Sair ==========================");
 				System.out.println("=============================================");
 				opcaoCliente = teclado.nextInt();
+				teclado.nextLine();
 				
 				switch (opcaoCliente){
 					case 1:
-						listaFilmes.addAll(clientes.alugarFilme(pkLocacao));
+						listaFilmes.addAll(clientes.alugarFilme());
 						break;
 					case 2:
-						listaJogos.addAll(clientes.alugarJogo(pkLocacao));
+						listaJogos.addAll(clientes.alugarJogo());
 						break;
 					case 3:
 						clientes.listarFilmes();
@@ -119,10 +116,10 @@ public class LocadoraLocalApplication {
 						clientes.listarJogos();
 						break;
 					case 5:
-						clientes.listarLocacao(pkLocacao, listaFilmes, listaJogos);
+						clientes.listarLocacao(idCliente, listaFilmes, listaJogos);
 						break;
 					case 6:
-						clientes.concluirLocacao();
+						clientes.concluirLocacao(idCliente, listaFilmes, listaJogos);
 						break;
 				}
 			}catch (RegraDeNegocioException e){
@@ -131,9 +128,22 @@ public class LocadoraLocalApplication {
 				teclado.next();
 			}
 		}
+		
 		if(opcaoCliente == 7) {
-			banco.cancelarLocacao(pkLocacao);
+			banco.ativarFilmesEJogos(listaFilmes, listaJogos);
+			
+			System.out.println("==============================================");
+			System.out.println("========= Locação não foi concluida ==========");
+			System.out.println("======= Os seus itens foram deletados ========");
+			System.out.println("=============== Do Carrinho ==================");
+			System.out.println("==============================================");
+			
+			listaFilmes.clear();
+			listaJogos.clear();
+			banco.pausarConsole();
+			
 		}
+		
 	}
 
 	// Criar um método para validar o acesso do funcionario

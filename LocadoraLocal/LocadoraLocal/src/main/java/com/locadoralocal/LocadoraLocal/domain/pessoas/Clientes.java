@@ -18,7 +18,7 @@ public class Clientes extends Pessoas {
 
 	}
 
-	public ArrayList<Integer> alugarFilme(int pk_locacao) {
+	public ArrayList<Integer> alugarFilme() {
 		DALLocadora banco = new DALLocadora();
 		ArrayList<Integer> listaFilmes = new ArrayList<>();
 		int idFilme;
@@ -35,7 +35,7 @@ public class Clientes extends Pessoas {
 			
 			
 		do {
-			banco.mostrarFilmes(1);
+			banco.mostrarFilmes(2);
 			
 			idFilme = teclado.nextInt();
 			teclado.nextLine();
@@ -51,6 +51,7 @@ public class Clientes extends Pessoas {
 			}else {
 				System.out.println("Seleção invalida Filme inativo ou locado");
 				System.out.println("Selecione mais Filmes ou digite zero para Sair");
+				banco.pausarConsole();
 			}
 
 		} while(true);
@@ -59,7 +60,7 @@ public class Clientes extends Pessoas {
 		
 	}
 
-	public ArrayList<Integer> alugarJogo(int pkLocacao) {
+	public ArrayList<Integer> alugarJogo() {
 
 		DALLocadora banco = new DALLocadora();
 		ArrayList<Integer> listaJogos = new ArrayList<>();
@@ -78,7 +79,7 @@ public class Clientes extends Pessoas {
 			
 
 		do {
-			banco.mostrarJogo(1);
+			banco.mostrarJogo(2);
 			idJogo = teclado.nextInt();
 			teclado.nextLine();
 
@@ -93,6 +94,7 @@ public class Clientes extends Pessoas {
 			}else {
 				System.out.println("Seleção invalida Jogo inativado ou locado");
 				System.out.println("Selecione mais filmes ou digite zero para sair");
+				banco.pausarConsole();
 			}
 
 		}while(true);
@@ -171,38 +173,42 @@ public class Clientes extends Pessoas {
 
 	}
 
-	public void listarLocacao(int pkLocacao, ArrayList<Integer> listaFilmes, ArrayList<Integer> listaJogos) {
+	public void listarLocacao(int idCliente, ArrayList<Integer> listaFilmes, ArrayList<Integer> listaJogos) {
 		DALLocadora banco = new DALLocadora();
 
 		System.out.println("=============================================");
 		System.out.println("================= Locação: ==================");
 		System.out.println("=============================================");
 
-		banco.mostrarLocacao(pkLocacao, listaFilmes, listaJogos);
+		banco.mostrarLocacao(idCliente,listaFilmes, listaJogos);
 		banco.pausarConsole();
 
 	}
 
-	public void concluirLocacao() {
-		
+	public void concluirLocacao(int idCliente, ArrayList<Integer> listaFilmes, ArrayList<Integer> listaJogos) {
 		DALLocadora banco = new DALLocadora();
-		
-		banco.clearConsole();
-		
-		System.out.println("=============================================");
-		System.out.println("======= Deseja concluir sua locação? ========");
-		System.out.println("=============================================");
-		System.out.println("========= S- Sim ========== N- Não== ========");
-		System.out.println("=============================================");
-		String opcaoCliente = teclado.nextLine();
-		if (opcaoCliente == "S"){
-			System.out.println("Concluir a locação e marcar os produtos escolhidos como inativos");
-		}if (opcaoCliente == "N"){
-			System.out.println("Fechar a aplicação ou voltar para o menu do cliente");
+		if(listaFilmes.isEmpty() && listaJogos.isEmpty()) {
+			
+			System.out.println("=====================================");
+			System.out.println("= Erro as duas listas estão vazias =");
+			System.out.println("======== Locação Cancelada =========");
+			System.out.println("=====================================");
+			banco.pausarConsole();
+			
 		}else {
-			System.out.println("=============================================");
-			System.out.println("============ Operação inválida ==============");
-			System.out.println("=============================================");
+		
+			
+			
+			banco.clearConsole();
+			
+			banco.clearConsole();
+			int numeroLocacao = banco.concluirLocacao(idCliente, listaFilmes, listaJogos);
+			System.out.println("==========================================");
+			System.out.println("=========== Locação Finalizada ===========");
+			System.out.printf("=============== Locação Nº%d =============\n", numeroLocacao);
+			System.out.println("==========================================");
+			banco.mostrarLocacao(idCliente, listaFilmes, listaJogos);
+			banco.pausarConsole();
 		}
 	}
 }

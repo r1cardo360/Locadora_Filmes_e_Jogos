@@ -5,16 +5,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.StringJoiner;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
-
-import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class DALLocadora {
 	
@@ -98,9 +93,9 @@ public class DALLocadora {
 		try {
 			connection = DriverManager.getConnection(stringConnect);
 			if (opcao == 1) {
-				sql = "SELECT pk_filmes, nome_filme, classificacao_filme, ano_lancamento_filmes, nota_filme FROM filmes WHERE ativo_filmes = 'S'";
-			}else {
 				sql = "SELECT pk_filmes, nome_filme, classificacao_filme, ano_lancamento_filmes, nota_filme FROM filmes";
+			}else {
+				sql = "SELECT pk_filmes, nome_filme, classificacao_filme, ano_lancamento_filmes, nota_filme FROM filmes WHERE ativo_filmes = 'S'";
 			}
 			preparedStatement = connection.prepareStatement(sql);
 			
@@ -184,7 +179,7 @@ public class DALLocadora {
 		
 	}
 
-	public static int criarLocacao(int idCliente) {
+	public static int concluirLocacao(int idCliente, ArrayList<Integer> listaFilmes, ArrayList<Integer> listaJogos) {
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		
@@ -219,6 +214,33 @@ public class DALLocadora {
 			if(resultSet.next()) {
 				pkLocacao = resultSet.getInt(1);
 			}
+			
+			if(!listaFilmes.isEmpty()) {
+				for(int i = 0; i < listaFilmes.size(); i++) {
+					sql = "INSERT INTO item_filme_locacao(fk_locacao, fk_filme) VALUES(?, ?)";
+					
+					preparedStatement = connection.prepareStatement(sql);
+					
+					preparedStatement.setInt(1, pkLocacao);
+					preparedStatement.setInt(2, listaFilmes.get(i));
+					
+					preparedStatement.executeUpdate();
+				}
+			}
+			
+			if(!listaJogos.isEmpty()) {
+				for(int i = 0; i < listaJogos.size(); i++) {
+					sql = "INSERT INTO item_jogo_locacao(fk_locacao, fk_jogo) VALUES(?, ?)";
+					
+					preparedStatement = connection.prepareStatement(sql);
+					
+					preparedStatement.setInt(1, pkLocacao);
+					preparedStatement.setInt(2, listaJogos.get(i));
+					
+					preparedStatement.executeUpdate();
+				}
+			}
+			
 		return pkLocacao;
 			
 		}catch(SQLException e) {
@@ -317,9 +339,9 @@ public class DALLocadora {
 		
 			connection = DriverManager.getConnection(stringConnect);
 			if(opcao == 1) {
-				sql = "SELECT pk_jogo, nome_jogo, classificacao_jogo, ano_lancamento_jogo FROM jogos WHERE ativo_jogos = 'S'";
-			}else {
 				sql = "SELECT pk_jogo, nome_jogo, classificacao_jogo, ano_lancamento_jogo FROM jogos";
+			}else {
+				sql = "SELECT pk_jogo, nome_jogo, classificacao_jogo, ano_lancamento_jogo FROM jogos WHERE ativo_jogos = 'S'";
 			}
 			preparedStatement = connection.prepareStatement(sql);
 			
@@ -432,7 +454,7 @@ public class DALLocadora {
 		}
 	}
 	
-    public static void mostrarLocacao(int pkLocacao, ArrayList<Integer> listaFilmes, ArrayList<Integer> listaJogos) {
+    public static void mostrarLocacao(int idCliente, ArrayList<Integer> listaFilmes, ArrayList<Integer> listaJogos) {
 		
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -442,18 +464,18 @@ public class DALLocadora {
 		try {
 		
 			connection = DriverManager.getConnection(stringConnect);
-			sql = "SELECT pk_cliente, nome_cliente FROM cliente WHERE pk_cliente = (SELECT fk_cliente FROM locacao WHERE pk_locacao = ?)";
+			sql = "SELECT pk_cliente, nome_cliente FROM cliente WHERE pk_cliente = ?";
 			preparedStatement = connection.prepareStatement(sql);
 			
-			preparedStatement.setInt(1, pkLocacao);
+			preparedStatement.setInt(1, idCliente);
 			
 			resultSet = preparedStatement.executeQuery();
 			
-			int idCliente = resultSet.getInt("pk_cliente");
+			int idClientesql = resultSet.getInt("pk_cliente");
 			String nomeCliente = resultSet.getString("nome_cliente");
 		
 			System.out.println("+-------+----------------------------------------------------+-----------------+-----------------+");
-			System.out.printf("| %-5d | %-50s |\n", idCliente, nomeCliente);
+			System.out.printf("| %-5d | %-50s |\n", idClientesql, nomeCliente);
 			System.out.println("+-------+----------------------------------------------------+-----------------+-----------------+");
 			System.out.println("==================================== FILMES ======================================================");
 			
@@ -602,5 +624,39 @@ public class DALLocadora {
     	
     }
     
+    public static void ativarFilmesEJogos(ArrayList<Integer> listaFilmes, ArrayList<Integer> listaJogos) {
+ 
+    	
+    	Connection connection = null;
+    	PreparedStatement preparedStatement = null;
+    	String sql;
+    	
+    	try {
+    		connection = DriverManager.getConnection(stringConnect);
+    		
+    		if(!listaFilmes.isEmpty()) {
+	    		for(int i = 0; i < listaFilmes.size(); i++) {
+	    			sql = "UPDATE filmes SET ativo_filmes = 'S' WHERE pk_filmes = ?";
+	    			
+	    			preparedStatement = connection.prepareStatement(sql);
+	    			preparedStatement.setInt(1, listaFilmes.get(i));
+	    			preparedStatement.executeUpdate();
+	    		}
+    		}
+    		if(!listaJogos.isEmpty()) {
+    			for(int i = 0; i < listaJogos.size(); i++) {
+    				sql = "UPDATE jogos SET ativo_jogos = 'S' WHERE pk_jogo = ?";
+    				
+    				preparedStatement = connection.prepareStatement(sql);
+    				preparedStatement.setInt(1, listaJogos.get(i));
+    				
+    				preparedStatement.executeUpdate();
+    			}
+    		}
+    	}catch(SQLException e) {
+    		
+    	}
+    	
+    }
     
 }
