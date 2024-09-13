@@ -171,9 +171,9 @@ public class Clientes extends Pessoas {
 
 	public void listarLocacao(int idCliente, ArrayList<Integer> listaFilmes, ArrayList<Integer> listaJogos) {
 
-		System.out.println("=============================================");
-		System.out.println("================= Locação: ==================");
-		System.out.println("=============================================");
+		System.out.println("==============================================================");
+		System.out.println("========================== Locação ===========================");
+		System.out.println("==============================================================");
 
 		DALLocadora.mostrarLocacao(idCliente,listaFilmes, listaJogos);
 		DALLocadora.pausarConsole();

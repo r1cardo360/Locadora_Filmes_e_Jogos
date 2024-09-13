@@ -15,7 +15,7 @@ public class DALLocadora {
 	
 	private static Scanner teclado = new Scanner(System.in);
 	
-	private static final String stringConnect = "jdbc:sqlite:/C:\\Users\\Suporte\\Desktop\\Backup\\HS\\Nova pasta\\Locadora_Filmes_e_Jogos\\Locadora\\Locadora.db";
+	private static final String stringConnect = "jdbc:sqlite:/C:\\Users\\pc\\Desktop\\Projeto_Locadora\\Locadora_Filmes_e_Jogos\\Locadora\\Locadora.db";
 
 	public static void pausarConsole() {
 		System.out.println("Pressione Enter para Continuar...");
@@ -129,14 +129,16 @@ public class DALLocadora {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-		String sql;
+		String sql = "";
 		
 		try {
 			connection = DriverManager.getConnection(stringConnect);
 			if (opcao == 1) {
 				sql = "SELECT pk_filmes, nome_filme, classificacao_filme, ano_lancamento_filmes, nota_filme FROM filmes";
-			}else {
+			}else if(opcao == 2) {
 				sql = "SELECT pk_filmes, nome_filme, classificacao_filme, ano_lancamento_filmes, nota_filme FROM filmes WHERE ativo_filmes = 'S'";
+			}else {
+				System.out.println("Erro opção invalida");
 			}
 			preparedStatement = connection.prepareStatement(sql);
 			
@@ -374,23 +376,25 @@ public class DALLocadora {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-		String sql;
+		String sql = "";
 		
 		try {
 		
 			connection = DriverManager.getConnection(stringConnect);
 			if(opcao == 1) {
 				sql = "SELECT pk_jogo, nome_jogo, classificacao_jogo, ano_lancamento_jogo FROM jogos";
-			}else {
+			}else if(opcao == 2) {
 				sql = "SELECT pk_jogo, nome_jogo, classificacao_jogo, ano_lancamento_jogo FROM jogos WHERE ativo_jogos = 'S'";
+			}else {
+				System.out.println("Opção invalida");
 			}
 			preparedStatement = connection.prepareStatement(sql);
 			
 			resultSet = preparedStatement.executeQuery();
 		
-			System.out.println("+-------+----------------------------------------------------+-----------------+-----------------+");
-			System.out.printf("| %-5s | %-50s | %-15s | %-15s |\n", "ID", "Nome", "Classificação", "Ano de Lançamento");
-			System.out.println("+-------+----------------------------------------------------+-----------------+-----------------+");
+			System.out.println("+-------+----------------------------------------------------+-----------------+--------------------+");
+			System.out.printf("| %-5s | %-50s | %-15s | %-18s |\n", "ID", "Nome", "Classificação", "Ano de Lançamento");
+			System.out.println("+-------+----------------------------------------------------+-----------------+--------------------+");
 			
 			while(resultSet.next()) {
 				int id = resultSet.getInt("pk_jogo");
@@ -398,11 +402,11 @@ public class DALLocadora {
 				int classificacao = resultSet.getInt("classificacao_jogo");
 				int anoLancamento = resultSet.getInt("ano_lancamento_jogo");
 				
-				System.out.printf("| %-5d | %-50s | %-15d | %-15d |\n", id, nome, classificacao, anoLancamento);
+				System.out.printf("| %-5d | %-50s | %-15d | %-18d |\n", id, nome, classificacao, anoLancamento);
 				
 			}
 			
-			System.out.println("+-------+----------------------------------------------------+-----------------+-----------------+");
+			System.out.println("+-------+----------------------------------------------------+-----------------+--------------------+");
 			
 		}catch(SQLException e) {
 			System.out.println("Erro ao conectarse ao banco de dados: " + e.getMessage());
@@ -515,10 +519,10 @@ public class DALLocadora {
 			int idClientesql = resultSet.getInt("pk_cliente");
 			String nomeCliente = resultSet.getString("nome_cliente");
 		
-			System.out.println("+-------+----------------------------------------------------+-----------------+-----------------+");
+			System.out.println("+-------+----------------------------------------------------+");
 			System.out.printf("| %-5d | %-50s |\n", idClientesql, nomeCliente);
-			System.out.println("+-------+----------------------------------------------------+-----------------+-----------------+");
-			System.out.println("==================================== FILMES ======================================================");
+			System.out.println("+-------+----------------------------------------------------+");
+			System.out.println("=========================== FILMES ===========================");
 			
 			if(listaFilmes.isEmpty()) {
 				System.out.println("Nenhum Filme na lista");
@@ -533,9 +537,9 @@ public class DALLocadora {
 				
 				resultSet = preparedStatement.executeQuery();
 				
-				System.out.println("+-------+----------------------------------------------------+-----------------+-----------------+");
+				System.out.println("+-------+----------------------------------------------------+");
 				System.out.printf("| %-5s | %-50s |\n", "ID", "Nome");
-				System.out.println("+-------+----------------------------------------------------+-----------------+-----------------+");
+				System.out.println("+-------+----------------------------------------------------+");
 				
 				while(resultSet.next()) {
 					int idFilme = resultSet.getInt("pk_filmes");
@@ -545,8 +549,8 @@ public class DALLocadora {
 				}	
 			}
 			
-			System.out.println("+-------+----------------------------------------------------+-----------------+-----------------+");
-			System.out.println("==================================== JOGOS =======================================================");
+			System.out.println("+-------+----------------------------------------------------+");
+			System.out.println("=========================== JOGOS ============================");
 			
 			if(listaJogos.isEmpty()) {
 				System.out.println("Nenhum Jogo na lista");
@@ -561,9 +565,9 @@ public class DALLocadora {
 	
 			resultSet = preparedStatement.executeQuery();
 			
-			System.out.println("+-------+----------------------------------------------------+-----------------+-----------------+");
+			System.out.println("+-------+----------------------------------------------------+");
 			System.out.printf("| %-5s | %-50s |\n", "ID", "Nome");
-			System.out.println("+-------+----------------------------------------------------+-----------------+-----------------+");
+			System.out.println("+-------+----------------------------------------------------+");
 			
 			while(resultSet.next()) {
 				int idJogo = resultSet.getInt("pk_jogo");
@@ -573,7 +577,7 @@ public class DALLocadora {
 				
 				}
 			}
-			System.out.println("+-------+----------------------------------------------------+-----------------+-----------------+");
+			System.out.println("+-------+----------------------------------------------------+");
 			
 		}catch(SQLException e) {
 			System.out.println("Erro ao conectarse ao banco de dados: " + e.getMessage());
@@ -748,6 +752,128 @@ public class DALLocadora {
 			System.out.println("========== A opração foi cancelada ==========");
 			System.out.println("=============================================");
 	    	}
+    }
+    
+    public static void listarClientes(int listar) {
+    	
+    	Connection connection = null;
+    	PreparedStatement preparedStatement = null;
+    	ResultSet resultSet = null;
+    	String sql = "";
+    	
+    	try {
+    		
+    		connection = DriverManager.getConnection(stringConnect);
+    		
+    		if(listar == 1) {
+    			sql = "SELECT pk_cliente, nome_cliente, cpf_cliente, ano_nascimento_cliente, sexo_cliente FROM cliente";
+    		}else if(listar == 2) {
+    			sql = "SELECT pk_cliente, nome_cliente, cpf_cliente, ano_nascimento_cliente, sexo_cliente FROM cliente WHERE ativo_cliente = 'S'";
+    		}else {
+    			System.out.println("Opção invalida");
+    		}
+    		
+    		preparedStatement = connection.prepareStatement(sql);
+    		resultSet = preparedStatement.executeQuery();
+    		
+			System.out.println("+-------+----------------------------------------------------+--------------+-----------------+------------+");
+			System.out.printf("| %-5s | %-50s | %-12s | %-15s | %-10s |\n", "ID", "Nome", "CPF", "Ano de Nasc", "Sexo");
+			System.out.println("+-------+----------------------------------------------------+--------------+-----------------+------------+");
+    		
+			while(resultSet.next()) {
+				int id = resultSet.getInt("pk_cliente");
+				String nome = resultSet.getString("nome_cliente");
+				String cpf = resultSet.getString("cpf_cliente");
+				int anoNascimento = resultSet.getInt("ano_nascimento_cliente");
+				String sexo = resultSet.getString("sexo_cliente");
+				
+				System.out.printf("| %-5d | %-50s | %-12s | %-15d | %-10s |\n", id, nome, cpf, anoNascimento, sexo);
+				
+			}
+			
+			System.out.println("+-------+----------------------------------------------------+--------------+-----------------+------------+");
+    		
+    		
+    	}catch(SQLException e){
+    		System.out.println("Não foi possivel conectar-se ao banco de daods: " + e.getMessage());
+    	}finally {
+    		try {
+    			if(preparedStatement != null) {
+    				preparedStatement.close();
+    			}
+    			if(resultSet != null) {
+    				resultSet.close();
+    			}
+    			if(connection != null) {
+    				connection.close();
+    			}
+    		}catch(SQLException ex) {
+    			System.out.println("naõ foi possivel fechar a conexão com o banco de dados");
+    		}
+    	}
+    		
+    }
+    
+    public static void listarFuncionarios(int listar) {
+    	
+    	Connection connection = null;
+    	PreparedStatement preparedStatement = null;
+    	ResultSet resultSet = null;
+    	String sql = "";
+    	
+    	try {
+    		
+    		connection = DriverManager.getConnection(stringConnect);
+    		
+    		if(listar == 1) {
+    			sql = "SELECT pk_funcionario, nome_funcionario, cpf_funcionario, ano_nascimento_funcionario, sexo_funcionario, funcao_funcionario FROM funcionario";
+    		}else if(listar == 2) {
+    			sql = "SELECT pk_funcionario, nome_funcionario, cpf_funcionario, ano_nascimento_funcionario, sexo_funcionario, funcao_funcionario FROM funcionario WHERE ativo_funcionario = 'S'";
+    		}else {
+    			System.out.println("Opção invalida");
+    		}
+    		
+    		preparedStatement = connection.prepareStatement(sql);
+    		resultSet =  preparedStatement.executeQuery();
+    		
+			System.out.println("+-------+----------------------------------------------------+--------------+-----------------+------------+----------------------+");
+			System.out.printf("| %-5s | %-50s | %-12s | %-15s | %-10s | %-20s |\n", "ID", "Nome", "CPF", "Ano de Nasc", "Sexo", "Função");
+			System.out.println("+-------+----------------------------------------------------+--------------+-----------------+------------+----------------------+");
+    		
+			while(resultSet.next()) {
+				int id = resultSet.getInt("pk_funcionario");
+				String nome = resultSet.getString("nome_funcionario");
+				String cpf = resultSet.getString("cpf_funcionario");
+				int anoNascimento = resultSet.getInt("ano_nascimento_funcionario");
+				String sexo = resultSet.getString("sexo_funcionario");
+				String funcao = resultSet.getString("funcao_funcionario");
+				
+				System.out.printf("| %-5d | %-50s | %-12s | %-15d | %-10s | %-20s |\n", id, nome, cpf, anoNascimento, sexo, funcao);
+				
+			}
+			
+			System.out.println("+-------+----------------------------------------------------+--------------+-----------------+------------+----------------------+");
+			
+    	}catch(SQLException e){
+    		System.out.println("Não foi possivel conectar-se ao banco de daods: " + e.getMessage());
+    	}finally {
+    		try {
+    			if(preparedStatement != null) {
+    				preparedStatement.close();
+    			}
+    			if(resultSet != null) {
+    				resultSet.close();
+    			}
+    			if(connection != null) {
+    				connection.close();
+    			}
+    		}catch(SQLException ex) {
+    			System.out.println("naõ foi possivel fechar a conexão com o banco de dados");
+    		}
+    	}
+    	
+    	
+    	
     }
     
 }

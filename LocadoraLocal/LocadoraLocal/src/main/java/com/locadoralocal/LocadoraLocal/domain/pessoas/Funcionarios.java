@@ -296,30 +296,60 @@ public class Funcionarios extends Pessoas {
 	}
 
 	public void listarPessoa() {
-		int opcao;
+		int opcao, listar;
 		do{
+			
+			DALLocadora.clearConsole();
 			System.out.println("=============================================");
-			System.out.println("=== Deseja listar todos ou apenas ativos? ===");
+			System.out.println("== Deseja listar Clientes ou Funcionarios? ==");
+			System.out.println("==== 1- Clientes ======= 2- Funcionários ====");
+			System.out.println("================== 0- Sair ==================");
 			System.out.println("=============================================");
-			System.out.println("======== 1- Todos ======== 2- Ativos ========");
-			System.out.println("============== 0- Para sair =================");
-			System.out.println("=============================================");
+			
 			opcao = teclado.nextInt();
-			try{
+			teclado.nextLine();
+			
+			if(opcao == 0) {
+				break;
+			}
+			
+			if(opcao != 1 && opcao != 2) {
+				System.out.println("Erro: comando inválido. Tente novamente.");
+				continue;
+			}
+			
+				System.out.println("=============================================");
+				System.out.println("=== Deseja listar todos ou apenas ativos? ===");
+				System.out.println("=============================================");
+				System.out.println("======== 1- Todos ======== 2- Ativos ========");
+				System.out.println("============== 0- Para sair =================");
+				System.out.println("=============================================");
+				
+				listar = teclado.nextInt();
+				teclado.nextLine();
+				
+				if(listar == 0) {
+					break;
+				}
+
+				if(listar != 1 && listar != 2) {
+					System.out.println("Erro: comando inválido. Tente novamente.");
+					continue;
+				}
+				
 				switch (opcao){
 					case 1:
-						System.out.println("Query para listar todos as pessoas");
+						DALLocadora.clearConsole();
+						DALLocadora.listarClientes(listar);
+						DALLocadora.pausarConsole();
 						break;
 					case 2:
-						System.out.println("Query para listar apenas ativo = true");
+						DALLocadora.clearConsole();
+						DALLocadora.listarFuncionarios(listar);
+						DALLocadora.pausarConsole();
 						break;
 				}
-			}catch (RegraDeNegocioException e){
-				System.out.println("Erro: " +e.getMessage());
-				System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu");
-				teclado.next();
-			}
-		}while (opcao == 0);
+		}while(true);
 	}
 
 	private void apagarProduto() {
@@ -468,31 +498,47 @@ public class Funcionarios extends Pessoas {
 			opcao = teclado.nextInt();
 			teclado.nextLine();
 			
-			if(opcao != 0) {
-				
-				System.out.println("=============================================");
-				System.out.println("=== Deseja listar todos ou apenas ativos? ===");
-				System.out.println("=============================================");
-				System.out.println("======== 1- Todos ======== 2- Ativos ========");
-				System.out.println("============== 0- Para sair =================");
-				System.out.println("=============================================");
-				
-				listar = teclado.nextInt();
-				teclado.nextLine();
-			
-				switch (opcao) {
-					case 1:
-						DALLocadora.clearConsole();
-						DALLocadora.mostrarFilmes(listar);
-						DALLocadora.pausarConsole();
-						break;
-					case 2:
-						DALLocadora.clearConsole();
-						DALLocadora.mostrarJogo(listar);
-						DALLocadora.pausarConsole();
-					}
+			if(opcao == 0) {
+				break;
 			}
-		}while (opcao != 0);
+
+			if(opcao != 1 && opcao != 2) {
+				System.out.println("Erro: comando inválido. Tente novamente.");
+				continue;
+			}
+
+			System.out.println("=============================================");
+			System.out.println("=== Deseja listar todos ou apenas ativos? ===");
+			System.out.println("=============================================");
+			System.out.println("======== 1- Todos ======== 2- Ativos ========");
+			System.out.println("============== 0- Para sair =================");
+			System.out.println("=============================================");
+			
+			listar = teclado.nextInt();
+			teclado.nextLine();
+
+			if(listar == 0) {
+				break;
+			}
+
+			if(listar != 1 && listar != 2) {
+				System.out.println("Erro: comando inválido. Tente novamente.");
+				continue;
+			}
+
+			switch (opcao) {
+				case 1:
+					DALLocadora.clearConsole();
+					DALLocadora.mostrarFilmes(listar);
+					DALLocadora.pausarConsole();
+					break;
+				case 2:
+					DALLocadora.clearConsole();
+					DALLocadora.mostrarJogo(listar);
+					DALLocadora.pausarConsole();
+					break;
+			}
+		} while (true);
 	}
 
 	public void ativarInativarProduto() {
