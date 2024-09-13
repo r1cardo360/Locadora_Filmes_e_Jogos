@@ -571,50 +571,6 @@ public class Funcionarios extends Pessoas {
 		} while (true);
 	}
 
-	public void ativarInativarProduto() {
-		System.out.println("=============================================");
-		System.out.println("=== Qual produto deseja Ativar/Inativar? ====");
-		System.out.println("=============================================");
-		String nomeProduto = teclado.nextLine();
-		System.out.println("=============================================");
-		System.out.println("============== Selecione a opção ============");
-		System.out.println("======= 1- Ativar ======= 2- Inativar =======");
-		System.out.println("=============================================");
-		int opcao = teclado.nextInt();
-
-		if (opcao == 1){
-			ativarProduto();
-		}if (opcao == 2){
-			inativarProduto();
-		}else {
-			System.out.println("=============================================");
-			System.out.println("============ Operação inválida ==============");
-			System.out.println("=============================================");
-		}
-	}
-
-	public void ativarInativarPessoa() {
-		System.out.println("=============================================");
-		System.out.println("=== Qual Pessoa deseja Ativar/Inativar? =====");
-		System.out.println("=============================================");
-		String nomePessoa = teclado.nextLine();
-		System.out.println("=============================================");
-		System.out.println("============== Selecione a opção ============");
-		System.out.println("======= 1- Ativar ======= 2- Inativar =======");
-		System.out.println("=============================================");
-		int opcao = teclado.nextInt();
-
-		if (opcao == 1){
-			ativarPessoa();
-		}if (opcao == 2){
-			inativarPessoa();
-		}else {
-			System.out.println("=============================================");
-			System.out.println("============ Operação inválida ==============");
-			System.out.println("=============================================");
-		}
-	}
-
 	public void apagarPessoaProduto() {
 		int opcao;
 		do {

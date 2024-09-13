@@ -175,8 +175,8 @@ public class LocadoraLocalApplication {
 			System.out.println("============ Opções Disponiveis: ============");
 			System.out.println("=============================================");
 			System.out.println("========== 1- Listar =========================");
-			System.out.println("========== 2- Ativar/Inativar um Produto ====");
-			System.out.println("========== 3- Ativa/Inativar uma Pessoa =====");
+			System.out.println("========== 2- Ativar =========================");
+			System.out.println("========== 3- Inativar =======================");
 			System.out.println("========== 4- Adicionar Pessoa/Produto ======");
 			System.out.println("========== 5- Apagar Pessoa/Produto =========");
 			System.out.println("=============================================");
@@ -188,10 +188,10 @@ public class LocadoraLocalApplication {
 						funcionarios.listar();
 						break;
 					case 2:
-						funcionarios.ativarInativarProduto();
+						funcionarios.ativar();
 						break;
 					case 3:
-						funcionarios.ativarInativarPessoa();
+						funcionarios.inativar();
 						break;
 					case 4:
 						funcionarios.adicionar();
