@@ -7,176 +7,177 @@ import java.util.Scanner;
 
 public class Clientes extends Pessoas {
 
-	Scanner teclado = new Scanner(System.in);
-	
-	public Clientes(String nome, String cpf, int anoNascimento, char sexo, boolean ativo) {
-		//super(nome, cpf, anoNascimento, sexo, ativo);
-	}
+    Scanner teclado = new Scanner(System.in);
 
-	public Clientes() {
+    public Clientes(String nome, String cpf, int anoNascimento, char sexo, boolean ativo) {
+        //super(nome, cpf, anoNascimento, sexo, ativo);
+    }
 
-	}
+    public Clientes() {
 
-	public void alugarFilme(int pk_locacao) {
-		DALLocadora banco = new DALLocadora();
-		int idFilme;
+    }
 
-		do {
-			System.out.println("=============================================");
-			System.out.println("========= Qual filme deseja alugar? =========");
-			System.out.println("=============================================");
+    public void alugarFilme(int pk_locacao) {
+        DALLocadora banco = new DALLocadora();
+        int idFilme;
 
-			System.out.println("=============================================");
-			System.out.println("========= Digite um Id de filme ou ==========");
-			System.out.println("============== 0- Para sair =================");
-			System.out.println("=============================================");
+        do {
+            System.out.println("=============================================");
+            System.out.println("========= Qual filme deseja alugar? =========");
+            System.out.println("=============================================");
 
-			banco.mostrarFilmes(1);
-			idFilme = teclado.nextInt();
-			teclado.nextLine();
+            System.out.println("=============================================");
+            System.out.println("========= Digite um Id de filme ou ==========");
+            System.out.println("============== 0- Para sair =================");
+            System.out.println("=============================================");
 
-			if (idFilme == 0){
-				System.out.println("Saindo...");
-				break;
-			}
+            banco.mostrarFilmes(1);
+            idFilme = teclado.nextInt();
+            teclado.nextLine();
 
-			if(banco.SelecionarFilme(idFilme)){
-				System.out.println("Filme selecionado");
-				banco.adicionarFilme(pk_locacao, idFilme);
+            if (idFilme == 0) {
+                System.out.println("Saindo...");
+                break;
+            }
 
-			}else {
-				System.out.println("Seleção invalida Filme inativo ou locado");
-			}
+            if (banco.SelecionarFilme(idFilme)) {
+                System.out.println("Filme selecionado");
+                banco.adicionarFilme(pk_locacao, idFilme);
 
-		} while(true);
+            } else {
+                System.out.println("Seleção invalida Filme inativo ou locado");
+            }
 
-	}
+        } while (true);
 
-	public void alugarJogo(int pkLocacao) {
+    }
 
-		DALLocadora banco = new DALLocadora();
-		int idJogo = -1;
+    public void alugarJogo(int pkLocacao) {
 
-		do {
-			System.out.println("=============================================");
-			System.out.println("======== Qual jogo deseja alugar? ===========");
-			System.out.println("=============================================");
+        DALLocadora banco = new DALLocadora();
+        int idJogo = -1;
 
-			System.out.println("=============================================");
-			System.out.println("========== Digite um Id de jogo ou ==========");
-			System.out.println("============== 0- Para sair =================");
-			System.out.println("=============================================");
+        do {
+            System.out.println("=============================================");
+            System.out.println("======== Qual jogo deseja alugar? ===========");
+            System.out.println("=============================================");
 
-			banco.mostrarJogo(1);
+            System.out.println("=============================================");
+            System.out.println("========== Digite um Id de jogo ou ==========");
+            System.out.println("============== 0- Para sair =================");
+            System.out.println("=============================================");
 
-			idJogo = teclado.nextInt();
-			teclado.nextLine();
+            banco.mostrarJogo(1);
 
-			if(idJogo == 0) {
-				System.out.println("Saindo...");
-				break;
-			}
+            idJogo = teclado.nextInt();
+            teclado.nextLine();
 
-			if(banco.selecionarJogo(idJogo)) {
-				System.out.println("Jogo Selecionado");
-				banco.adicionarJogo(pkLocacao, idJogo);
-			}else {
-				System.out.println("Seleção invalida Jogo inativado ou locado");
-			}
+            if (idJogo == 0) {
+                System.out.println("Saindo...");
+                break;
+            }
 
-		}while(true);
+            if (banco.selecionarJogo(idJogo)) {
+                System.out.println("Jogo Selecionado");
+                banco.adicionarJogo(pkLocacao, idJogo);
+            } else {
+                System.out.println("Seleção invalida Jogo inativado ou locado");
+            }
+
+        } while (true);
 
 
-	}
+    }
 
-	public void listarFilmes() {
-		DALLocadora banco = new DALLocadora();
-		int opcaoCliente;
+    public void listarFilmes() {
+        DALLocadora banco = new DALLocadora();
+        int opcaoCliente;
 
-		do{
-			System.out.println("=============================================");
-			System.out.println("=== Deseja listar todos ou apenas ativos? ===");
-			System.out.println("=============================================");
-			System.out.println("======== 1- Todos ======== 2- Ativos ========");
-			System.out.println("============== 0- Para sair =================");
-			System.out.println("=============================================");
-			opcaoCliente = teclado.nextInt();
+        do {
+            System.out.println("=============================================");
+            System.out.println("=== Deseja listar todos ou apenas ativos? ===");
+            System.out.println("=============================================");
+            System.out.println("======== 1- Todos ======== 2- Ativos ========");
+            System.out.println("============== 0- Para sair =================");
+            System.out.println("=============================================");
+            opcaoCliente = teclado.nextInt();
 
-			try{
-				switch (opcaoCliente){
-					case 1:
-						banco.mostrarFilmes(opcaoCliente);
-						break;
-					case 2:
-						banco.mostrarFilmes(opcaoCliente);
-						break;
-				}
-			}catch (RegraDeNegocioException e){
-				System.out.println("Erro: " +e.getMessage());
-				System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu");
-				teclado.next();
-			}
-		}while(opcaoCliente == 0);
+            try {
+                switch (opcaoCliente) {
+                    case 1:
+                        banco.mostrarFilmes(opcaoCliente);
+                        break;
+                    case 2:
+                        banco.mostrarFilmes(opcaoCliente);
+                        break;
+                }
+            } catch (RegraDeNegocioException e) {
+                System.out.println("Erro: " + e.getMessage());
+                System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu");
+                teclado.next();
+            }
+        } while (opcaoCliente == 0);
 
-	}
+    }
 
-	public void listarJogos() {
-		DALLocadora banco = new DALLocadora();
-		int opcaoCliente;
+    public void listarJogos() {
+        DALLocadora banco = new DALLocadora();
+        int opcaoCliente;
 
-		do {
-			System.out.println("=============================================");
-			System.out.println("=== Deseja listar todos ou apenas ativos? ===");
-			System.out.println("=============================================");
-			System.out.println("======== 1- Todos ======== 2- Ativos ========");
-			System.out.println("=============================================");
-			opcaoCliente = teclado.nextInt();
+        do {
+            System.out.println("=============================================");
+            System.out.println("=== Deseja listar todos ou apenas ativos? ===");
+            System.out.println("=============================================");
+            System.out.println("======== 1- Todos ======== 2- Ativos ========");
+            System.out.println("=============================================");
+            opcaoCliente = teclado.nextInt();
 
-			try{
-				switch (opcaoCliente){
-					case 1:
-						banco.mostrarJogo(opcaoCliente);
-						break;
-					case 2:
-						banco.mostrarJogo(opcaoCliente);
-						break;
-				}
-			}catch (RegraDeNegocioException e){
-				System.out.println("Erro: " +e.getMessage());
-				System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu");
-				teclado.next();
-			}
-		}while(opcaoCliente == 0);
+            try {
+                switch (opcaoCliente) {
+                    case 1:
+                        banco.mostrarJogo(opcaoCliente);
+                        break;
+                    case 2:
+                        banco.mostrarJogo(opcaoCliente);
+                        break;
+                }
+            } catch (RegraDeNegocioException e) {
+                System.out.println("Erro: " + e.getMessage());
+                System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu");
+                teclado.next();
+            }
+        } while (opcaoCliente == 0);
 
-	}
+    }
 
-	public void listarLocacao(int pkLocacao) {
-		DALLocadora banco = new DALLocadora();
+    public void listarLocacao(int pkLocacao) {
+        DALLocadora banco = new DALLocadora();
 
-		System.out.println("=============================================");
-		System.out.println("=========== Itens da sua locação: ===========");
-		System.out.println("=============================================");
-		System.out.println("Query para listar os itens presentes na locação atual");
+        System.out.println("=============================================");
+        System.out.println("=========== Itens da sua locação: ===========");
+        System.out.println("=============================================");
+        System.out.println("Query para listar os itens presentes na locação atual");
 
-		banco.mostrarLocacao(pkLocacao);
+        banco.mostrarLocacao(pkLocacao);
 
-	}
+    }
 
-	public void concluirLocacao() {
-		System.out.println("=============================================");
-		System.out.println("======= Deseja concluir sua locação? ========");
-		System.out.println("=============================================");
-		System.out.println("========= S- Sim ========== N- Não== ========");
-		System.out.println("=============================================");
-		String opcaoCliente = teclado.nextLine();
-		if (opcaoCliente == "S"){
-			System.out.println("Concluir a locação e marcar os produtos escolhidos como inativos");
-		}if (opcaoCliente == "N"){
-			System.out.println("Fechar a aplicação ou voltar para o menu do cliente");
-		}else {
-			System.out.println("=============================================");
-			System.out.println("============ Operação inválida ==============");
-			System.out.println("=============================================");
-		}
-	}
+    public void concluirLocacao() {
+        System.out.println("=============================================");
+        System.out.println("======= Deseja concluir sua locação? ========");
+        System.out.println("=============================================");
+        System.out.println("========= S- Sim ========== N- Não== ========");
+        System.out.println("=============================================");
+        String opcaoCliente = teclado.nextLine();
+        if (opcaoCliente == "S") {
+            System.out.println("Concluir a locação e marcar os produtos escolhidos como inativos");
+        }
+        if (opcaoCliente == "N") {
+            System.out.println("Fechar a aplicação ou voltar para o menu do cliente");
+        } else {
+            System.out.println("=============================================");
+            System.out.println("============ Operação inválida ==============");
+            System.out.println("=============================================");
+        }
+    }
 }

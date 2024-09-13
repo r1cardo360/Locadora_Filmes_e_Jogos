@@ -2,11 +2,11 @@ package com.locadoralocal.LocadoraLocal.domain.pessoas;
 
 public class Pessoas {
 
-	private String nome;
-	private String cpf;
-	private int anoNascimento;
-	private String sexo;
-	private boolean ativo;
+    private String nome;
+    private String cpf;
+    private int anoNascimento;
+    private String sexo;
+    private boolean ativo;
 
     public String getNome() {
         return nome;
@@ -48,35 +48,35 @@ public class Pessoas {
         this.ativo = ativo;
     }
 
-    public Pessoas(){
+    public Pessoas() {
 
     }
 
-    public Pessoas(String nome, String cpf, int anoNascimento, String sexo, boolean ativo){
-		this.nome = nome;
-		this.cpf = cpf;
-		this.anoNascimento = anoNascimento;
-		this.sexo = sexo;
-		this.ativo = ativo;
-	}
+    public Pessoas(String nome, String cpf, int anoNascimento, String sexo, boolean ativo) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.anoNascimento = anoNascimento;
+        this.sexo = sexo;
+        this.ativo = ativo;
+    }
 
-	public void adicionar() {
+    public void adicionar() {
 
-	}
+    }
 
-	public void listar() {
+    public void listar() {
 
-	}
+    }
 
-	public void ativar() {
+    public void ativar() {
 
-	}
+    }
 
-	public void inativar() {
+    public void inativar() {
 
-	}
+    }
 
-	public void apagar() {
+    public void apagar() {
 
-	}
+    }
 }

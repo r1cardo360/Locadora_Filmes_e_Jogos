@@ -1,194 +1,195 @@
 package com.locadoralocal.LocadoraLocal;
 
 import java.util.Scanner;
+
 import com.locadoralocal.LocadoraLocal.domain.locacao.DALLocadora;
 import com.locadoralocal.LocadoraLocal.domain.pessoas.Clientes;
 import com.locadoralocal.LocadoraLocal.domain.pessoas.Funcionarios;
 
 public class LocadoraLocalApplication {
 
-	private static Scanner teclado = new Scanner(System.in);
-	static Funcionarios funcionarios = new Funcionarios();
-	static Clientes clientes = new Clientes();
+    private static Scanner teclado = new Scanner(System.in);
+    static Funcionarios funcionarios = new Funcionarios();
+    static Clientes clientes = new Clientes();
 
-	public static void main(String[] args) {
-		var opcao = exibirMenu();
-		while (opcao != 3) {
-			try {
-				switch (opcao){
-					case 1:
-						validarCliente();
-						break;
-					case 2:
-						validarFuncionario();
-						break;
+    public static void main(String[] args) {
+        var opcao = exibirMenu();
+        while (opcao != 3) {
+            try {
+                switch (opcao) {
+                    case 1:
+                        validarCliente();
+                        break;
+                    case 2:
+                        validarFuncionario();
+                        break;
 
-				}
-		} catch (RegraDeNegocioException e){
-				System.out.println("Erro: " +e.getMessage());
-				System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu");
-				teclado.next();
-			}
-			opcao = exibirMenu();
-		}
-		System.out.println("Finalizando a aplicação");
-	}
+                }
+            } catch (RegraDeNegocioException e) {
+                System.out.println("Erro: " + e.getMessage());
+                System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu");
+                teclado.next();
+            }
+            opcao = exibirMenu();
+        }
+        System.out.println("Finalizando a aplicação");
+    }
 
-	private static int exibirMenu(){
-		
-		DALLocadora banco = new DALLocadora();
-		
-		System.out.println("=============================================");
-		System.out.println("====== Seja Bem-vindo a LocadoraLocal =======");
-		System.out.println("=============================================");
-		System.out.println("====== Escolha uma das opções a seguir: =====");
-		System.out.println("=============================================");
-		System.out.println("====== 1- Menu de Clientes ==================");
-		System.out.println("====== 2- Menu de Funcionários ==============");
-		System.out.println("=============================================");
-		int opcao = teclado.nextInt();
-		teclado.nextLine();
-		
-		banco.clearConsole();
-		
-		return opcao;
-	}
+    private static int exibirMenu() {
 
-	// criar um metodo para validar o acesso do cliente
+        DALLocadora banco = new DALLocadora();
 
-	private static void validarCliente(){
-		DALLocadora banco = new DALLocadora();
-		System.out.println("=============================================");
-		System.out.println("======= Insira seu numero de Cliente: =======");
-		System.out.println("=============================================");
-		var numCliente = teclado.nextInt();
+        System.out.println("=============================================");
+        System.out.println("====== Seja Bem-vindo a LocadoraLocal =======");
+        System.out.println("=============================================");
+        System.out.println("====== Escolha uma das opções a seguir: =====");
+        System.out.println("=============================================");
+        System.out.println("====== 1- Menu de Clientes ==================");
+        System.out.println("====== 2- Menu de Funcionários ==============");
+        System.out.println("=============================================");
+        int opcao = teclado.nextInt();
+        teclado.nextLine();
 
-		if (banco.verificarCliente(numCliente)){
-			menuCliente(numCliente);
-		}else {
-			System.out.println("=============================================");
-			System.out.println("======== Número de Cliente invalido =========");
-			System.out.println("=============================================");
-		}
+        banco.clearConsole();
 
-	}
+        return opcao;
+    }
 
-	// Criar um método para listar as funções para clientes
+    // criar um metodo para validar o acesso do cliente
 
-	private static void menuCliente(int idCliente){
-		
-		DALLocadora banco = new DALLocadora();
-		
-		int pkLocacao = banco.criarLocacao(idCliente);
-		
-		int opcaoCliente = -1;
+    private static void validarCliente() {
+        DALLocadora banco = new DALLocadora();
+        System.out.println("=============================================");
+        System.out.println("======= Insira seu numero de Cliente: =======");
+        System.out.println("=============================================");
+        var numCliente = teclado.nextInt();
 
-		while (opcaoCliente != 7){
-			try{
-				
-				System.out.println("=============================================");
-				System.out.println("============== Área do Cliente ==============");
-				System.out.println("=============================================");
-				System.out.println("============ Opções Disponiveis: ============");
-				System.out.println("=============================================");
-				System.out.println("========== 1- Alugar um Filme ===============");
-				System.out.println("========== 2- Alugar um Jogo ================");
-				System.out.println("========== 3- Listar todos os Filmes ========");
-				System.out.println("========== 4- Listar todos os Jogos =========");
-				System.out.println("========== 5- Listar locação ================");
-				System.out.println("========== 6- Concluir locação ==============");
-				System.out.println("========== 7- Sair ==========================");
-				System.out.println("=============================================");
-				opcaoCliente = teclado.nextInt();
-				
-				switch (opcaoCliente){
-					case 1:
-						clientes.alugarFilme(pkLocacao);
-						break;
-					case 2:
-						clientes.alugarJogo(pkLocacao);
-						break;
-					case 3:
-						clientes.listarFilmes();
-						break;
-					case 4:
-						clientes.listarJogos();
-						break;
-					case 5:
-						clientes.listarLocacao(pkLocacao);
-						break;
-					case 6:
-						clientes.concluirLocacao();
-						break;
-				}
-			}catch (RegraDeNegocioException e){
-				System.out.println("Erro: " +e.getMessage());
-				System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu");
-				teclado.next();
-			}
-		}
-		if(opcaoCliente == 7) {
-			banco.cancelarLocacao(pkLocacao);
-		}
-	}
+        if (banco.verificarCliente(numCliente)) {
+            menuCliente(numCliente);
+        } else {
+            System.out.println("=============================================");
+            System.out.println("======== Número de Cliente invalido =========");
+            System.out.println("=============================================");
+        }
 
-	// Criar um método para validar o acesso do funcionario
+    }
 
-	private static void validarFuncionario(){
-		System.out.println("=============================================");
-		System.out.println("===== Insira seu número de Funcionário: =====");
-		System.out.println("=============================================");
-		var numFuncionario = teclado.nextInt();
-		int codFuncionario = 1;
-		if (numFuncionario == codFuncionario){
-			menuFuncionario();
-		}else {
-			System.out.println("=============================================");
-			System.out.println("====== Número de Funcionário inválido! ======");
-			System.out.println("=============================================");
-		}
-	}
+    // Criar um método para listar as funções para clientes
 
-	// criar um metodo para listar as funções do funcionario
+    private static void menuCliente(int idCliente) {
 
-	private static void menuFuncionario() {
-		System.out.println("=============================================");
-		System.out.println("============ Área do Funcionário ============");
-		System.out.println("=============================================");
-		System.out.println("============ Opções Disponiveis: ============");
-		System.out.println("=============================================");
-		System.out.println("========== 1- Listar =========================");
-		System.out.println("========== 2- Ativar/Inativar um Produto ====");
-		System.out.println("========== 3- Ativa/Inativar uma Pessoa =====");
-		System.out.println("========== 4- Adicionar Pessoa/Produto ======");
-		System.out.println("========== 5- Apagar Pessoa/Produto =========");
-		System.out.println("=============================================");
-		int opcaoFuncionario = teclado.nextInt();
+        DALLocadora banco = new DALLocadora();
 
-		while (opcaoFuncionario != 7) {
-			try {
-				switch (opcaoFuncionario) {
-					case 1:
-						funcionarios.listar();
-						break;
-					case 2:
-						funcionarios.ativarInativarProduto();
-						break;
-					case 3:
-						funcionarios.ativarInativarPessoa();
-						break;
-					case 4:
-						funcionarios.adicionar();
-						break;
-					case 5:
-						funcionarios.apagarPessoaProduto();
-						break;
-				}
-			} catch (RegraDeNegocioException e) {
-				System.out.println("Erro: " + e.getMessage());
-				System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu");
-				teclado.next();
-			}
-		}
-	}
+        int pkLocacao = banco.criarLocacao(idCliente);
+
+        int opcaoCliente = -1;
+
+        while (opcaoCliente != 7) {
+            try {
+
+                System.out.println("=============================================");
+                System.out.println("============== Área do Cliente ==============");
+                System.out.println("=============================================");
+                System.out.println("============ Opções Disponiveis: ============");
+                System.out.println("=============================================");
+                System.out.println("========== 1- Alugar um Filme ===============");
+                System.out.println("========== 2- Alugar um Jogo ================");
+                System.out.println("========== 3- Listar todos os Filmes ========");
+                System.out.println("========== 4- Listar todos os Jogos =========");
+                System.out.println("========== 5- Listar locação ================");
+                System.out.println("========== 6- Concluir locação ==============");
+                System.out.println("========== 7- Sair ==========================");
+                System.out.println("=============================================");
+                opcaoCliente = teclado.nextInt();
+
+                switch (opcaoCliente) {
+                    case 1:
+                        clientes.alugarFilme(pkLocacao);
+                        break;
+                    case 2:
+                        clientes.alugarJogo(pkLocacao);
+                        break;
+                    case 3:
+                        clientes.listarFilmes();
+                        break;
+                    case 4:
+                        clientes.listarJogos();
+                        break;
+                    case 5:
+                        clientes.listarLocacao(pkLocacao);
+                        break;
+                    case 6:
+                        clientes.concluirLocacao();
+                        break;
+                }
+            } catch (RegraDeNegocioException e) {
+                System.out.println("Erro: " + e.getMessage());
+                System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu");
+                teclado.next();
+            }
+        }
+        if (opcaoCliente == 7) {
+            banco.cancelarLocacao(pkLocacao);
+        }
+    }
+
+    // Criar um método para validar o acesso do funcionario
+
+    private static void validarFuncionario() {
+        System.out.println("=============================================");
+        System.out.println("===== Insira seu número de Funcionário: =====");
+        System.out.println("=============================================");
+        var numFuncionario = teclado.nextInt();
+        int codFuncionario = 1;
+        if (numFuncionario == codFuncionario) {
+            menuFuncionario();
+        } else {
+            System.out.println("=============================================");
+            System.out.println("====== Número de Funcionário inválido! ======");
+            System.out.println("=============================================");
+        }
+    }
+
+    // criar um metodo para listar as funções do funcionario
+
+    private static void menuFuncionario() {
+        System.out.println("=============================================");
+        System.out.println("============ Área do Funcionário ============");
+        System.out.println("=============================================");
+        System.out.println("============ Opções Disponiveis: ============");
+        System.out.println("=============================================");
+        System.out.println("========== 1- Listar =========================");
+        System.out.println("========== 2- Ativar/Inativar um Produto ====");
+        System.out.println("========== 3- Ativa/Inativar uma Pessoa =====");
+        System.out.println("========== 4- Adicionar Pessoa/Produto ======");
+        System.out.println("========== 5- Apagar Pessoa/Produto =========");
+        System.out.println("=============================================");
+        int opcaoFuncionario = teclado.nextInt();
+
+        while (opcaoFuncionario != 7) {
+            try {
+                switch (opcaoFuncionario) {
+                    case 1:
+                        funcionarios.listar();
+                        break;
+                    case 2:
+                        funcionarios.ativarInativarProduto();
+                        break;
+                    case 3:
+                        funcionarios.ativarInativarPessoa();
+                        break;
+                    case 4:
+                        funcionarios.adicionar();
+                        break;
+                    case 5:
+                        funcionarios.apagarPessoaProduto();
+                        break;
+                }
+            } catch (RegraDeNegocioException e) {
+                System.out.println("Erro: " + e.getMessage());
+                System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu");
+                teclado.next();
+            }
+        }
+    }
 }
