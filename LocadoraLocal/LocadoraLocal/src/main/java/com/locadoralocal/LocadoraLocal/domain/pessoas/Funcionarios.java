@@ -463,15 +463,45 @@ public class Funcionarios extends Pessoas {
 	}
 
 	private void ativarProduto() {
+		int opcao;
+		do {
+			DALLocadora.clearConsole();
+			System.out.println("=============================================");
+			System.out.println("====== Deseja ativar Filmes ou Jogos? =======");
+			System.out.println("======== 1- Filmes ======== 2- Jogos ========");
+			System.out.println("================== 0- Sair ==================");
+			System.out.println("=============================================");
 
-			System.out.println("=============================================");
-			System.out.println("========= Insira o id do Produto: ===========");
-			System.out.println("============== 0- Para sair =================");
-			System.out.println("=============================================");
-			int id = teclado.nextInt();
-			System.out.println("=============================================");
-			System.out.println("======== Pessoa Ativada com sucesso!=========");
-			System.out.println("=============================================");
+			opcao = teclado.nextInt();
+			teclado.nextLine();
+
+			if(opcao == 0) {
+				break;
+			}
+
+			if(opcao != 1 && opcao != 2) {
+				System.out.println("Erro: comando inválido. Tente novamente.");
+				continue;
+			}
+			switch (opcao){
+				case 1:
+					System.out.println("=============================================");
+					System.out.println("=========== Insira o ID do Filme: ===========");
+					System.out.println("=============================================");
+					int idFilme = teclado.nextInt();
+
+					break;
+				case 2:
+					System.out.println("=============================================");
+					System.out.println("=========== Insira o ID do Jogo: ============");
+					System.out.println("=============================================");
+					int idJogo = teclado.nextInt();
+
+					break;
+
+			}
+
+		} while (true);
 	}
 
 	private void inativarProduto() {
