@@ -3,181 +3,206 @@ package com.locadoralocal.LocadoraLocal.domain.pessoas;
 import com.locadoralocal.LocadoraLocal.RegraDeNegocioException;
 import com.locadoralocal.LocadoraLocal.domain.locacao.DALLocadora;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Clientes extends Pessoas {
 
-    Scanner teclado = new Scanner(System.in);
+	Scanner teclado = new Scanner(System.in);
+	
+	public Clientes(String nome, String cpf, int anoNascimento, char sexo, boolean ativo) {
+		//super(nome, cpf, anoNascimento, sexo, ativo);
+	}
 
-    public Clientes(String nome, String cpf, int anoNascimento, char sexo, boolean ativo) {
-        //super(nome, cpf, anoNascimento, sexo, ativo);
-    }
+	public Clientes() {
 
-    public Clientes() {
+	}
 
-    }
+	public ArrayList<Integer> alugarFilme() {
+		ArrayList<Integer> listaFilmes = new ArrayList<>();
+		int idFilme;
 
-    public void alugarFilme(int pk_locacao) {
-        DALLocadora banco = new DALLocadora();
-        int idFilme;
+			DALLocadora.clearConsole();
+			System.out.println("=============================================");
+			System.out.println("========= Qual filme deseja alugar? =========");
+			System.out.println("=============================================");
 
-        do {
-            System.out.println("=============================================");
-            System.out.println("========= Qual filme deseja alugar? =========");
-            System.out.println("=============================================");
+			System.out.println("=============================================");
+			System.out.println("========= Digite um Id de filme ou ==========");
+			System.out.println("============== 0- Para sair =================");
+			System.out.println("=============================================");
+			
+			
+		do {
+			DALLocadora.mostrarFilmes(2);
+			
+			idFilme = teclado.nextInt();
+			teclado.nextLine();
 
-            System.out.println("=============================================");
-            System.out.println("========= Digite um Id de filme ou ==========");
-            System.out.println("============== 0- Para sair =================");
-            System.out.println("=============================================");
+			if (idFilme == 0){
+				System.out.println("Saindo...");
+				break;
+			}
 
-            banco.mostrarFilmes(1);
-            idFilme = teclado.nextInt();
-            teclado.nextLine();
+			if(DALLocadora.SelecionarFilme(idFilme)){
+				listaFilmes.add(idFilme);
+				DALLocadora.filmeInativo(idFilme);
+			}else {
+				System.out.println("Seleção invalida Filme inativo ou locado");
+				System.out.println("Selecione mais Filmes ou digite zero para Sair");
+				DALLocadora.pausarConsole();
+			}
 
-            if (idFilme == 0) {
-                System.out.println("Saindo...");
-                break;
-            }
+		} while(true);
 
-            if (banco.SelecionarFilme(idFilme)) {
-                System.out.println("Filme selecionado");
-                banco.adicionarFilme(pk_locacao, idFilme);
+		return listaFilmes;
+		
+	}
 
-            } else {
-                System.out.println("Seleção invalida Filme inativo ou locado");
-            }
+	public ArrayList<Integer> alugarJogo() {
 
-        } while (true);
+		ArrayList<Integer> listaJogos = new ArrayList<>();
+		int idJogo;
 
-    }
+			DALLocadora.clearConsole();
+			System.out.println("=============================================");
+			System.out.println("======== Qual jogo deseja alugar? ===========");
+			System.out.println("=============================================");
 
-    public void alugarJogo(int pkLocacao) {
+			System.out.println("=============================================");
+			System.out.println("========== Digite um Id de jogo ou ==========");
+			System.out.println("============== 0- Para sair =================");
+			System.out.println("=============================================");
 
-        DALLocadora banco = new DALLocadora();
-        int idJogo = -1;
+			
 
-        do {
-            System.out.println("=============================================");
-            System.out.println("======== Qual jogo deseja alugar? ===========");
-            System.out.println("=============================================");
+		do {
+			DALLocadora.mostrarJogo(2);
+			idJogo = teclado.nextInt();
+			teclado.nextLine();
 
-            System.out.println("=============================================");
-            System.out.println("========== Digite um Id de jogo ou ==========");
-            System.out.println("============== 0- Para sair =================");
-            System.out.println("=============================================");
+			if(idJogo == 0) {
+				System.out.println("Saindo...");
+				break;
+			}
 
-            banco.mostrarJogo(1);
+			if(DALLocadora.selecionarJogo(idJogo)) {
+				listaJogos.add(idJogo);
+				DALLocadora.JogoInativo(idJogo);
+			}else {
+				System.out.println("Seleção invalida Jogo inativado ou locado");
+				System.out.println("Selecione mais filmes ou digite zero para sair");
+				DALLocadora.pausarConsole();
+			}
 
-            idJogo = teclado.nextInt();
-            teclado.nextLine();
+		}while(true);
 
-            if (idJogo == 0) {
-                System.out.println("Saindo...");
-                break;
-            }
+		return listaJogos;
 
-            if (banco.selecionarJogo(idJogo)) {
-                System.out.println("Jogo Selecionado");
-                banco.adicionarJogo(pkLocacao, idJogo);
-            } else {
-                System.out.println("Seleção invalida Jogo inativado ou locado");
-            }
+	}
 
-        } while (true);
+	public void listarFilmes() {
+		int opcaoCliente;
 
+		do{
+			DALLocadora.clearConsole();
+			System.out.println("=============================================");
+			System.out.println("=== Deseja listar todos ou apenas ativos? ===");
+			System.out.println("=============================================");
+			System.out.println("======== 1- Todos ======== 2- Ativos ========");
+			System.out.println("============== 0- Para sair =================");
+			System.out.println("=============================================");
+			opcaoCliente = teclado.nextInt();
 
-    }
+			try{
+				switch (opcaoCliente){
+					case 1:
+						DALLocadora.clearConsole();
+						DALLocadora.mostrarFilmes(opcaoCliente);
+						DALLocadora.pausarConsole();
+						break;
+					case 2:
+						DALLocadora.clearConsole();
+						DALLocadora.mostrarFilmes(opcaoCliente);
+						DALLocadora.pausarConsole();
+						break;
+				}
+			}catch (RegraDeNegocioException e){
+				System.out.println("Erro: " +e.getMessage());
+				System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu");
+				teclado.next();
+			}
+		}while(opcaoCliente == 0);
 
-    public void listarFilmes() {
-        DALLocadora banco = new DALLocadora();
-        int opcaoCliente;
+	}
 
-        do {
-            System.out.println("=============================================");
-            System.out.println("=== Deseja listar todos ou apenas ativos? ===");
-            System.out.println("=============================================");
-            System.out.println("======== 1- Todos ======== 2- Ativos ========");
-            System.out.println("============== 0- Para sair =================");
-            System.out.println("=============================================");
-            opcaoCliente = teclado.nextInt();
+	public void listarJogos() {
+		int opcaoCliente;
 
-            try {
-                switch (opcaoCliente) {
-                    case 1:
-                        banco.mostrarFilmes(opcaoCliente);
-                        break;
-                    case 2:
-                        banco.mostrarFilmes(opcaoCliente);
-                        break;
-                }
-            } catch (RegraDeNegocioException e) {
-                System.out.println("Erro: " + e.getMessage());
-                System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu");
-                teclado.next();
-            }
-        } while (opcaoCliente == 0);
+		do {
+			System.out.println("=============================================");
+			System.out.println("=== Deseja listar todos ou apenas ativos? ===");
+			System.out.println("=============================================");
+			System.out.println("======== 1- Todos ======== 2- Ativos ========");
+			System.out.println("=============================================");
+			opcaoCliente = teclado.nextInt();
 
-    }
+			try{
+				switch (opcaoCliente){
+					case 1:
+						DALLocadora.clearConsole();
+						DALLocadora.mostrarJogo(opcaoCliente);
+						DALLocadora.pausarConsole();
+						break;
+					case 2:
+						DALLocadora.clearConsole();
+						DALLocadora.mostrarJogo(opcaoCliente);
+						DALLocadora.pausarConsole();
+						break;
+				}
+			}catch (RegraDeNegocioException e){
+				System.out.println("Erro: " +e.getMessage());
+				System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu");
+				teclado.next();
+			}
+		}while(opcaoCliente == 0);
 
-    public void listarJogos() {
-        DALLocadora banco = new DALLocadora();
-        int opcaoCliente;
+	}
 
-        do {
-            System.out.println("=============================================");
-            System.out.println("=== Deseja listar todos ou apenas ativos? ===");
-            System.out.println("=============================================");
-            System.out.println("======== 1- Todos ======== 2- Ativos ========");
-            System.out.println("=============================================");
-            opcaoCliente = teclado.nextInt();
+	public void listarLocacao(int idCliente, ArrayList<Integer> listaFilmes, ArrayList<Integer> listaJogos) {
 
-            try {
-                switch (opcaoCliente) {
-                    case 1:
-                        banco.mostrarJogo(opcaoCliente);
-                        break;
-                    case 2:
-                        banco.mostrarJogo(opcaoCliente);
-                        break;
-                }
-            } catch (RegraDeNegocioException e) {
-                System.out.println("Erro: " + e.getMessage());
-                System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu");
-                teclado.next();
-            }
-        } while (opcaoCliente == 0);
+		System.out.println("==============================================================");
+		System.out.println("========================== Locação ===========================");
+		System.out.println("==============================================================");
 
-    }
+		DALLocadora.mostrarLocacao(idCliente,listaFilmes, listaJogos);
+		DALLocadora.pausarConsole();
 
-    public void listarLocacao(int pkLocacao) {
-        DALLocadora banco = new DALLocadora();
+	}
 
-        System.out.println("=============================================");
-        System.out.println("=========== Itens da sua locação: ===========");
-        System.out.println("=============================================");
-        System.out.println("Query para listar os itens presentes na locação atual");
-
-        banco.mostrarLocacao(pkLocacao);
-
-    }
-
-    public void concluirLocacao() {
-        System.out.println("=============================================");
-        System.out.println("======= Deseja concluir sua locação? ========");
-        System.out.println("=============================================");
-        System.out.println("========= S- Sim ========== N- Não== ========");
-        System.out.println("=============================================");
-        String opcaoCliente = teclado.nextLine();
-        if (opcaoCliente == "S") {
-            System.out.println("Concluir a locação e marcar os produtos escolhidos como inativos");
-        }
-        if (opcaoCliente == "N") {
-            System.out.println("Fechar a aplicação ou voltar para o menu do cliente");
-        } else {
-            System.out.println("=============================================");
-            System.out.println("============ Operação inválida ==============");
-            System.out.println("=============================================");
-        }
-    }
+	public void concluirLocacao(int idCliente, ArrayList<Integer> listaFilmes, ArrayList<Integer> listaJogos) {
+		if(listaFilmes.isEmpty() && listaJogos.isEmpty()) {
+			
+			System.out.println("=====================================");
+			System.out.println("= Erro as duas listas estão vazias =");
+			System.out.println("======== Locação Cancelada =========");
+			System.out.println("=====================================");
+			DALLocadora.pausarConsole();
+			
+		}else {
+		
+			
+			
+			DALLocadora.clearConsole();
+			
+			DALLocadora.clearConsole();
+			int numeroLocacao = DALLocadora.concluirLocacao(idCliente, listaFilmes, listaJogos);
+			System.out.println("==========================================");
+			System.out.println("=========== Locação Finalizada ===========");
+			System.out.printf("=============== Locação Nº%d =============\n", numeroLocacao);
+			System.out.println("==========================================");
+			DALLocadora.mostrarLocacao(idCliente, listaFilmes, listaJogos);
+			DALLocadora.pausarConsole();
+		}
+	}
 }
