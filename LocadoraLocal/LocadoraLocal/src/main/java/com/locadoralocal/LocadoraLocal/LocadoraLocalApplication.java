@@ -127,7 +127,7 @@ public class LocadoraLocalApplication {
 		}
 		
 		if(opcaoCliente == 7) {
-			DALLocadora.ativarFilmesEJogos(listaFilmes, listaJogos);
+			DALLocadora.ativarTodosFilmesEJogos(listaFilmes, listaJogos);
 			
 			System.out.println("==============================================");
 			System.out.println("========= Locação não foi concluida ==========");

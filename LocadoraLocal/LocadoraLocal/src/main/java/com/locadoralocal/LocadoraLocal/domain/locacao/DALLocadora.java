@@ -15,7 +15,7 @@ public class DALLocadora {
 	
 	private static Scanner teclado = new Scanner(System.in);
 	
-	private static final String stringConnect = "jdbc:sqlite:/C:\\Users\\lynik\\Documents\\Faculdade\\Seminário - git\\Locadora_Filmes_e_Jogos\\Locadora\\Locadora.db";
+	private static final String stringConnect = "jdbc:sqlite:/C:\\Users\\pc\\Desktop\\Projeto_Locadora\\Locadora_Filmes_e_Jogos\\Locadora\\Locadora.db";
 
 	public static void pausarConsole() {
 		System.out.println("Pressione Enter para Continuar...");
@@ -669,7 +669,7 @@ public class DALLocadora {
     	
     }
     
-    public static void ativarFilmesEJogos(ArrayList<Integer> listaFilmes, ArrayList<Integer> listaJogos) {
+    public static void ativarTodosFilmesEJogos(ArrayList<Integer> listaFilmes, ArrayList<Integer> listaJogos) {
  
     	
     	Connection connection = null;
@@ -873,6 +873,94 @@ public class DALLocadora {
     	}
     	
     	
+    	
+    }
+    
+    public static void ativarFileseJogos(int opcao, int pkProduto) {
+    	Connection connection = null;
+    	PreparedStatement preparedStatement = null;
+    	String sql = "";
+    	
+    	try {
+    		
+    		connection = DriverManager.getConnection(stringConnect);
+    		
+    		if(opcao == 1) {
+    			sql = "UPDATE filmes SET ativo_filmes = 'S' WHERE pk_filmes = ?";
+    			
+        		preparedStatement = connection.prepareStatement(sql);
+        		preparedStatement.setInt(1, pkProduto);
+        		
+        		preparedStatement.executeUpdate();
+    		}else if(opcao == 2) {
+    			sql = "UPDATE jogos SET ativo_jogos = 'S' WHERE pk_jogo = ?";
+    			
+        		preparedStatement = connection.prepareStatement(sql);
+        		preparedStatement.setInt(1, pkProduto);
+        		
+        		preparedStatement.executeUpdate();
+    		}else {
+    			System.out.println("Algo deu errado com a consulta SQL");
+    		}
+    		
+    	}catch(SQLException e) {
+    		System.out.println("Não foi possivel Conectar-se com o banco de dados");
+    	}finally {
+    		try {
+    			if(preparedStatement != null) {
+    				preparedStatement.close();
+    			}
+    			if(connection != null) {
+    				connection.close();
+    			}
+    		}catch(SQLException ex) {
+    			System.out.println("Não conseguimos fechar a conexão com o banco de dados");
+    		}
+    	}
+    	
+    }
+    
+    public static void inativarFileseJogos(int opcao, int pkProduto) {
+    	Connection connection = null;
+    	PreparedStatement preparedStatement = null;
+    	String sql = "";
+    	
+    	try {
+    		
+    		connection = DriverManager.getConnection(stringConnect);
+    		
+    		if(opcao == 1) {
+    			sql = "UPDATE filmes SET ativo_filmes = 'N' WHERE pk_filmes = ?";
+    			
+        		preparedStatement = connection.prepareStatement(sql);
+        		preparedStatement.setInt(1, pkProduto);
+        		
+        		preparedStatement.executeUpdate();
+    		}else if(opcao == 2) {
+    			sql = "UPDATE jogos SET ativo_jogos = 'N' WHERE pk_jogo = ?";
+    			
+        		preparedStatement = connection.prepareStatement(sql);
+        		preparedStatement.setInt(1, pkProduto);
+        		
+        		preparedStatement.executeUpdate();
+    		}else {
+    			System.out.println("Algo deu errado com a consulta SQL");
+    		}
+    		
+    	}catch(SQLException e) {
+    		System.out.println("Não foi possivel Conectar-se com o banco de dados");
+    	}finally {
+    		try {
+    			if(preparedStatement != null) {
+    				preparedStatement.close();
+    			}
+    			if(connection != null) {
+    				connection.close();
+    			}
+    		}catch(SQLException ex) {
+    			System.out.println("Não conseguimos fechar a conexão com o banco de dados");
+    		}
+    	}
     	
     }
     

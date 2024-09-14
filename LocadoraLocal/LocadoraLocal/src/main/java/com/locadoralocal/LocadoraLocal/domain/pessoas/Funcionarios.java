@@ -111,7 +111,7 @@ public class Funcionarios extends Pessoas {
 				System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu");
 				teclado.next();
 			}
-		} while (opcao == 0);
+		} while (opcao != 0);
 	}
 
 	@Override
@@ -555,6 +555,14 @@ public class Funcionarios extends Pessoas {
 					System.out.println("=========== Insira o ID do Filme: ===========");
 					System.out.println("=============================================");
 					int idFilme = teclado.nextInt();
+					teclado.nextLine();
+					
+					DALLocadora.ativarFileseJogos(opcao, idFilme);
+					
+					System.out.println("=============================================");
+					System.out.println("============== Filme Ativado: ===============");
+					System.out.println("=============================================");
+					DALLocadora.pausarConsole();
 
 					break;
 				case 2:
@@ -562,7 +570,15 @@ public class Funcionarios extends Pessoas {
 					System.out.println("=========== Insira o ID do Jogo: ============");
 					System.out.println("=============================================");
 					int idJogo = teclado.nextInt();
-
+					teclado.nextLine();
+					
+					DALLocadora.ativarFileseJogos(opcao, idJogo);
+					
+					System.out.println("=============================================");
+					System.out.println("=============== Jogo Ativado: ===============");
+					System.out.println("=============================================");
+					DALLocadora.pausarConsole();
+					
 					break;
 
 			}
@@ -597,6 +613,14 @@ public class Funcionarios extends Pessoas {
 					System.out.println("=========== Insira o ID do Filme: ===========");
 					System.out.println("=============================================");
 					int idFilme = teclado.nextInt();
+					teclado.nextLine();
+					
+					DALLocadora.inativarFileseJogos(opcao, idFilme);
+					
+					System.out.println("=============================================");
+					System.out.println("============== Filme Inativado: =============");
+					System.out.println("=============================================");
+					DALLocadora.pausarConsole();
 
 					break;
 				case 2:
@@ -604,7 +628,15 @@ public class Funcionarios extends Pessoas {
 					System.out.println("=========== Insira o ID do Jogo: ============");
 					System.out.println("=============================================");
 					int idJogo = teclado.nextInt();
+					teclado.nextLine();
 
+					DALLocadora.inativarFileseJogos(opcao, idJogo);
+					
+					System.out.println("=============================================");
+					System.out.println("============== Jogo Inativado: ==============");
+					System.out.println("=============================================");
+					DALLocadora.pausarConsole();
+					
 					break;
 
 			}
