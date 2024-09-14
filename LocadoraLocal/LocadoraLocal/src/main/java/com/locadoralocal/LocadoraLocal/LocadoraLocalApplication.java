@@ -197,7 +197,7 @@ public class LocadoraLocalApplication {
 						funcionarios.adicionar();
 						break;
 					case 5:
-						funcionarios.apagarPessoaProduto();
+						funcionarios.apagar();
 						break;
 				}
 			} catch (RegraDeNegocioException e) {

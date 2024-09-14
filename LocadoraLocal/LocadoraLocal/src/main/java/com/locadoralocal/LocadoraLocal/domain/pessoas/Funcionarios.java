@@ -66,6 +66,7 @@ public class Funcionarios extends Pessoas {
 			System.out.println("============== 0- Para sair =================");
 			System.out.println("=============================================");
 			opcao = teclado.nextInt();
+			teclado.nextLine();
 			try {
 				switch (opcao) {
 					case 1:
