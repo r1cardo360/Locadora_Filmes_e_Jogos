@@ -1,6 +1,7 @@
 package com.locadoralocal.LocadoraLocal.domain.locacao;
 
 import java.sql.Connection;
+import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,6 +11,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+
+import com.locadoralocal.LocadoraLocal.domain.pessoas.Pessoas;
+import com.locadoralocal.LocadoraLocal.domain.produtos.Filmes;
+import com.locadoralocal.LocadoraLocal.domain.produtos.Produto;
 
 public class DALLocadora {
 	
@@ -1047,6 +1052,112 @@ public class DALLocadora {
     			}
     		}catch(SQLException ex) {
     			System.out.println("Não conseguimos fechar a conexão com o banco de dados");
+    		}
+    	}
+    	
+    }
+    
+    public static void CadastrarFilmesJogos(Produto produto, String tipo, Filmes filme) {
+    	Connection connection = null;
+    	PreparedStatement preparedStatement = null;
+    	String sql = "";
+    	
+    	try {
+    		
+    		connection = DriverManager.getConnection(stringConnect);
+    		
+    		if(tipo.equalsIgnoreCase("F")) {
+    			System.out.println("1");
+    			sql = "INSERT INTO filmes(nome_filme, classificacao_filme, ano_lancamento_filmes, nota_filme) VALUES(?, ?, ?, ?)";
+    			preparedStatement = connection.prepareStatement(sql);
+    			preparedStatement.setString(1, produto.getNome());
+    			preparedStatement.setInt(2, produto.getClassificacao());
+    			preparedStatement.setInt(3, produto.getAnoLancamento());
+    			preparedStatement.setFloat(4, filme.getNota());
+    			
+    			preparedStatement.executeUpdate();
+    			
+    		}else if(tipo.equalsIgnoreCase("J")) {
+    			sql = "INSERT INTO jogos(nome_jogo, classificacao_jogo, ano_lancamento_jogo) VALUES(?, ?, ?)";
+    			
+    			preparedStatement = connection.prepareStatement(sql);
+    			preparedStatement.setString(1, produto.getNome());
+    			preparedStatement.setInt(2, produto.getClassificacao());
+    			preparedStatement.setInt(3, produto.getAnoLancamento());
+    			
+    			preparedStatement.executeUpdate();
+    			
+    		}else {
+    			System.out.println("Algo deu errado na inserção dos dados");
+    		}
+    		
+    		
+    	}catch(SQLException e) {
+    		System.out.println("Não foi possivel conectar-se ao banco de dados");
+    	}finally {
+    		try {
+    			if(preparedStatement != null) {
+    				preparedStatement.close();
+    			}
+    			if(connection != null) {
+    				connection.close();
+    			}
+    		}catch(SQLException ex) {
+    			System.out.println("Não foi possivel fechar a conexão com o banco de dados");
+    		}
+    	}
+    	
+    }
+
+    public static void CadastrarClienteseFuncionarios(Pessoas pessoa, String tipo, String funcao) {
+    	Connection connection = null;
+    	PreparedStatement preparedStatement = null;
+    	String sql = "";
+    	
+    	try {
+    		
+    		connection = DriverManager.getConnection(stringConnect);
+    		
+    		if(tipo.equalsIgnoreCase("F")) {
+    			System.out.println("1");
+    			sql = "INSERT INTO cliente(nome_clinte, cpf_cliente, ano_nascimento_cliente, sexo_cliente) VALUES(?, ?, ?, ?)";
+    			preparedStatement = connection.prepareStatement(sql);
+    			preparedStatement.setString(1, pessoa.getNome());
+    			preparedStatement.setString(2, pessoa.getCpf());
+    			preparedStatement.setInt(3, pessoa.getAnoNascimento());
+    			preparedStatement.setString(4, pessoa.getSexo());
+    			
+    			preparedStatement.executeUpdate();
+    			
+    		}else if(tipo.equalsIgnoreCase("J")) {
+    			sql = "INSERT INTO funcionario(nome_funcionario, cpf_funcionario, ano_nascimento_funcionario, sexo_funcionario, funcao_funcionario) VALUES(?, ?, ?, ?, ?)";
+    			
+    			preparedStatement = connection.prepareStatement(sql);
+    			preparedStatement.setString(1, pessoa.getNome());
+    			preparedStatement.setString(2, pessoa.getCpf());
+    			preparedStatement.setInt(3, pessoa.getAnoNascimento());
+    			preparedStatement.setString(4, pessoa.getSexo());
+    			preparedStatement.setString(5, funcao);
+    			
+    			preparedStatement.executeUpdate();
+    			
+    		}else {
+    			System.out.println("Algo deu errado na inserção dos dados");
+    		}
+    		
+    		
+    	}catch(SQLException e) {
+    		System.out.println("Não foi possivel conectar-se ao banco de dados");
+    	}finally {
+    		try {
+    			if(preparedStatement != null) {
+    				preparedStatement.close();
+    			}
+    			if(connection != null) {
+    				connection.close();
+    			}
+    		}catch(SQLException ex) {
+    			System.out.println("Não foi possivel fechar a conexão com o banco de dados");
     		}
     	}
     	

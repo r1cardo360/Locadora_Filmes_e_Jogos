@@ -224,6 +224,7 @@ public class Funcionarios extends Pessoas {
 		System.out.println("====== Insira o Nascimento da Pessoa: =======");
 		System.out.println("=============================================");
 		int anoNascimento = teclado.nextInt();
+		teclado.nextLine();
 		pessoas.setAnoNascimento(anoNascimento);
 
 		String sexo;
@@ -255,6 +256,9 @@ public class Funcionarios extends Pessoas {
 						System.out.println("=============================================");
 						System.out.println("====== Cliente cadastrado com sucesso! ======");
 						System.out.println("=============================================");
+						
+						DALLocadora.CadastrarClienteseFuncionarios(pessoas, tipo, null);
+						
 						break;
 					case "F":
 						System.out.println("=============================================");
@@ -264,6 +268,9 @@ public class Funcionarios extends Pessoas {
 						System.out.println("=============================================");
 						System.out.println("==== Funcionário cadastrado com sucesso! ====");
 						System.out.println("=============================================");
+						
+						DALLocadora.CadastrarClienteseFuncionarios(pessoas, tipo, funcao);
+						
 						break;
 				}
 			}catch (RegraDeNegocioException e){
@@ -518,12 +525,8 @@ public class Funcionarios extends Pessoas {
 		System.out.println("== Insira o ano de lançamento do Produto: ===");
 		System.out.println("=============================================");
 		int anoLancamento = teclado.nextInt();
+		teclado.nextLine();
 		produto.setAnoLancamento(anoLancamento);
-		System.out.println("=============================================");
-		System.out.println("======== Insira o gênero do Produto: ========");
-		System.out.println("=============================================");
-		String genero = teclado.nextLine();
-		produto.setGenero(genero);
 		String tipo;
 		do {
 			System.out.println("=============================================");
@@ -537,16 +540,23 @@ public class Funcionarios extends Pessoas {
 						System.out.println("=============================================");
 						System.out.println("======= Jogo cadastrado com sucesso! ========");
 						System.out.println("=============================================");
+						
+						DALLocadora.CadastrarFilmesJogos(produto, tipo, null);
+						
 						break;
-					case "F":
+					case "f":
 						System.out.println("=============================================");
 						System.out.println("========== Insira a nota do Filme: ==========");
 						System.out.println("=============================================");
-						double nota = teclado.nextDouble();
+						float nota = teclado.nextFloat();
+						teclado.nextLine();
 						filmes.setNota(nota);
 						System.out.println("=============================================");
 						System.out.println("======= Filme cadastrado com sucesso! =======");
 						System.out.println("=============================================");
+						
+						DALLocadora.CadastrarFilmesJogos(produto, tipo, filmes);
+						
 						break;
 				}
 			}catch (RegraDeNegocioException e){

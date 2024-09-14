@@ -8,7 +8,7 @@ public class Produto {
     private int classificacao;
     private int anoLancamento;
     private boolean ativo;
-    private String genero;
+    private int genero;
 
     public String getNome() {
         return nome;
@@ -42,11 +42,11 @@ public class Produto {
         this.ativo = ativo;
     }
 
-    public String getGenero() {
+    public int getGenero() {
         return genero;
     }
 
-    public void setGenero(String genero) {
+    public void setGenero(int genero) {
         this.genero = genero;
     }
 }
