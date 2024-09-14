@@ -723,19 +723,49 @@ public class DALLocadora {
     public static void deletarProduto(int idProduto, String tipoDelecao) {
     	Connection connection = null;
     	PreparedStatement preparedStatement = null;
-    	String opcao;
+    	String opcao, sql;
     	
 		System.out.println("=============================================");
 		System.out.println("===== Essa ação pode causar alguns erros ====");
 		System.out.println("==== no banco de dados, deseja continuar? ===");
 		System.out.println("========== S- Sim ========= N- Não ==========");
 		System.out.println("=============================================");
-		opcao = teclado.nextLine();
+		opcao = teclado.nextLine().toUpperCase();
 		
 		if(opcao.equalsIgnoreCase("S")) {
 	    	try {
 	    		
 	    		connection = DriverManager.getConnection(stringConnect);
+	    		
+	    		if(tipoDelecao == "F") {
+	    			sql = "DELETE FROM filmes WHERE pk_filmes = ?";
+	    			
+	    			preparedStatement = connection.prepareStatement(sql);
+	    			preparedStatement.setInt(1, idProduto);
+	    			
+	    			preparedStatement.executeUpdate();
+	    			
+					System.out.println("=============================================");
+					System.out.println("================== Filme ====================");
+					System.out.println("========== Deletado com Sucesso =============");
+					System.out.println("=============================================");
+	    			
+	    		}else if(tipoDelecao == "J") {
+	    			sql = "DELETE FROM jogos WHERE pk_jogo = ?";
+	    			
+	    			preparedStatement = connection.prepareStatement(sql);
+	    			preparedStatement.setInt(1, idProduto);
+	    			
+	    			preparedStatement.executeUpdate();
+	    			
+					System.out.println("=============================================");
+					System.out.println("================== Jogo =====================");
+					System.out.println("========== Deletado com Sucesso =============");
+					System.out.println("=============================================");
+	    			
+	    		}else {
+	    			System.out.println("Algo deu errado com a query para deletar");
+	    		}
 	    		
 	    		
 	    	}catch(SQLException e) {
@@ -756,6 +786,77 @@ public class DALLocadora {
 			System.out.println("=============================================");
 			System.out.println("========== A opração foi cancelada ==========");
 			System.out.println("=============================================");
+			return;
+	    	}
+    }
+
+    public static void deletarPessoa(int idCliente, String tipoDelecao) {
+    	Connection connection = null;
+    	PreparedStatement preparedStatement = null;
+    	String opcao, sql;
+    	
+		System.out.println("=============================================");
+		System.out.println("===== Essa ação pode causar alguns erros ====");
+		System.out.println("==== no banco de dados, deseja continuar? ===");
+		System.out.println("========== S- Sim ========= N- Não ==========");
+		System.out.println("=============================================");
+		opcao = teclado.nextLine().toUpperCase();
+		
+		if(opcao.equalsIgnoreCase("S")) {
+	    	try {
+	    		
+	    		connection = DriverManager.getConnection(stringConnect);
+	    		
+	    		if(tipoDelecao.equalsIgnoreCase("C")) {
+	    			sql = "DELETE FROM cliente WHERE pk_cliente = ?";
+	    			
+	    			preparedStatement = connection.prepareStatement(sql);
+	    			preparedStatement.setInt(1, idCliente);
+	    			
+	    			preparedStatement.executeUpdate();
+	    			
+					System.out.println("=============================================");
+					System.out.println("================= Cliente ===================");
+					System.out.println("========== Deletado com Sucesso =============");
+					System.out.println("=============================================");
+	    			
+	    		}else if(tipoDelecao.equalsIgnoreCase("F")) {
+	    			sql = "DELETE FROM funcionario WHERE pk_funcionario = ?";
+	    			
+	    			preparedStatement = connection.prepareStatement(sql);
+	    			preparedStatement.setInt(1, idCliente);
+	    			
+	    			preparedStatement.executeUpdate();
+	    			
+					System.out.println("=============================================");
+					System.out.println("=============== Funcionario =================");
+					System.out.println("========== Deletado com Sucesso =============");
+					System.out.println("=============================================");
+	    			
+	    		}else {
+	    			System.out.println("Algo deu errado com a query para deletar");
+	    		}
+	    		
+	    		
+	    	}catch(SQLException e) {
+	    		System.out.println("Não foi possivel conectar-se ao banco de dados: " + e.getMessage());
+	    	}finally {
+	    		try {
+	    			if(preparedStatement != null) {
+	    				preparedStatement.close();
+	    			}
+	    			if(connection != null) {
+	    				connection.close();
+	    			}
+	    		}catch(SQLException ex) {
+	    			System.out.println("Não foi possivel fechar o banco de dados: " + ex.getMessage());
+	    		}
+	    	}
+		}else{
+			System.out.println("=============================================");
+			System.out.println("========== A opração foi cancelada ==========");
+			System.out.println("=============================================");
+			return;
 	    	}
     }
     
@@ -1073,7 +1174,7 @@ public class DALLocadora {
     			preparedStatement.setString(1, produto.getNome());
     			preparedStatement.setInt(2, produto.getClassificacao());
     			preparedStatement.setInt(3, produto.getAnoLancamento());
-    			preparedStatement.setFloat(4, filme.getNota());
+    			preparedStatement.setDouble(4, filme.getNota());
     			
     			preparedStatement.executeUpdate();
     			
@@ -1118,18 +1219,18 @@ public class DALLocadora {
     		
     		connection = DriverManager.getConnection(stringConnect);
     		
-    		if(tipo.equalsIgnoreCase("F")) {
+    		if(tipo.equalsIgnoreCase("c")) {
     			System.out.println("1");
-    			sql = "INSERT INTO cliente(nome_clinte, cpf_cliente, ano_nascimento_cliente, sexo_cliente) VALUES(?, ?, ?, ?)";
+    			sql = "INSERT INTO cliente(nome_cliente, cpf_cliente, ano_nascimento_cliente, sexo_cliente) VALUES(?, ?, ?, ?)";
     			preparedStatement = connection.prepareStatement(sql);
     			preparedStatement.setString(1, pessoa.getNome());
     			preparedStatement.setString(2, pessoa.getCpf());
     			preparedStatement.setInt(3, pessoa.getAnoNascimento());
-    			preparedStatement.setString(4, pessoa.getSexo());
+    			preparedStatement.setString(4, pessoa.getSexo().toUpperCase());
     			
     			preparedStatement.executeUpdate();
     			
-    		}else if(tipo.equalsIgnoreCase("J")) {
+    		}else if(tipo.equalsIgnoreCase("f")) {
     			sql = "INSERT INTO funcionario(nome_funcionario, cpf_funcionario, ano_nascimento_funcionario, sexo_funcionario, funcao_funcionario) VALUES(?, ?, ?, ?, ?)";
     			
     			preparedStatement = connection.prepareStatement(sql);
@@ -1162,5 +1263,114 @@ public class DALLocadora {
     	}
     	
     }
+    
+	public static void mostrarClientes() {
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		String sql = "";
+		
+		try {
+		
+			connection = DriverManager.getConnection(stringConnect);
+
+			sql = "SELECT pk_cliente, nome_cliente, cpf_cliente, ano_nascimento_cliente, sexo_cliente FROM cliente";
+
+			preparedStatement = connection.prepareStatement(sql);
+			
+			resultSet = preparedStatement.executeQuery();
+		
+			System.out.println("+-------+----------------------------------------------------+-----------------+---------------------------+-------+");
+			System.out.printf("| %-5s | %-50s | %-15s | %-25s | %-5s |\n", "ID", "Nome", "CPF", "Ano Nascimento Cliente", "Sexo");
+			System.out.println("+-------+----------------------------------------------------+-----------------+---------------------------+-------+");
+			
+			while(resultSet.next()) {
+				int id = resultSet.getInt("pk_cliente");
+				String nome = resultSet.getString("nome_cliente");
+				String cpf_cliente = resultSet.getString("cpf_cliente");
+				int anoNascimentoCliente = resultSet.getInt("ano_nascimento_cliente");
+				String sexoCliente = resultSet.getString("sexo_cliente");
+				
+				System.out.printf("| %-5d | %-50s | %-15s | %-25d | %-5s |\n", id, nome, cpf_cliente, anoNascimentoCliente, sexoCliente);
+				
+			}
+			
+			System.out.println("+-------+----------------------------------------------------+-----------------+---------------------------+-------+");
+			
+		}catch(SQLException e) {
+			System.out.println("Erro ao conectarse ao banco de dados: " + e.getMessage());
+		}finally {
+			try {
+				if(preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if(resultSet != null) {
+					resultSet.close();
+				}
+				if(connection != null) {
+					connection.close();
+				}
+			}catch(SQLException ex) {
+				System.out.println("Erro ao fechar a conexão com o banco de dados");
+			}
+		}
+		
+	}
+	
+	public static void mostrarFuncionario() {
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		String sql = "";
+		
+		try {
+		
+			connection = DriverManager.getConnection(stringConnect);
+
+			sql = "SELECT pk_funcionario, nome_funcionario, cpf_funcionario, ano_nascimento_funcionario, sexo_funcionario, funcao_funcionario FROM funcionario";
+
+			preparedStatement = connection.prepareStatement(sql);
+			
+			resultSet = preparedStatement.executeQuery();
+		
+			System.out.println("+-------+----------------------------------------------------+-----------------+---------------------------+-------+-----------------+");
+			System.out.printf("| %-5s | %-50s | %-15s | %-25s | %-5s | %-15s |\n", "ID", "Nome", "CPF", "Ano Nascimento Cliente", "Sexo", "Função");
+			System.out.println("+-------+----------------------------------------------------+-----------------+---------------------------+-------+-----------------+");
+			
+			while(resultSet.next()) {
+				int id = resultSet.getInt("pk_funcionario");
+				String nome = resultSet.getString("nome_funcionario");
+				String cpf_cliente = resultSet.getString("cpf_funcionario");
+				int anoNascimentoCliente = resultSet.getInt("ano_nascimento_funcionario");
+				String sexoCliente = resultSet.getString("sexo_funcionario");
+				String funcaoFuncionario = resultSet.getString("funcao_funcionario");
+				
+				System.out.printf("| %-5d | %-50s | %-15s | %-25d | %-5s | %-15s |\n", id, nome, cpf_cliente, anoNascimentoCliente, sexoCliente, funcaoFuncionario);
+				
+			}
+			
+			System.out.println("+-------+----------------------------------------------------+-----------------+---------------------------+-------+-----------------+");
+			
+		}catch(SQLException e) {
+			System.out.println("Erro ao conectarse ao banco de dados: " + e.getMessage());
+		}finally {
+			try {
+				if(preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if(resultSet != null) {
+					resultSet.close();
+				}
+				if(connection != null) {
+					connection.close();
+				}
+			}catch(SQLException ex) {
+				System.out.println("Erro ao fechar a conexão com o banco de dados");
+			}
+		}
+		
+	}
     
 }

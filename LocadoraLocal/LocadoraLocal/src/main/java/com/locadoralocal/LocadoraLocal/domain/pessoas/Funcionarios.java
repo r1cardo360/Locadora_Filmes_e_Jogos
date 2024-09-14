@@ -37,6 +37,7 @@ public class Funcionarios extends Pessoas {
 			System.out.println("============== 0- Para sair =================");
 			System.out.println("=============================================");
 			opcao = teclado.nextInt();
+			teclado.nextLine();
 			try {
 				switch (opcao) {
 					case 1:
@@ -191,20 +192,55 @@ public class Funcionarios extends Pessoas {
 	}
 
 	private void apagarPessoa() {
-		int opcao;
+		String opcao;
+		int idPessoa;
 		do{
+			
+			DALLocadora.clearConsole();
 			System.out.println("=============================================");
-			System.out.println("========== Insira o id da Pessoa: ===========");
-			System.out.println("============== 0- Para sair =================");
+			System.out.println("======== Qual Pessoa deseja deletar ========");
+			System.out.println("===== S -Sair C- Cliente F- Funcionario =====");
 			System.out.println("=============================================");
-			opcao = teclado.nextInt();
-			System.out.println("=============================================");
-			System.out.println("===== Essa ação pode causar alguns erros ====");
-			System.out.println("==== no banco de dados, deseja continuar? ===");
-			System.out.println("========== S- Sim ========= N- Não ========== ");
-			System.out.println("=============================================");
+			
+			opcao = teclado.nextLine().toUpperCase();
+			
+			if(opcao.equalsIgnoreCase("S")) {
+				break;
+			}
+			
+			switch(opcao) {
+			
+			case "C":
+				System.out.println("=============================================");
+				System.out.println("========= Selecione o ID do Cliente =========");
+				System.out.println("=============================================");
+				
+				DALLocadora.mostrarClientes();
+				idPessoa = teclado.nextInt();
+				teclado.nextLine();
+				
+				DALLocadora.deletarPessoa(idPessoa, opcao);
+				DALLocadora.pausarConsole();
+				
+				break;
+				
+			case "F":
+				System.out.println("=============================================");
+				System.out.println("======= Selecione o ID do Funcionario =======");
+				System.out.println("=============================================");
+				
+				DALLocadora.mostrarFuncionario();
+				idPessoa = teclado.nextInt();
+				teclado.nextLine();
+				
+				DALLocadora.deletarPessoa(idPessoa, opcao);
+				DALLocadora.pausarConsole();
+				
+				break;
+			
+			}
 
-		}while(opcao == 0);
+		}while(true);
 	}
 
 	private void addPessoa() {
@@ -233,8 +269,8 @@ public class Funcionarios extends Pessoas {
 			System.out.println("========= Insira o Sexo da Pessoa: ==========");
 			System.out.println("====== M- Masculino ====== F- Feminino ======");
 			System.out.println("=============================================");
-			sexo = teclado.nextLine().toLowerCase();
-			if (sexo.equals("m") || sexo.equals("f")) {
+			sexo = teclado.nextLine().toUpperCase();
+			if (sexo.equalsIgnoreCase("M") || sexo.equalsIgnoreCase("F")) {
 				pessoas.setSexo(sexo);
 				break;
 			} else {
@@ -248,19 +284,26 @@ public class Funcionarios extends Pessoas {
 			System.out.println("=============================================");
 			System.out.println("============== Insira o tipo: ===============");
 			System.out.println("====== C- Cliente ===== F- Funcionário ======");
+			System.out.println("================== S- Sair ==================");
 			System.out.println("=============================================");
 			tipo = teclado.nextLine().toLowerCase();
+			
+			if(tipo.equalsIgnoreCase("s")) {
+				break;
+			}
+			
 			try{
 				switch (tipo){
 					case "c":
 						System.out.println("=============================================");
 						System.out.println("====== Cliente cadastrado com sucesso! ======");
 						System.out.println("=============================================");
+						DALLocadora.pausarConsole();
 						
 						DALLocadora.CadastrarClienteseFuncionarios(pessoas, tipo, null);
 						
 						break;
-					case "F":
+					case "f":
 						System.out.println("=============================================");
 						System.out.println("====== Insira a função do Funcionario: ======");
 						System.out.println("=============================================");
@@ -268,6 +311,7 @@ public class Funcionarios extends Pessoas {
 						System.out.println("=============================================");
 						System.out.println("==== Funcionário cadastrado com sucesso! ====");
 						System.out.println("=============================================");
+						DALLocadora.pausarConsole();
 						
 						DALLocadora.CadastrarClienteseFuncionarios(pessoas, tipo, funcao);
 						
@@ -463,11 +507,15 @@ public class Funcionarios extends Pessoas {
 			DALLocadora.clearConsole();
 			System.out.println("=============================================");
 			System.out.println("======== Qual produto deseja deletar ========");
-			System.out.println("========== 0-Sair 1- Filme 2-Jogo ===========");
+			System.out.println("========== 0-Sair 1-Filme 2-Jogo ============");
 			System.out.println("=============================================");
 			
 			opcao = teclado.nextInt();
 			teclado.nextLine();
+			
+			if(opcao == 0) {
+				break;
+			}
 			
 			switch(opcao) {
 			case 1:
@@ -481,9 +529,11 @@ public class Funcionarios extends Pessoas {
 				DALLocadora.mostrarFilmes(2);
 				idProduto = teclado.nextInt();
 				teclado.nextLine();
-				tipoDelecao = "filme";
+				tipoDelecao = "F";
 				
 				DALLocadora.deletarProduto(idProduto, tipoDelecao);
+
+				DALLocadora.pausarConsole();
 				
 				break;
 			case 2:
@@ -497,9 +547,11 @@ public class Funcionarios extends Pessoas {
 				DALLocadora.mostrarJogo(2);
 				idProduto = teclado.nextInt();
 				teclado.nextLine();
-				tipoDelecao = "jogo";
+				tipoDelecao = "J";
 				
 				DALLocadora.deletarProduto(idProduto, tipoDelecao);
+			
+				DALLocadora.pausarConsole();
 				
 				break;
 			default:
@@ -532,30 +584,41 @@ public class Funcionarios extends Pessoas {
 			System.out.println("=============================================");
 			System.out.println("======== Insira o tipo do protudo: ==========");
 			System.out.println("========== F- Filme ====== J- Jogo ==========");
+			System.out.println("================== s- Sair ==================");
 			System.out.println("=============================================");
 			tipo = teclado.nextLine().toLowerCase();
+			
+			if(tipo.equalsIgnoreCase("s")) {
+				break;
+			}
+			
 			try{
 				switch (tipo){
 					case "j":
+						
+						DALLocadora.CadastrarFilmesJogos(produto, tipo, null);
+						
 						System.out.println("=============================================");
 						System.out.println("======= Jogo cadastrado com sucesso! ========");
 						System.out.println("=============================================");
-						
-						DALLocadora.CadastrarFilmesJogos(produto, tipo, null);
+						DALLocadora.pausarConsole();
 						
 						break;
 					case "f":
 						System.out.println("=============================================");
 						System.out.println("========== Insira a nota do Filme: ==========");
 						System.out.println("=============================================");
-						float nota = teclado.nextFloat();
+						double nota = teclado.nextDouble();
 						teclado.nextLine();
 						filmes.setNota(nota);
+						
+						DALLocadora.CadastrarFilmesJogos(produto, tipo, filmes);
+						
 						System.out.println("=============================================");
 						System.out.println("======= Filme cadastrado com sucesso! =======");
 						System.out.println("=============================================");
 						
-						DALLocadora.CadastrarFilmesJogos(produto, tipo, filmes);
+						DALLocadora.pausarConsole();
 						
 						break;
 				}

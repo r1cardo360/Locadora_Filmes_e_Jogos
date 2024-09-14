@@ -1,13 +1,13 @@
 package com.locadoralocal.LocadoraLocal.domain.produtos;
 
 public class Filmes extends Produto {
-	private float nota;
+	private double nota;
 
-	public float getNota() {
+	public double getNota() {
 		return nota;
 	}
 
-	public void setNota(float nota) {
+	public void setNota(double nota) {
 		this.nota = nota;
 	}
 }
