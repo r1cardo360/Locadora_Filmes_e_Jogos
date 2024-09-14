@@ -303,6 +303,14 @@ public class Funcionarios extends Pessoas {
 					System.out.println("======== Insira o ID do Funcionario: ========");
 					System.out.println("=============================================");
 					int idFuncionario = teclado.nextInt();
+					teclado.nextLine();
+					
+					DALLocadora.ativarClientesFuncionarios(opcao, idFuncionario);
+					
+					System.out.println("=============================================");
+					System.out.println("============ Funcionario Ativado: ===========");
+					System.out.println("=============================================");
+					DALLocadora.pausarConsole();
 
 					break;
 				case 2:
@@ -310,6 +318,14 @@ public class Funcionarios extends Pessoas {
 					System.out.println("========== Insira o ID do Cliente: ==========");
 					System.out.println("=============================================");
 					int idCliente = teclado.nextInt();
+					teclado.nextLine();
+					
+					DALLocadora.ativarClientesFuncionarios(opcao, idCliente);
+					
+					System.out.println("=============================================");
+					System.out.println("============== Cliente Ativado: =============");
+					System.out.println("=============================================");
+					DALLocadora.pausarConsole();
 
 					break;
 
@@ -345,6 +361,14 @@ public class Funcionarios extends Pessoas {
 					System.out.println("======== Insira o ID do Funcionario: ========");
 					System.out.println("=============================================");
 					int idFuncionario = teclado.nextInt();
+					teclado.nextLine();
+					
+					DALLocadora.inativaClientesFuncionarios(opcao, idFuncionario);
+					
+					System.out.println("=============================================");
+					System.out.println("=========== Funcionario Inativado: ==========");
+					System.out.println("=============================================");
+					DALLocadora.pausarConsole();
 
 					break;
 				case 2:
@@ -352,6 +376,14 @@ public class Funcionarios extends Pessoas {
 					System.out.println("========== Insira o ID do Cliente: ==========");
 					System.out.println("=============================================");
 					int idCliente = teclado.nextInt();
+					teclado.nextLine();
+					
+					DALLocadora.inativaClientesFuncionarios(opcao, idCliente);
+					
+					System.out.println("=============================================");
+					System.out.println("============= Cliente Inativado: ============");
+					System.out.println("=============================================");
+					DALLocadora.pausarConsole();
 
 					break;
 
@@ -557,7 +589,7 @@ public class Funcionarios extends Pessoas {
 					int idFilme = teclado.nextInt();
 					teclado.nextLine();
 					
-					DALLocadora.ativarFileseJogos(opcao, idFilme);
+					DALLocadora.ativarFilmeseJogos(opcao, idFilme);
 					
 					System.out.println("=============================================");
 					System.out.println("============== Filme Ativado: ===============");
@@ -572,7 +604,7 @@ public class Funcionarios extends Pessoas {
 					int idJogo = teclado.nextInt();
 					teclado.nextLine();
 					
-					DALLocadora.ativarFileseJogos(opcao, idJogo);
+					DALLocadora.ativarFilmeseJogos(opcao, idJogo);
 					
 					System.out.println("=============================================");
 					System.out.println("=============== Jogo Ativado: ===============");

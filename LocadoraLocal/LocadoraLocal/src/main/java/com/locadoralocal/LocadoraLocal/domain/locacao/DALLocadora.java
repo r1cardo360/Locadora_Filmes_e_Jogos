@@ -876,7 +876,7 @@ public class DALLocadora {
     	
     }
     
-    public static void ativarFileseJogos(int opcao, int pkProduto) {
+    public static void ativarFilmeseJogos(int opcao, int pkProduto) {
     	Connection connection = null;
     	PreparedStatement preparedStatement = null;
     	String sql = "";
@@ -941,6 +941,94 @@ public class DALLocadora {
     			
         		preparedStatement = connection.prepareStatement(sql);
         		preparedStatement.setInt(1, pkProduto);
+        		
+        		preparedStatement.executeUpdate();
+    		}else {
+    			System.out.println("Algo deu errado com a consulta SQL");
+    		}
+    		
+    	}catch(SQLException e) {
+    		System.out.println("Não foi possivel Conectar-se com o banco de dados");
+    	}finally {
+    		try {
+    			if(preparedStatement != null) {
+    				preparedStatement.close();
+    			}
+    			if(connection != null) {
+    				connection.close();
+    			}
+    		}catch(SQLException ex) {
+    			System.out.println("Não conseguimos fechar a conexão com o banco de dados");
+    		}
+    	}
+    	
+    }
+    
+    public static void ativarClientesFuncionarios(int opcao, int idPessoa) {
+    	Connection connection = null;
+    	PreparedStatement preparedStatement = null;
+    	String sql = "";
+    	
+    	try {
+    		
+    		connection = DriverManager.getConnection(stringConnect);
+    		
+    		if(opcao == 1) {
+    			sql = "UPDATE funcionario SET ativo_funcionario = 'S' WHERE pk_funcionario = ?";
+    			
+        		preparedStatement = connection.prepareStatement(sql);
+        		preparedStatement.setInt(1, idPessoa);
+        		
+        		preparedStatement.executeUpdate();
+    		}else if(opcao == 2) {
+    			sql = "UPDATE cliente SET ativo_cliente = 'S' WHERE pk_cliente = ?";
+    			
+        		preparedStatement = connection.prepareStatement(sql);
+        		preparedStatement.setInt(1, idPessoa);
+        		
+        		preparedStatement.executeUpdate();
+    		}else {
+    			System.out.println("Algo deu errado com a consulta SQL");
+    		}
+    		
+    	}catch(SQLException e) {
+    		System.out.println("Não foi possivel Conectar-se com o banco de dados");
+    	}finally {
+    		try {
+    			if(preparedStatement != null) {
+    				preparedStatement.close();
+    			}
+    			if(connection != null) {
+    				connection.close();
+    			}
+    		}catch(SQLException ex) {
+    			System.out.println("Não conseguimos fechar a conexão com o banco de dados");
+    		}
+    	}
+    	
+    }
+    
+    public static void inativaClientesFuncionarios(int opcao, int idPessoa) {
+    	Connection connection = null;
+    	PreparedStatement preparedStatement = null;
+    	String sql = "";
+    	
+    	try {
+    		
+    		connection = DriverManager.getConnection(stringConnect);
+    		
+    		if(opcao == 1) {
+    			sql = "UPDATE funcionario SET ativo_funcionario = 'N' WHERE pk_funcionario = ?";
+    			
+        		preparedStatement = connection.prepareStatement(sql);
+        		preparedStatement.setInt(1, idPessoa);
+        		
+        		preparedStatement.executeUpdate();
+    		}else if(opcao == 2) {
+    			sql = "UPDATE cliente SET ativo_cliente = 'N' WHERE pk_cliente = ?";
+    			
+        		preparedStatement = connection.prepareStatement(sql);
+        		preparedStatement.setInt(1, idPessoa);
         		
         		preparedStatement.executeUpdate();
     		}else {
