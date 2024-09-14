@@ -1,5 +1,5 @@
 package com.locadoralocal.LocadoraLocal.domain.produtos;
 
-public class Jogos {
+public class Jogos extends Produto{
 
 }

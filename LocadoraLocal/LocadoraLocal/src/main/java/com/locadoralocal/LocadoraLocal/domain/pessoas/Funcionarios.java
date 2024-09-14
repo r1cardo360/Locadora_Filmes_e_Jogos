@@ -2,6 +2,7 @@ package com.locadoralocal.LocadoraLocal.domain.pessoas;
 
 import com.locadoralocal.LocadoraLocal.RegraDeNegocioException;
 import com.locadoralocal.LocadoraLocal.domain.locacao.DALLocadora;
+import com.locadoralocal.LocadoraLocal.domain.produtos.Filmes;
 import com.locadoralocal.LocadoraLocal.domain.produtos.Produto;
 
 import java.util.Scanner;
@@ -10,6 +11,7 @@ public class Funcionarios extends Pessoas {
 
 	Pessoas pessoas = new Pessoas();
 	Produto produto = new Produto();
+	Filmes filmes = new Filmes();
 
 	private String funcaoFuncionario;
 	Scanner teclado = new Scanner(System.in);
@@ -508,6 +510,7 @@ public class Funcionarios extends Pessoas {
 						System.out.println("========== Insira a nota do Filme: ==========");
 						System.out.println("=============================================");
 						double nota = teclado.nextDouble();
+						filmes.setNota(nota);
 						System.out.println("=============================================");
 						System.out.println("======= Filme cadastrado com sucesso! =======");
 						System.out.println("=============================================");
