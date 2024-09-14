@@ -146,6 +146,7 @@ public class LocadoraLocalApplication {
 	// Criar um método para validar o acesso do funcionario
 
 	private static void validarFuncionario(){
+		DALLocadora.clearConsole();
 		System.out.println("=============================================");
 		System.out.println("===== Insira seu número de Funcionário: =====");
 		System.out.println("=============================================");
@@ -169,6 +170,7 @@ public class LocadoraLocalApplication {
 		
 		do{
 			
+			DALLocadora.clearConsole();
 			System.out.println("=============================================");
 			System.out.println("============ Área do Funcionário ============");
 			System.out.println("=============================================");

@@ -795,6 +795,7 @@ public class DALLocadora {
     	PreparedStatement preparedStatement = null;
     	String opcao, sql;
     	
+    	DALLocadora.clearConsole();
 		System.out.println("=============================================");
 		System.out.println("===== Essa ação pode causar alguns erros ====");
 		System.out.println("==== no banco de dados, deseja continuar? ===");
@@ -815,6 +816,7 @@ public class DALLocadora {
 	    			
 	    			preparedStatement.executeUpdate();
 	    			
+	    			DALLocadora.clearConsole();
 					System.out.println("=============================================");
 					System.out.println("================= Cliente ===================");
 					System.out.println("========== Deletado com Sucesso =============");
@@ -828,6 +830,7 @@ public class DALLocadora {
 	    			
 	    			preparedStatement.executeUpdate();
 	    			
+	    			DALLocadora.clearConsole();
 					System.out.println("=============================================");
 					System.out.println("=============== Funcionario =================");
 					System.out.println("========== Deletado com Sucesso =============");
