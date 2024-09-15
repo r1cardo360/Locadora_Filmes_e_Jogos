@@ -32,11 +32,11 @@ public class Funcionarios extends Pessoas {
 
 		do {
 			DALLocadora.clearConsole();
-			System.out.println("=============================================");
-			System.out.println("======== Apagar Produto ou Pessoa? ==========");
-			System.out.println("======== 1- Produto ====== 2- Pessoa ========");
-			System.out.println("============== 0- Para sair =================");
-			System.out.println("=============================================");
+			System.out.println("=====================================================================================================");
+			System.out.println("===================================== Apagar Produto ou Pessoa? =====================================");
+			System.out.println("==================================== 1- Produto ====== 2- Pessoa ====================================");
+			System.out.println("=========================================== 0- Para sair ============================================");
+			System.out.println("=====================================================================================================");
 			opcao = teclado.nextInt();
 			teclado.nextLine();
 			try {
@@ -63,11 +63,11 @@ public class Funcionarios extends Pessoas {
 		int opcao;
 		do {
 			DALLocadora.clearConsole();
-			System.out.println("=============================================");
-			System.out.println("======= Adicionar Produto ou Pessoa? ========");
-			System.out.println("======== 1- Produto ====== 2- Pessoa ========");
-			System.out.println("============== 0- Para sair =================");
-			System.out.println("=============================================");
+			System.out.println("=====================================================================================================");
+			System.out.println("=================================== Adicionar Produto ou Pessoa? ====================================");
+			System.out.println("==================================== 1- Produto ====== 2- Pessoa ====================================");
+			System.out.println("=========================================== 0- Para sair ============================================");
+			System.out.println("=====================================================================================================");
 			opcao = teclado.nextInt();
 			teclado.nextLine();
 			try {
@@ -94,11 +94,11 @@ public class Funcionarios extends Pessoas {
 
 		do {
 			DALLocadora.clearConsole();
-			System.out.println("=============================================");
-			System.out.println("========= Ativar Pessoa ou Produto? =========");
-			System.out.println("======== 1- Produto ====== 2- Pessoa ========");
-			System.out.println("============== 0- Para sair =================");
-			System.out.println("=============================================");
+			System.out.println("=====================================================================================================");
+			System.out.println("===================================== Ativar Pessoa ou Produto? =====================================");
+			System.out.println("==================================== 1- Produto ====== 2- Pessoa ====================================");
+			System.out.println("=========================================== 0- Para sair ============================================");
+			System.out.println("=====================================================================================================");
 
 			opcao = teclado.nextInt();
 			try {
@@ -125,11 +125,11 @@ public class Funcionarios extends Pessoas {
 
 		do {
 			DALLocadora.clearConsole();
-			System.out.println("=============================================");
-			System.out.println("======== Inativar Pessoa ou Produto? ========");
-			System.out.println("======== 1- Produto ====== 2- Pessoa ========");
-			System.out.println("============== 0- Para sair =================");
-			System.out.println("=============================================");
+			System.out.println("=====================================================================================================");
+			System.out.println("==================================== Inativar Pessoa ou Produto? ====================================");
+			System.out.println("==================================== 1- Produto ====== 2- Pessoa ====================================");
+			System.out.println("=========================================== 0- Para sair ============================================");
+			System.out.println("=====================================================================================================");
 
 			opcao = teclado.nextInt();
 
@@ -157,12 +157,11 @@ public class Funcionarios extends Pessoas {
 
 		do{
 		DALLocadora.clearConsole();
-		System.out.println("=============================================");
-		System.out.println("========= Listar Pessoa ou Produto? =========");
-		System.out.println("======== 1- Produto ====== 2- Pessoa ========");
-		System.out.println("============== 0- Para sair =================");
-		System.out.println("=============================================");
-
+			System.out.println("=====================================================================================================");
+			System.out.println("===================================== Listar Pessoa ou Produto? =====================================");
+			System.out.println("==================================== 1- Produto ====== 2- Pessoa ====================================");
+			System.out.println("=========================================== 0- Para sair ============================================");
+			System.out.println("=====================================================================================================");
 		opcao = teclado.nextInt();
 		
 		teclado.nextLine();
@@ -188,10 +187,10 @@ public class Funcionarios extends Pessoas {
 		int opcao;
 		do{
 			DALLocadora.clearConsole();
-			System.out.println("=============================================");
-			System.out.println("======== Insira o numero da locação: ========");
-			System.out.println("============== 0- Para sair =================");
-			System.out.println("=============================================");
+			System.out.println("=====================================================================================================");
+			System.out.println("==================================== Insira o numero da locação: ====================================");
+			System.out.println("=========================================== 0- Para sair ============================================");
+			System.out.println("=====================================================================================================");
 			opcao = teclado.nextInt();
 
 		}while(opcao == 0);
@@ -203,10 +202,10 @@ public class Funcionarios extends Pessoas {
 		do{
 			
 			DALLocadora.clearConsole();
-			System.out.println("=============================================");
-			System.out.println("======== Qual Pessoa deseja deletar ========");
-			System.out.println("===== S -Sair C- Cliente F- Funcionario =====");
-			System.out.println("=============================================");
+			System.out.println("=====================================================================================================");
+			System.out.println("==================================== Qual Pessoa deseja deletar =====================================");
+			System.out.println("================================= S -Sair C- Cliente F- Funcionario =================================");
+			System.out.println("=====================================================================================================");
 			
 			opcao = teclado.nextLine().toUpperCase();
 			
@@ -218,9 +217,9 @@ public class Funcionarios extends Pessoas {
 			
 			case "C":
 				DALLocadora.clearConsole();
-				System.out.println("=============================================");
-				System.out.println("========= Selecione o ID do Cliente =========");
-				System.out.println("=============================================");
+				System.out.println("=====================================================================================================");
+				System.out.println("===================================== Selecione o ID do Cliente =====================================");
+				System.out.println("=====================================================================================================");
 				
 				DALLocadora.mostrarClientes();
 				idPessoa = teclado.nextInt();
@@ -233,9 +232,9 @@ public class Funcionarios extends Pessoas {
 				
 			case "F":
 				DALLocadora.clearConsole();
-				System.out.println("=============================================");
-				System.out.println("======= Selecione o ID do Funcionario =======");
-				System.out.println("=============================================");
+				System.out.println("=====================================================================================================");
+				System.out.println("=================================== Selecione o ID do Funcionário ===================================");
+				System.out.println("=====================================================================================================");
 				
 				DALLocadora.mostrarFuncionario();
 				idPessoa = teclado.nextInt();
@@ -253,23 +252,23 @@ public class Funcionarios extends Pessoas {
 
 	private void addPessoa() {
 		DALLocadora.clearConsole();
-		System.out.println("=============================================");
-		System.out.println("========= Insira o Nome da Pessoa: ==========");
-		System.out.println("=============================================");
+		System.out.println("=====================================================================================================");
+		System.out.println("===================================== Insira o Nome da Pessoa: ======================================");
+		System.out.println("=====================================================================================================");
 		String nome = teclado.nextLine();
 		pessoas.setNome(nome);
 
 		DALLocadora.clearConsole();
-		System.out.println("=============================================");
-		System.out.println("========= Insira o CPF da Pessoa: ===========");
-		System.out.println("=============================================");
+		System.out.println("=====================================================================================================");
+		System.out.println("====================================== Insira o CPF da Pessoa: ======================================");
+		System.out.println("=====================================================================================================");
 		String cpf = teclado.nextLine();
 		pessoas.setCpf(cpf);
 
 		DALLocadora.clearConsole();
-		System.out.println("=============================================");
-		System.out.println("====== Insira o Nascimento da Pessoa: =======");
-		System.out.println("=============================================");
+		System.out.println("=====================================================================================================");
+		System.out.println("================================== Insira o Nascimento da Pessoa: ===================================");
+		System.out.println("=====================================================================================================");
 		int anoNascimento = teclado.nextInt();
 		teclado.nextLine();
 		pessoas.setAnoNascimento(anoNascimento);
@@ -277,29 +276,29 @@ public class Funcionarios extends Pessoas {
 		String sexo;
 		do {
 			DALLocadora.clearConsole();
-			System.out.println("=============================================");
-			System.out.println("========= Insira o Sexo da Pessoa: ==========");
-			System.out.println("====== M- Masculino ====== F- Feminino ======");
-			System.out.println("=============================================");
+			System.out.println("=====================================================================================================");
+			System.out.println("===================================== Insira o Sexo da Pessoa: ======================================");
+			System.out.println("================================== M- Masculino ====== F- Feminino ==================================");
+			System.out.println("=====================================================================================================");
 			sexo = teclado.nextLine().toUpperCase();
 			if (sexo.equalsIgnoreCase("M") || sexo.equalsIgnoreCase("F")) {
 				pessoas.setSexo(sexo);
 				break;
 			} else {
 				DALLocadora.clearConsole();
-				System.out.println("=============================================");
-				System.out.println("========== Insira apenas 'M' ou 'F' =========");
-				System.out.println("=============================================");
+				System.out.println("=====================================================================================================");
+				System.out.println("===================================== Insira apenas 'M' ou 'F' ======================================");
+				System.out.println("=====================================================================================================");
 			}
 		} while (true);
 		String tipo;
 		do {
 			DALLocadora.clearConsole();
-			System.out.println("=============================================");
-			System.out.println("============== Insira o tipo: ===============");
-			System.out.println("====== C- Cliente ===== F- Funcionário ======");
-			System.out.println("================== S- Sair ==================");
-			System.out.println("=============================================");
+			System.out.println("=====================================================================================================");
+			System.out.println("========================================= Insira o tipo: ============================================");
+			System.out.println("================================== C- Cliente ===== F- Funcionário ==================================");
+			System.out.println("============================================== S- Sair ==============================================");
+			System.out.println("=====================================================================================================");
 			tipo = teclado.nextLine().toLowerCase();
 			
 			if(tipo.equalsIgnoreCase("s")) {
@@ -310,9 +309,9 @@ public class Funcionarios extends Pessoas {
 				switch (tipo){
 					case "c":
 						DALLocadora.clearConsole();
-						System.out.println("=============================================");
-						System.out.println("====== Cliente cadastrado com sucesso! ======");
-						System.out.println("=============================================");
+						System.out.println("=====================================================================================================");
+						System.out.println("================================== Cliente cadastrado com sucesso! ==================================");
+						System.out.println("=====================================================================================================");
 						DALLocadora.pausarConsole();
 						
 						DALLocadora.CadastrarClienteseFuncionarios(pessoas, tipo, null);
@@ -320,14 +319,14 @@ public class Funcionarios extends Pessoas {
 						break;
 					case "f":
 						DALLocadora.clearConsole();
-						System.out.println("=============================================");
-						System.out.println("====== Insira a função do Funcionario: ======");
-						System.out.println("=============================================");
+						System.out.println("=====================================================================================================");
+						System.out.println("================================== Insira a função do Funcionario: ==================================");
+						System.out.println("=====================================================================================================");
 						String funcao = teclado.nextLine();
 						DALLocadora.clearConsole();
-						System.out.println("=============================================");
-						System.out.println("==== Funcionário cadastrado com sucesso! ====");
-						System.out.println("=============================================");
+						System.out.println("=====================================================================================================");
+						System.out.println("================================ Funcionario cadastrado com sucesso! ================================");
+						System.out.println("=====================================================================================================");
 						DALLocadora.pausarConsole();
 						
 						DALLocadora.CadastrarClienteseFuncionarios(pessoas, tipo, funcao);
@@ -348,11 +347,11 @@ public class Funcionarios extends Pessoas {
 		int opcao;
 		do {
 			DALLocadora.clearConsole();
-			System.out.println("=============================================");
-			System.out.println("== Deseja ativar Funcionario ou Cliente? ====");
-			System.out.println("====== 1- Funcionario ===== 2- Cliente ======");
-			System.out.println("================== 0- Sair ==================");
-			System.out.println("=============================================");
+			System.out.println("=====================================================================================================");
+			System.out.println("=============================== Deseja ativar Funcionario ou Cliente? ===============================");
+			System.out.println("================================== 1- Funcionario ===== 2- Cliente ==================================");
+			System.out.println("============================================== 0- Sair ==============================================");
+			System.out.println("=====================================================================================================");
 
 			opcao = teclado.nextInt();
 			teclado.nextLine();
@@ -368,35 +367,35 @@ public class Funcionarios extends Pessoas {
 			switch (opcao){
 				case 1:
 					DALLocadora.clearConsole();
-					System.out.println("=============================================");
-					System.out.println("======== Insira o ID do Funcionario: ========");
-					System.out.println("=============================================");
+					System.out.println("=====================================================================================================");
+					System.out.println("==================================== Insira o ID do Funcionário =====================================");
+					System.out.println("=====================================================================================================");
 					int idFuncionario = teclado.nextInt();
 					teclado.nextLine();
 					
 					DALLocadora.ativarClientesFuncionarios(opcao, idFuncionario);
 					
 					DALLocadora.clearConsole();
-					System.out.println("=============================================");
-					System.out.println("============ Funcionario Ativado: ===========");
-					System.out.println("=============================================");
+					System.out.println("=====================================================================================================");
+					System.out.println("======================================= Funcionario Ativado! ========================================");
+					System.out.println("=====================================================================================================");
 					DALLocadora.pausarConsole();
 
 					break;
 				case 2:
 					DALLocadora.clearConsole();
-					System.out.println("=============================================");
-					System.out.println("========== Insira o ID do Cliente: ==========");
-					System.out.println("=============================================");
+					System.out.println("=====================================================================================================");
+					System.out.println("====================================== Insira o ID do Cliente =======================================");
+					System.out.println("=====================================================================================================");
 					int idCliente = teclado.nextInt();
 					teclado.nextLine();
 					
 					DALLocadora.ativarClientesFuncionarios(opcao, idCliente);
 					
 					DALLocadora.clearConsole();
-					System.out.println("=============================================");
-					System.out.println("============== Cliente Ativado: =============");
-					System.out.println("=============================================");
+					System.out.println("=====================================================================================================");
+					System.out.println("========================================= Cliente Ativado! ==========================================");
+					System.out.println("=====================================================================================================");
 					DALLocadora.pausarConsole();
 
 					break;
@@ -410,11 +409,11 @@ public class Funcionarios extends Pessoas {
 		int opcao;
 		do {
 			DALLocadora.clearConsole();
-			System.out.println("=============================================");
-			System.out.println("== Deseja inativar Funcionario ou Cliente? ==");
-			System.out.println("====== 1- Funcionario ===== 2- Cliente ======");
-			System.out.println("================== 0- Sair ==================");
-			System.out.println("=============================================");
+			System.out.println("=====================================================================================================");
+			System.out.println("============================== Deseja inativar Funcionario ou Cliente? ==============================");
+			System.out.println("================================== 1- Funcionario ===== 2- Cliente ==================================");
+			System.out.println("============================================== 0- Sair ==============================================");
+			System.out.println("=====================================================================================================");
 
 			opcao = teclado.nextInt();
 			teclado.nextLine();
@@ -430,35 +429,35 @@ public class Funcionarios extends Pessoas {
 			switch (opcao){
 				case 1:
 					DALLocadora.clearConsole();
-					System.out.println("=============================================");
-					System.out.println("======== Insira o ID do Funcionario: ========");
-					System.out.println("=============================================");
+					System.out.println("=====================================================================================================");
+					System.out.println("==================================== Insira o ID do Funcionário =====================================");
+					System.out.println("=====================================================================================================");
 					int idFuncionario = teclado.nextInt();
 					teclado.nextLine();
 					
 					DALLocadora.inativaClientesFuncionarios(opcao, idFuncionario);
 					
 					DALLocadora.clearConsole();
-					System.out.println("=============================================");
-					System.out.println("=========== Funcionario Inativado: ==========");
-					System.out.println("=============================================");
+					System.out.println("=====================================================================================================");
+					System.out.println("====================================== Funcionario Inativado! =======================================");
+					System.out.println("=====================================================================================================");
 					DALLocadora.pausarConsole();
 
 					break;
 				case 2:
 					DALLocadora.clearConsole();
-					System.out.println("=============================================");
-					System.out.println("========== Insira o ID do Cliente: ==========");
-					System.out.println("=============================================");
+					System.out.println("=====================================================================================================");
+					System.out.println("====================================== Insira o ID do Cliente =======================================");
+					System.out.println("=====================================================================================================");
 					int idCliente = teclado.nextInt();
 					teclado.nextLine();
 					
 					DALLocadora.inativaClientesFuncionarios(opcao, idCliente);
 					
 					DALLocadora.clearConsole();
-					System.out.println("=============================================");
-					System.out.println("============= Cliente Inativado: ============");
-					System.out.println("=============================================");
+					System.out.println("=====================================================================================================");
+					System.out.println("======================================== Cliente Inativado! =========================================");
+					System.out.println("=====================================================================================================");
 					DALLocadora.pausarConsole();
 
 					break;
