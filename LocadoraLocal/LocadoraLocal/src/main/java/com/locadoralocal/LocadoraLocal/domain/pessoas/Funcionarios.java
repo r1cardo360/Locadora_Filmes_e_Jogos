@@ -755,7 +755,7 @@ public class Funcionarios extends Pessoas {
 					int idFilme = teclado.nextInt();
 					teclado.nextLine();
 					
-					DALLocadora.inativarFileseJogos(opcao, idFilme);
+					DALLocadora.inativarFilmeseJogos(opcao, idFilme);
 					
 					DALLocadora.clearConsole();
 					System.out.println("=============================================");
@@ -772,7 +772,7 @@ public class Funcionarios extends Pessoas {
 					int idJogo = teclado.nextInt();
 					teclado.nextLine();
 
-					DALLocadora.inativarFileseJogos(opcao, idJogo);
+					DALLocadora.inativarFilmeseJogos(opcao, idJogo);
 					
 					DALLocadora.clearConsole();
 					System.out.println("=============================================");

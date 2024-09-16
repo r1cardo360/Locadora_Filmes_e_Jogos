@@ -309,40 +309,6 @@ public class DALLocadora {
 		
 	}
 
-	public static void cancelarLocacao(int idCliente) {
-		
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		
-		try {
-			connection = DriverManager.getConnection(stringConnect);
-			
-			String sql = "DELETE FROM locacao WHERE pk_locacao = ? ";
-			
-			preparedStatement = connection.prepareStatement(sql);
-			
-			preparedStatement.setInt(1, idCliente);
-			
-			preparedStatement.executeUpdate();
-			
-			
-		}catch(SQLException e) {
-			System.out.println("Não foi possivel se conectar com o banco: " + e.getMessage());
-		}finally {
-			try {
-				if(preparedStatement != null) {
-					preparedStatement.close();
-				}
-				if(connection != null) {
-					connection.close();
-				}
-			}catch(SQLException ex) {
-				System.out.println("Ouve um erro ao fechar a conexão com o banco");
-			}
-		}
-		
-	}
-
 	public static void adicionarFilme(int pk_locacao, int idLocacao) {
 		
 		Connection connection = null;
@@ -725,11 +691,11 @@ public class DALLocadora {
     	PreparedStatement preparedStatement = null;
     	String opcao, sql;
     	
-		System.out.println("=============================================");
-		System.out.println("===== Essa ação pode causar alguns erros ====");
-		System.out.println("==== no banco de dados, deseja continuar? ===");
-		System.out.println("========== S- Sim ========= N- Não ==========");
-		System.out.println("=============================================");
+    	System.out.println("=====================================================================================================================================");
+    	System.out.println("============================================= Essa ação pode causar alguns erros ====================================================");
+    	System.out.println("============================================ no banco de dados, deseja continuar? ===================================================");
+    	System.out.println("================================================= S- Sim =========== N- Não =========================================================");
+    	System.out.println("=====================================================================================================================================");
 		opcao = teclado.nextLine().toUpperCase();
 		
 		if(opcao.equalsIgnoreCase("S")) {
@@ -745,10 +711,10 @@ public class DALLocadora {
 	    			
 	    			preparedStatement.executeUpdate();
 	    			
-					System.out.println("=============================================");
-					System.out.println("================== Filme ====================");
-					System.out.println("========== Deletado com Sucesso =============");
-					System.out.println("=============================================");
+	    			System.out.println("=====================================================================================================================================");
+	    			System.out.println("=========================================================== Filme ===================================================================");
+	    			System.out.println("==================================================== Deletado com Sucesso ===========================================================");
+					System.out.println("=====================================================================================================================================");
 	    			
 	    		}else if(tipoDelecao == "J") {
 	    			sql = "DELETE FROM jogos WHERE pk_jogo = ?";
@@ -758,10 +724,10 @@ public class DALLocadora {
 	    			
 	    			preparedStatement.executeUpdate();
 	    			
-					System.out.println("=============================================");
-					System.out.println("================== Jogo =====================");
-					System.out.println("========== Deletado com Sucesso =============");
-					System.out.println("=============================================");
+	    			System.out.println("=====================================================================================================================================");
+	    			System.out.println("============================================================ Jogo ===================================================================");
+	    			System.out.println("==================================================== Deletado com Sucesso ===========================================================");
+					System.out.println("=====================================================================================================================================");
 	    			
 	    		}else {
 	    			System.out.println("Algo deu errado com a query para deletar");
@@ -783,9 +749,9 @@ public class DALLocadora {
 	    		}
 	    	}
 		}else{
-			System.out.println("=============================================");
-			System.out.println("========== A opração foi cancelada ==========");
-			System.out.println("=============================================");
+			System.out.println("=====================================================================================================================================");
+			System.out.println("=================================================== A opração foi cancelada =========================================================");
+			System.out.println("=====================================================================================================================================");
 			return;
 	    	}
     }
@@ -796,11 +762,11 @@ public class DALLocadora {
     	String opcao, sql;
     	
     	DALLocadora.clearConsole();
-		System.out.println("=============================================");
-		System.out.println("===== Essa ação pode causar alguns erros ====");
-		System.out.println("==== no banco de dados, deseja continuar? ===");
-		System.out.println("========== S- Sim ========= N- Não ==========");
-		System.out.println("=============================================");
+    	System.out.println("=====================================================================================================================================");
+    	System.out.println("============================================= Essa ação pode causar alguns erros ====================================================");
+    	System.out.println("============================================ no banco de dados, deseja continuar? ===================================================");
+    	System.out.println("================================================ S- Sim ============= N- Não ========================================================");
+		System.out.println("=====================================================================================================================================");
 		opcao = teclado.nextLine().toUpperCase();
 		
 		if(opcao.equalsIgnoreCase("S")) {
@@ -817,10 +783,10 @@ public class DALLocadora {
 	    			preparedStatement.executeUpdate();
 	    			
 	    			DALLocadora.clearConsole();
-					System.out.println("=============================================");
-					System.out.println("================= Cliente ===================");
-					System.out.println("========== Deletado com Sucesso =============");
-					System.out.println("=============================================");
+	    			System.out.println("=====================================================================================================================================");
+	    			System.out.println("=========================================================== Cliente =================================================================");
+	    			System.out.println("==================================================== Deletado com Sucesso ===========================================================");
+					System.out.println("=====================================================================================================================================");
 	    			
 	    		}else if(tipoDelecao.equalsIgnoreCase("F")) {
 	    			sql = "DELETE FROM funcionario WHERE pk_funcionario = ?";
@@ -831,10 +797,10 @@ public class DALLocadora {
 	    			preparedStatement.executeUpdate();
 	    			
 	    			DALLocadora.clearConsole();
-					System.out.println("=============================================");
-					System.out.println("=============== Funcionario =================");
-					System.out.println("========== Deletado com Sucesso =============");
-					System.out.println("=============================================");
+	    			System.out.println("=====================================================================================================================================");
+	    			System.out.println("========================================================= Funcionario ===============================================================");
+	    			System.out.println("==================================================== Deletado com Sucesso ===========================================================");
+					System.out.println("=====================================================================================================================================");
 	    			
 	    		}else {
 	    			System.out.println("Algo deu errado com a query para deletar");
@@ -856,9 +822,9 @@ public class DALLocadora {
 	    		}
 	    	}
 		}else{
-			System.out.println("=============================================");
-			System.out.println("========== A opração foi cancelada ==========");
-			System.out.println("=============================================");
+			System.out.println("=====================================================================================================================================");
+			System.out.println("=================================================== A opração foi cancelada =========================================================");
+			System.out.println("=====================================================================================================================================");
 			return;
 	    	}
     }
@@ -1029,7 +995,7 @@ public class DALLocadora {
     	
     }
     
-    public static void inativarFileseJogos(int opcao, int pkProduto) {
+    public static void inativarFilmeseJogos(int opcao, int pkProduto) {
     	Connection connection = null;
     	PreparedStatement preparedStatement = null;
     	String sql = "";
