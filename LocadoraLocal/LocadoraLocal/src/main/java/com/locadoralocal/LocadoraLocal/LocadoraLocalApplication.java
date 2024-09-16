@@ -180,6 +180,7 @@ public class LocadoraLocalApplication {
 			System.out.println("===================================================== 3- Inativar ===================================================================");
 			System.out.println("===================================================== 4- Adicionar Pessoa/Produto ===================================================");
 			System.out.println("===================================================== 5- Apagar Pessoa/Produto ======================================================");
+			System.out.println("===================================================== 0- Sair =======================================================================");
 			System.out.println("=====================================================================================================================================");
 			opcaoFuncionario = teclado.nextInt();
 			
@@ -206,6 +207,6 @@ public class LocadoraLocalApplication {
 				System.out.println("Pressione qualquer tecla e de ENTER para voltar ao menu");
 				teclado.next();
 			}
-		}while(opcaoFuncionario != 7);
+		}while(opcaoFuncionario != 0);
 	}
 }

@@ -13,7 +13,6 @@ public class Funcionarios extends Pessoas {
 	Produto produto = new Produto();
 	Filmes filmes = new Filmes();
 
-	private String funcaoFuncionario;
 	Scanner teclado = new Scanner(System.in);
 
 	public Funcionarios() {
@@ -22,7 +21,6 @@ public class Funcionarios extends Pessoas {
 
 	public Funcionarios(String nome, String cpf, int anoNascimento, String sexo, boolean ativo, String funcaoFuncionario) {
 		super(nome, cpf, anoNascimento, sexo, ativo);
-		this.funcaoFuncionario = funcaoFuncionario;
 	}
 
 	@Override
@@ -251,6 +249,7 @@ public class Funcionarios extends Pessoas {
 	}
 
 	private void addPessoa() {
+		
 		DALLocadora.clearConsole();
 		System.out.println("=====================================================================================================================================");
 		System.out.println("================================================= Insira o Nome da Pessoa: ==========================================================");

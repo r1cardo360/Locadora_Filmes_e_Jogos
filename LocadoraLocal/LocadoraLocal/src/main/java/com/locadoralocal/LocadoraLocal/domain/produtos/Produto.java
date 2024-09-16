@@ -1,7 +1,5 @@
 package com.locadoralocal.LocadoraLocal.domain.produtos;
 
-import java.util.List;
-
 public class Produto {
 
     private String nome;
